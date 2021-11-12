@@ -90,4 +90,4 @@ function moveLeft() {
   zob = 0;
 }
 
-export { drawTiles, moveDown, moveUp, moveRight, moveLeft };
+export { drawTiles, moveDown, moveUp, moveRight, moveLeft, oldMap };
