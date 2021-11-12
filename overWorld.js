@@ -47,8 +47,7 @@ function drawTiles(ctx) {
       direction = 0;
     }
     if (xOffset === 888 || xOffset === -896) {
-      console.log("ok");
-      yOffset = 0;
+      xOffset = 0;
       oldMap = newMap;
       direction = 0;
     }
