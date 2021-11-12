@@ -47,12 +47,12 @@ function drawTiles(ctx) {
       direction = 0;
     }
     if (xOffset === 888 || xOffset === -896) {
+      console.log("ok");
       yOffset = 0;
       oldMap = newMap;
       direction = 0;
     }
   }
-  console.log(xOffset);
 }
 
 function moveDown() {
