@@ -6,7 +6,7 @@ tiles.src = "./overworldtiles_no_space.png";
 var xOffset = 0;
 var yOffset = 0;
 var mapTiles = 336;
-var oldMap = mainMap[1];
+var oldMap = mainMap[0];
 var newMap;
 var direction = 0;
 var upDown = 392;

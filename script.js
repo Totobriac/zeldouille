@@ -7,7 +7,7 @@ var ctx = canvas.getContext("2d");
 canvas.width = 1200;
 canvas.height = 400;
 
-var zelda = new Hero(8, 72, 32);
+var zelda = new Hero(40, 72, 32);
 
 window.addEventListener('keydown', function (e) {
   if (e.code === "ArrowDown") {
