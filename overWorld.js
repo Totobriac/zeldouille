@@ -14,7 +14,6 @@ var leftRight = 904;
 
 var zob = 0;
 
-
 function getTile(tile) {
   var line = Math.floor(tile / 6);
   var column = tile - (line * 6);
