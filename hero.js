@@ -37,6 +37,37 @@ class Hero {
   nextTile(map) {
     return (Math.floor(((this.nextY - 8) / this.spriteSize) * 28) + Math.floor(this.nextX / this.spriteSize));
   }
+  exitUp() {
+    if (this.y < 328) {
+      this.y += 1.69;      
+    }    
+    else if (this.y > 328){
+      this.y = 328;
+      this.nextY = 328;
+    }
+    
+  }
+  exitDown() {
+    if (this.y > 40) {
+      this.y -= 1.69;      
+    }
+    else if (this.y < 40){
+      this.y = 40;
+      this.nextY = 40;
+    }
+  }
+  // exitLeft() {
+  //   if (this.x < 862) {
+  //     this.x += 2;      
+  //   }
+  //   else (this.nextX = this.x)
+  // }
+  // exitRight() {
+  //   if (this.x < 328) {
+  //     this.x += 1.69;      
+  //   }
+  //   else (this.nextX = this.x)
+  // }  
 }
 
 export { Hero };

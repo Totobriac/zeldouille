@@ -89,4 +89,6 @@ function moveLeft() {
   zob = 0;
 }
 
-export { drawTiles, moveDown, moveUp, moveRight, moveLeft, oldMap };
+var mapMove = [moveUp, moveDown, moveLeft, moveRight]
+
+export { drawTiles, mapMove, oldMap };

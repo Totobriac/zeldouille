@@ -1,11 +1,13 @@
 import { Hero } from "./hero.js";
-import { drawTiles, moveDown, moveUp, moveRight, moveLeft, oldMap } from "./overWorld.js";
+import { drawTiles, mapMove, oldMap } from "./overWorld.js";
+import { checkExit } from "./maps.js"
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
 canvas.width = 1200;
 canvas.height = 400;
+
 
 var zelda = new Hero(40, 72, 32);
 
@@ -35,37 +37,33 @@ function animate() {
   ctx.fillRect(904, 0, 302, canvas.height);
 
   ctx.fillStyle = "green";
-  ctx.fillRect(zelda.x, zelda.y, zelda.spriteSize, zelda.spriteSize)
-  var exitTile = zelda.nextTile(oldMap);
-  checkExit(exitTile);
+  ctx.fillRect(zelda.x, zelda.y, zelda.spriteSize, zelda.spriteSize);
+
+  var currentTile = zelda.nextTile(oldMap);
+  console.log(zelda.x, zelda.y);
+
+  var exitTile = checkExit(currentTile);
+
+  if (exitTile != undefined) {
+    mapMove[exitTile]();
+    // switch (exitTile) {
+    //   case 0:
+    //     zelda.exitUp();
+    //     break;
+    //   case 1:
+    //     zelda.exitDown();
+    //     break;
+      // case 2:
+      //   zelda.exitLeft();
+      //   break;
+      // case 3:
+      //   zelda.exitRight();
+      //   break;
+      exitTile === 0 ? zelda.exitUp() : zelda.exitDown();
+    // }
+  };
 
   requestAnimationFrame(animate);
-}
-
-
-const leftExit = [];
-for (let i = 0; i < 13; i++) {
-  leftExit.push(i * 28)
-}
-
-const rightExit = [];
-for (let i = 0; i < 13; i++) {
-  rightExit.push(i * 28 + 27)
-}
-
-function checkExit(tile) {
-  if (tile >= 0 && tile <= 27) {
-    moveUp();
-  }
-  if (tile >= 308 && tile <= 326) {
-    moveDown();
-  }
-  if (leftExit.includes(tile)) {
-    moveLeft();
-  }
-  if (rightExit.includes(tile)) {
-    moveRight();
-  }
 }
 
 animate();
