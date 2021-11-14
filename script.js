@@ -1,5 +1,5 @@
 import { Hero } from "./hero.js";
-import { drawTiles, mapMove, oldMap } from "./overWorld.js";
+import { drawTiles, mapMove, actualMap } from "./overWorld.js";
 import { checkExit } from "./maps.js"
 
 var canvas = document.getElementById("canvas");
@@ -13,16 +13,16 @@ var zelda = new Hero(40, 72, 32);
 
 window.addEventListener('keydown', function (e) {
   if (e.code === "ArrowDown") {
-    zelda.moveDown(oldMap);
+    zelda.moveDown(actualMap);
   }
   if (e.code === "ArrowUp") {
-    zelda.moveUp(oldMap);
+    zelda.moveUp(actualMap);
   }
   if (e.code === "ArrowRight") {
-    zelda.moveRight(oldMap);
+    zelda.moveRight(actualMap);
   }
   if (e.code === "ArrowLeft") {
-    zelda.moveLeft(oldMap);
+    zelda.moveLeft(actualMap);
   }
 });
 
@@ -39,28 +39,25 @@ function animate() {
   ctx.fillStyle = "green";
   ctx.fillRect(zelda.x, zelda.y, zelda.spriteSize, zelda.spriteSize);
 
-  var currentTile = zelda.nextTile(oldMap);
-  console.log(zelda.x, zelda.y);
-
-  var exitTile = checkExit(currentTile);
+  var currentTile = zelda.nextTile(actualMap);
+  if (actualMap[currentTile] === 2) var exitTile = checkExit(currentTile);
 
   if (exitTile != undefined) {
     mapMove[exitTile]();
-    // switch (exitTile) {
-    //   case 0:
-    //     zelda.exitUp();
-    //     break;
-    //   case 1:
-    //     zelda.exitDown();
-    //     break;
-      // case 2:
-      //   zelda.exitLeft();
-      //   break;
-      // case 3:
-      //   zelda.exitRight();
-      //   break;
-      exitTile === 0 ? zelda.exitUp() : zelda.exitDown();
-    // }
+    switch (exitTile) {
+      case 0:
+        zelda.exitUp();
+        break;
+      case 1:
+        zelda.exitDown();
+        break;
+      case 2:
+        zelda.exitLeft();
+        break;
+      case 3:
+        zelda.exitRight();
+        break;
+    }
   };
 
   requestAnimationFrame(animate);

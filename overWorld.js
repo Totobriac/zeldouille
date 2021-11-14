@@ -6,11 +6,13 @@ tiles.src = "./overworldtiles_no_space.png";
 var xOffset = 0;
 var yOffset = 0;
 var mapTiles = 336;
-var oldMap = mainMap[0];
-var newMap;
+var oldMap = 4;
+var newMap ;
 var direction = 0;
 var upDown = 392;
 var leftRight = 904;
+var mapMove = [moveUp, moveDown, moveLeft, moveRight];
+var actualMap = mainMap[oldMap];
 
 var zob = 0;
 
@@ -28,13 +30,13 @@ function drawTiles(ctx) {
   ctx.fillRect(8, 8, 896, 384);
 
   for (let i = 0; i < mapTiles; i++) {
-    var selectedTile = getTile(oldMap[i]);
+    var selectedTile = getTile(mainMap[oldMap][i]);
     var line = Math.floor(i / 28);
     var column = i - (line * 28);
     ctx.drawImage(tiles, selectedTile[1], selectedTile[0], 16, 16,
       Math.floor(column * 32 + 8 + xOffset), Math.floor(line * 32 + 8 + yOffset), 32, 32);
-    if (newMap) {
-      var selectedTile = getTile(newMap[i]);
+    if (newMap != undefined) {
+      var selectedTile = getTile(mainMap[newMap][i]);
       var line = Math.floor(i / 28);
       var column = i - (line * 28);
       ctx.drawImage(tiles, selectedTile[1], selectedTile[0], 16, 16,
@@ -44,26 +46,28 @@ function drawTiles(ctx) {
       yOffset = 0;
       oldMap = newMap;
       direction = 0;
+      actualMap = mainMap[oldMap];
     }
     if (xOffset === 888 || xOffset === -896) {
       xOffset = 0;
       oldMap = newMap;
       direction = 0;
+      actualMap = mainMap[oldMap];
     }
   }
 }
 
 function moveDown() {
-  newMap = mainMap[1];
+  newMap = nextMap(0);
   direction = -2;
   upDown = 392;
   leftRight = 0;
-  xOffset = 0;  
+  xOffset = 0;
   zob = 0;
 }
 
 function moveUp() {
-  newMap = mainMap[0];
+  newMap = nextMap(1);
   direction = 2;
   upDown = -376;
   leftRight = 0;
@@ -72,8 +76,8 @@ function moveUp() {
 }
 
 function moveRight() {
-  newMap = mainMap[0];
-  direction = -2;
+  newMap = nextMap(2);
+  direction = -4;
   upDown = 8;
   leftRight = 904;
   yOffset = 0;
@@ -81,14 +85,26 @@ function moveRight() {
 }
 
 function moveLeft() {
-  newMap = mainMap[1];
-  direction = 2;
+  newMap = nextMap(3);
+  direction = 4;
   upDown = 8;
   leftRight = -888;
   yOffset = 0;
   zob = 0;
 }
 
-var mapMove = [moveUp, moveDown, moveLeft, moveRight]
+function nextMap(side) {
+  switch (side) {
+    case 0:
+      return (oldMap + 3);
+    case 1:
+      return (oldMap - 3);
+    case 2:
+      return oldMap + 1;
+    case 3:
+      return oldMap - 1;
+  }
+}
 
-export { drawTiles, mapMove, oldMap };
+
+export { drawTiles, mapMove, actualMap };

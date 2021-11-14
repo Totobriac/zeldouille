@@ -44,8 +44,7 @@ class Hero {
     else if (this.y > 328){
       this.y = 328;
       this.nextY = 328;
-    }
-    
+    }    
   }
   exitDown() {
     if (this.y > 40) {
@@ -56,18 +55,18 @@ class Hero {
       this.nextY = 40;
     }
   }
-  // exitLeft() {
-  //   if (this.x < 862) {
-  //     this.x += 2;      
-  //   }
-  //   else (this.nextX = this.x)
-  // }
-  // exitRight() {
-  //   if (this.x < 328) {
-  //     this.x += 1.69;      
-  //   }
-  //   else (this.nextX = this.x)
-  // }  
+  exitLeft() {
+    if (this.x < 840) {
+      this.x += 4;      
+    }
+    else (this.nextX = this.x)
+  }
+  exitRight() {
+    if (this.x > 40) {
+      this.x -= 4;      
+    }
+    else (this.nextX = this.x)
+  }  
 }
 
 export { Hero };
