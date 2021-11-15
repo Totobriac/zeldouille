@@ -1,4 +1,5 @@
 import { mainMap } from "./maps.js";
+import { spawnMonsters } from "./ghouls.js";
 
 var tiles = new Image();
 tiles.src = "./overworldtiles_no_space.png";
@@ -13,6 +14,7 @@ var upDown = 392;
 var leftRight = 904;
 var mapMove = [moveUp, moveDown, moveLeft, moveRight];
 var actualMap = mainMap[oldMap];
+var monstersList = [];
 
 var zob = 0;
 
@@ -47,12 +49,14 @@ function drawTiles(ctx) {
       oldMap = newMap;
       direction = 0;
       actualMap = mainMap[oldMap];
+      monstersList = spawnMonsters(actualMap);      
     }
     if (xOffset === 888 || xOffset === -896) {
       xOffset = 0;
       oldMap = newMap;
       direction = 0;
       actualMap = mainMap[oldMap];
+      monstersList = spawnMonsters(actualMap);
     }
   }
 }
@@ -106,5 +110,9 @@ function nextMap(side) {
   }
 }
 
+function monsterMayem () {
+  monstersList = [];
+}
 
-export { drawTiles, mapMove, actualMap };
+
+export { drawTiles, mapMove, actualMap, monstersList, monsterMayem };

@@ -6,32 +6,67 @@ class Hero {
     this.nextX = x;
     this.nextY = y;
   }
-  moveUp(map) {
+  moveUp(map, monster) {
     this.nextY = this.y - this.spriteSize;
     this.nextX = this.x;
     var nextTile = this.nextTile(map);
-    if (map[nextTile] == 2) this.y -= this.spriteSize;
+    if (map[nextTile] == 2) {
+      if (monster != undefined) {
+        if (!monster.includes(nextTile)) {
+          this.y -= this.spriteSize;
+        }
+      }
+      else {
+        this.y -= this.spriteSize;
+      }
+    }
     
   }
-  moveDown(map) {
+  moveDown(map, monster) {
     this.nextY = this.y + this.spriteSize;
     this.nextX = this.x;
     var nextTile = this.nextTile(map);
-    if (map[nextTile] == 2) this.y += this.spriteSize;
+    if (map[nextTile] == 2) {
+      if (monster != undefined) {
+        if (!monster.includes(nextTile)) {
+          this.y += this.spriteSize;
+        }
+      }
+      else {
+        this.y += this.spriteSize;
+      }
+    }
     
   }
-  moveRight(map) {
+  moveRight(map, monster) {
     this.nextX = this.x + this.spriteSize;
     this.nextY = this.y;
     var nextTile = this.nextTile(map);
-    if (map[nextTile] == 2) this.x += this.spriteSize;
-    
+    if (map[nextTile] == 2) {
+      if (monster != undefined) {
+        if (!monster.includes(nextTile)) {
+          this.x += this.spriteSize;
+        }
+      }
+      else {
+        this.x += this.spriteSize;
+      }
+    }    
   }
-  moveLeft(map) {
+  moveLeft(map, monster) {
     this.nextX = this.x - this.spriteSize;
     this.nextY = this.y;
     var nextTile = this.nextTile(map);
-    if (map[nextTile] == 2) this.x -= this.spriteSize;
+    if (map[nextTile] == 2) {
+      if (monster != undefined) {
+        if (!monster.includes(nextTile)) {
+          this.x -= this.spriteSize;
+        }
+      }
+      else {
+        this.x -= this.spriteSize;
+      }
+    }
     
   }
   nextTile(map) {
