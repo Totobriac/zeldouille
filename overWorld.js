@@ -8,7 +8,7 @@ var xOffset = 0;
 var yOffset = 0;
 var mapTiles = 336;
 var oldMap = 4;
-var newMap ;
+var newMap;
 var direction = 0;
 var upDown = 392;
 var leftRight = 904;
@@ -49,14 +49,14 @@ function drawTiles(ctx) {
       oldMap = newMap;
       direction = 0;
       actualMap = mainMap[oldMap];
-      monstersList = spawnMonsters(actualMap);      
+      monstersList = spawnMonsters(actualMap, ctx);
     }
     if (xOffset === 888 || xOffset === -896) {
       xOffset = 0;
       oldMap = newMap;
       direction = 0;
       actualMap = mainMap[oldMap];
-      monstersList = spawnMonsters(actualMap);
+      monstersList = spawnMonsters(actualMap, ctx);
     }
   }
 }
@@ -110,9 +110,8 @@ function nextMap(side) {
   }
 }
 
-function monsterMayem () {
+function monsterMayem() {
   monstersList = [];
 }
-
 
 export { drawTiles, mapMove, actualMap, monstersList, monsterMayem };

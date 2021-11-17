@@ -1,17 +1,15 @@
-import { checkExit } from "./maps.js"
-
+import { checkExit } from "./maps.js";
 
 class Monster {
-  constructor(map) {
+  constructor(map, obstacles, ctx) {
     this.x = (Math.floor(Math.random() * 24) + 2) * 32 + 8;
     this.y = (Math.floor(Math.random() * 10) + 1) * 32 + 8;
     this.map = map;
+    this.obstacles = obstacles;
     this.direction = Math.floor(Math.random() * 4);
     this.index = this.getIndex();
-
-    this.moving = false;
-    this.newX = 0;
-
+    this.ctx = ctx;
+    this.isColliding = false;
   }
   randomDirection() {
     this.direction = Math.floor(Math.random() * 4);
@@ -20,56 +18,67 @@ class Monster {
     return (Math.floor((this.y - 8) / 32) * 28 + Math.floor((this.x - 8) / 32));
   }
   move() {
-
-    var isExiting;
-    this.direction === 0 || this.direction === 2
-      ? isExiting = checkExit(this.index + 1)
-      : isExiting = checkExit(this.index);
-
-    this.index = this.getIndex();
-
-    if (this.direction === 0) {
-      if (this.map[this.index + 1] === 2 && isExiting === undefined) {
-        this.x += 1;
+    var index = this.getIndex();
+    var exit = checkExit(index);
+    if (exit) this.randomDirection();
+    if (!this.isColliding) {
+      if (this.direction === 0) {
+        this.isColliding = this.checkCollision(this.x + 1, this.y);
+        if (this.isColliding === false) this.x += 1;
       }
-      else {
-        this.randomDirection()
+      else if (this.direction === 1) {
+        this.isColliding = this.checkCollision(this.x - 1, this.y);
+        if (this.isColliding === false) this.x -= 1;
       }
-    }
-    if (this.direction === 1) {
-      if (this.map[this.index - 1] === 2 && isExiting === undefined) {
-        this.x -= 1;
+      else if (this.direction === 2) {
+        this.isColliding = this.checkCollision(this.x, this.y + 1);
+        if (this.isColliding === false) this.y += 1;
       }
-      else {
-        this.randomDirection()
+      else if (this.direction === 3) {
+        this.isColliding = this.checkCollision(this.x, this.y - 1);
+        if (this.isColliding === false) this.y -= 1;
       }
     }
-    if (this.direction === 2) {
-      if (this.map[this.index + 28] === 2 && isExiting === undefined) {
-        this.y += 1;
+    else {
+      this.randomDirection();
+      this.isColliding = false;
+    }
+  }
+  checkCollision(x, y) {
+    var colliding;
+    for (let i = 0; i < this.obstacles.length; i++) {
+      if (x + 32 <= this.obstacles[i][0] || x >= this.obstacles[i][0] + 32 ||
+        y + 32 <= this.obstacles[i][1] || y >= this.obstacles[i][1] + 32) {
+        colliding = false;
       }
       else {
-        this.randomDirection()
+        colliding = true;
+        return colliding
       }
     }
-    if (this.direction === 3) {
-      if (this.map[this.index - 28] === 2 && isExiting === undefined) {
-        this.y -= 1;
-      }
-      else {
-        this.randomDirection()
-      }
-    }
+    return colliding
   }
 }
 
-function spawnMonsters(map) {
+function spawnMonsters(map, ctx) {
+  var obstacles = [];
+  for (let i = 0; i < map.length; i++) {
+    if (map[i] != 2) {
+      var line = Math.floor(i / 28);
+      var column = i - (line * 28);
+      obstacles.push([column * 32 + 8, line * 32 + 8]);
+    }
+  }
   var monsters = [];
-  for (let i = 0; monsters.length < 7; i++) {
-    var monster = new Monster(map);
+  for (let i = 0; monsters.length < 8; i++) {
+    var monster = new Monster(map, obstacles, ctx);
     if (map[monster.index] === 2) monsters.push(monster)
   }
   return monsters;
 }
+
+
+
+
 
 export { spawnMonsters };
