@@ -1,5 +1,6 @@
 import { mainMap } from "./maps.js";
 import { spawnMonsters } from "./ghouls.js";
+import { getObstaclesList } from "./functions.js";
 
 var tiles = new Image();
 tiles.src = "./overworldtiles_no_space.png";
@@ -12,11 +13,14 @@ var newMap;
 var direction = 0;
 var upDown = 392;
 var leftRight = 904;
-var mapMove = [moveUp, moveDown, moveLeft, moveRight];
+var mapMove = [moveLeft, moveRight, moveUp, moveDown];
 var actualMap = mainMap[oldMap];
 var monstersList = [];
+var obstacles = [];
 
 var zob = 0;
+
+var zobi = false;
 
 function getTile(tile) {
   var line = Math.floor(tile / 6);
@@ -25,6 +29,8 @@ function getTile(tile) {
 }
 
 function drawTiles(ctx) {
+  obstacles = getObstaclesList(mainMap[oldMap]);
+
 
   upDown === 8 ? xOffset += direction : yOffset += direction;
 
@@ -45,6 +51,7 @@ function drawTiles(ctx) {
         Math.floor(column * 32 + 8 - zob + leftRight + xOffset), Math.floor(line * 32 + upDown + yOffset), 32, 32);
     }
     if (yOffset === 390 || yOffset === -390) {
+      zobi = false;
       yOffset = 0;
       oldMap = newMap;
       direction = 0;
@@ -52,6 +59,7 @@ function drawTiles(ctx) {
       monstersList = spawnMonsters(actualMap, ctx);
     }
     if (xOffset === 888 || xOffset === -896) {
+      zobi = false;
       xOffset = 0;
       oldMap = newMap;
       direction = 0;
@@ -62,6 +70,7 @@ function drawTiles(ctx) {
 }
 
 function moveDown() {
+  zobi = true;
   newMap = nextMap(0);
   direction = -2;
   upDown = 392;
@@ -71,6 +80,7 @@ function moveDown() {
 }
 
 function moveUp() {
+  zobi = true;
   newMap = nextMap(1);
   direction = 2;
   upDown = -376;
@@ -80,6 +90,7 @@ function moveUp() {
 }
 
 function moveRight() {
+  zobi = true;
   newMap = nextMap(2);
   direction = -4;
   upDown = 8;
@@ -89,6 +100,7 @@ function moveRight() {
 }
 
 function moveLeft() {
+  zobi = true;
   newMap = nextMap(3);
   direction = 4;
   upDown = 8;
@@ -114,4 +126,4 @@ function monsterMayem() {
   monstersList = [];
 }
 
-export { drawTiles, mapMove, actualMap, monstersList, monsterMayem };
+export { drawTiles, mapMove, actualMap, monstersList, monsterMayem, obstacles, zobi };

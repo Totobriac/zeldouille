@@ -1,3 +1,5 @@
+import { obstacles, zobi } from "./overWorld.js";
+
 class Hero {
   constructor(x, y, spriteSize) {
     this.x = x;
@@ -5,103 +7,56 @@ class Hero {
     this.spriteSize = spriteSize;
     this.nextX = x;
     this.nextY = y;
+    this.isColliding = false;
+    this.exit;
   }
-  moveUp(map, monster) {
-    this.nextY = this.y - this.spriteSize;
-    this.nextX = this.x;
-    var nextTile = this.nextTile(map);
-    if (map[nextTile] == 2) {
-      if (monster != undefined) {
-        if (!monster.includes(nextTile)) {
-          this.y -= this.spriteSize;
-        }
+  move(direction) {
+    if (zobi === false) {
+      if (direction === 2) {
+        var nextX = this.x + 4;
+        this.isColliding = this.checkCollision(nextX, this.y);
+        if (this.isColliding === false) this.x += 4;
+      }
+      else if (direction === 3) {
+        var nextX = this.x - 4;
+        this.isColliding = this.checkCollision(nextX, this.y);
+        if (this.isColliding === false) this.x -= 4;
+      }
+      else if (direction === 0) {
+        var nextY = this.y + 4;
+        this.isColliding = this.checkCollision(this.x, nextY);
+        if (this.isColliding === false) this.y += 4;
+      }
+      else if (direction === 1) {
+        var nextY = this.y - 4;
+        this.isColliding = this.checkCollision(this.x, nextY);
+        if (this.isColliding === false) this.y -= 4;
+      }
+    }
+    else {
+      if (direction != undefined) this.exit = direction;
+      console.log(this.exit);
+      if (this.exit === 3 && this.x < 840) this.x += 4;
+      else if (this.exit === 2 && this.x > 40) this.x -= 4;
+      else if (this.exit === 0 && this.y > 40) this.y -= 2;
+      else if (this.exit === 1 && this.y < 328) this.y += 2;
+    }
+  }
+  checkCollision(x, y) {
+    var colliding;
+    for (let i = 0; i < obstacles.length; i++) {
+      if (x + 32 <= obstacles[i][0] || x >= obstacles[i][0] + 32 ||
+        y + 32 <= obstacles[i][1] || y >= obstacles[i][1] + 32) {
+        colliding = false;
       }
       else {
-        this.y -= this.spriteSize;
+        colliding = true;
+        return colliding
       }
     }
-    
+    return colliding
   }
-  moveDown(map, monster) {
-    this.nextY = this.y + this.spriteSize;
-    this.nextX = this.x;
-    var nextTile = this.nextTile(map);
-    if (map[nextTile] == 2) {
-      if (monster != undefined) {
-        if (!monster.includes(nextTile)) {
-          this.y += this.spriteSize;
-        }
-      }
-      else {
-        this.y += this.spriteSize;
-      }
-    }
-    
-  }
-  moveRight(map, monster) {
-    this.nextX = this.x + this.spriteSize;
-    this.nextY = this.y;
-    var nextTile = this.nextTile(map);
-    if (map[nextTile] == 2) {
-      if (monster != undefined) {
-        if (!monster.includes(nextTile)) {
-          this.x += this.spriteSize;
-        }
-      }
-      else {
-        this.x += this.spriteSize;
-      }
-    }    
-  }
-  moveLeft(map, monster) {
-    this.nextX = this.x - this.spriteSize;
-    this.nextY = this.y;
-    var nextTile = this.nextTile(map);
-    if (map[nextTile] == 2) {
-      if (monster != undefined) {
-        if (!monster.includes(nextTile)) {
-          this.x -= this.spriteSize;
-        }
-      }
-      else {
-        this.x -= this.spriteSize;
-      }
-    }
-    
-  }
-  nextTile(map) {
-    return (Math.floor(((this.nextY - 8) / this.spriteSize) * 28) + Math.floor(this.nextX / this.spriteSize));
-  }
-  exitUp() {
-    if (this.y < 328) {
-      this.y += 1.69;      
-    }    
-    else if (this.y > 328){
-      this.y = 328;
-      this.nextY = 328;
-    }    
-  }
-  exitDown() {
-    if (this.y > 40) {
-      this.y -= 1.69;      
-    }
-    else if (this.y < 40){
-      this.y = 40;
-      this.nextY = 40;
-    }
-  }
-  exitLeft() {
-    if (this.x < 840) {
-      this.x += 4;      
-    }
-    else (this.nextX = this.x)
-  }
-  exitRight() {
-    if (this.x > 40) {
-      this.x -= 4;      
-    }
-    else (this.nextX = this.x)
-  }  
+  
 }
 
 export { Hero };

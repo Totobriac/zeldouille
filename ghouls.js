@@ -1,10 +1,10 @@
+import {obstacles} from "./overWorld.js";
 
 class Monster {
-  constructor(map, obstacles, bundaries) {
+  constructor(map, bundaries) {
     this.x = (Math.floor(Math.random() * 24) + 2) * 32 + 8;
     this.y = (Math.floor(Math.random() * 10) + 1) * 32 + 8;
     this.map = map;
-    this.obstacles = obstacles;
     this.direction = Math.floor(Math.random() * 4);
     this.index = this.getIndex();
     this.isColliding = false;
@@ -51,9 +51,9 @@ class Monster {
   }
   checkCollision(x, y) {
     var colliding;
-    for (let i = 0; i < this.obstacles.length; i++) {
-      if (x + 32 <= this.obstacles[i][0] || x >= this.obstacles[i][0] + 32 ||
-        y + 32 <= this.obstacles[i][1] || y >= this.obstacles[i][1] + 32) {
+    for (let i = 0; i < obstacles.length; i++) {
+      if (x + 32 <= obstacles[i][0] || x >= obstacles[i][0] + 32 ||
+        y + 32 <= obstacles[i][1] || y >= obstacles[i][1] + 32) {
         colliding = false;
       }
       else {
@@ -77,18 +77,10 @@ class Monster {
   }
 }
 
-function spawnMonsters(map, ctx) {
-  var obstacles = [];
-  for (let i = 0; i < map.length; i++) {
-    if (map[i] != 2) {
-      var line = Math.floor(i / 28);
-      var column = i - (line * 28);
-      obstacles.push([column * 32 + 8, line * 32 + 8]);
-    }
-  }
+function spawnMonsters(map) {  
   var monsters = [];
   for (let i = 0; monsters.length < 8; i++) {
-    var monster = new Monster(map, obstacles, [1, 1, 1, 1]);
+    var monster = new Monster(map, [1, 1, 1, 1]);
     if (map[monster.index] === 2) monsters.push(monster)
   }
   return monsters;

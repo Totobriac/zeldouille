@@ -15,37 +15,30 @@ var monstersIndexList = [];
 
 var exitTile;
 
+var direction;
+
 window.addEventListener('keydown', function (e) {
   if (e.code === "ArrowDown") {
-    zelda.moveDown(actualMap,monstersIndexList);
+    direction = 0;
   }
   if (e.code === "ArrowUp") {
-    zelda.moveUp(actualMap,monstersIndexList);
+    direction = 1;
   }
   if (e.code === "ArrowRight") {
-    zelda.moveRight(actualMap,monstersIndexList);
+    direction = 2;
   }
   if (e.code === "ArrowLeft") {
-    zelda.moveLeft(actualMap,monstersIndexList);
+    direction = 3;
   }
 });
 
+window.addEventListener('keyup', function (e) {
+  direction = undefined;
+});
+
+
 function moveMap() {
   mapMove[exitTile]();
-  switch (exitTile) {
-    case 0:
-      zelda.exitUp();
-      break;
-    case 1:
-      zelda.exitDown();
-      break;
-    case 2:
-      zelda.exitLeft();
-      break;
-    case 3:
-      zelda.exitRight();
-      break;
-  }
 }
 
 function animate() {
@@ -57,6 +50,7 @@ function animate() {
   ctx.fillRect(0, 0, 8, canvas.height);
   ctx.fillRect(904, 0, 302, canvas.height);
 
+  zelda.move(direction);
   ctx.fillStyle = "green";
   ctx.fillRect(zelda.x, zelda.y, zelda.spriteSize, zelda.spriteSize);
 
@@ -70,14 +64,12 @@ function animate() {
     }
   }
 
-  var currentTile = zelda.nextTile(actualMap);
-  if (actualMap[currentTile] === 2) exitTile = checkExit(currentTile);
+  exitTile = checkExit(zelda.x, zelda.y);
 
   if (exitTile != undefined) {
     monsterMayem();
     moveMap();
   }
-
 
   requestAnimationFrame(animate);
 }
