@@ -13,29 +13,40 @@ class Hero {
   move(direction) {
     if (zobi === false) {
       if (direction === 2) {
+        this.y += this.align(this.y + 8, 16);        
         var nextX = this.x + 4;
         this.isColliding = this.checkCollision(nextX, this.y);
-        if (this.isColliding === false) this.x += 4;
+        if (this.isColliding === false) {
+          this.x += 4;
+        }
       }
       else if (direction === 3) {
+        this.y -= this.align(this.y + 8, 16);
         var nextX = this.x - 4;
         this.isColliding = this.checkCollision(nextX, this.y);
-        if (this.isColliding === false) this.x -= 4;
+        if (this.isColliding === false) {
+          this.x -= 4;
+        }
       }
       else if (direction === 0) {
+        this.x += this.align(this.x + 8, 16);
         var nextY = this.y + 4;
         this.isColliding = this.checkCollision(this.x, nextY);
-        if (this.isColliding === false) this.y += 4;
+        if (this.isColliding === false) {
+          this.y += 4;         
+        }
       }
       else if (direction === 1) {
+        this.x -= this.align(this.x + 8, 16);
         var nextY = this.y - 4;
         this.isColliding = this.checkCollision(this.x, nextY);
-        if (this.isColliding === false) this.y -= 4;
+        if (this.isColliding === false) {
+          this.y -= 4;
+        }
       }
     }
     else {
       if (direction != undefined) this.exit = direction;
-      console.log(this.exit);
       if (this.exit === 3 && this.x < 840) this.x += 4;
       else if (this.exit === 2 && this.x > 40) this.x -= 4;
       else if (this.exit === 0 && this.y > 40) this.y -= 2;
@@ -56,7 +67,17 @@ class Hero {
     }
     return colliding
   }
-  
+  align(coord, alignTo) {
+    var remainder = coord % alignTo;
+    var halfway = alignTo / 2;
+    if (remainder > halfway) {
+      return alignTo - remainder
+    }
+    else {
+      return remainder
+    }
+  }
 }
+
 
 export { Hero };
