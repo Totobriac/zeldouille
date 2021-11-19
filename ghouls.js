@@ -1,4 +1,5 @@
-import {obstacles} from "./overWorld.js";
+import { obstacles } from "./overWorld.js";
+import { collChecker } from "./functions.js";
 
 class Monster {
   constructor(map, bundaries) {
@@ -20,48 +21,37 @@ class Monster {
   move() {
     if (!this.isColliding) {
       if (this.direction === 0) {
-        var nextX = this.x + 1;
-        var exit = this.checkBundaries(nextX, this.y);
-        this.isColliding = this.checkCollision(nextX, this.y);
-        this.isColliding === false && exit === false ? this.x += 1 : this.randomDirection();
+        var nextX = this.x + 1;        
+        this.checkBundaries(nextX, this.y) === false && this.checkCollision(nextX, this.y) === false 
+          ? this.x += 1 
+          : this.randomDirection();
       }
       else if (this.direction === 1) {
         var nextX = this.x - 1;
-        var exit = this.checkBundaries(nextX, this.y);
-        this.isColliding = this.checkCollision(nextX, this.y);
-        this.isColliding === false && exit === false ? this.x -= 1 : this.randomDirection();
+        this.checkBundaries(nextX, this.y) === false && this.checkCollision(nextX, this.y) === false
+        ? this.x -= 1
+        : this.randomDirection();
       }
       else if (this.direction === 2) {
-        var nextY = this.y + 1;
-        var exit = this.checkBundaries(this.x, nextY);
-        this.isColliding = this.checkCollision(this.x, nextY);
-        this.isColliding === false && exit === false ? this.y += 1 : this.randomDirection();
+        var nextY = this.y + 1;       
+        this.checkBundaries(this.x, nextY) === false && this.checkCollision(this.x, nextY) === false
+        ? this.y += 1
+        : this.randomDirection();
       }
       else if (this.direction === 3) {
         var nextY = this.y - 1;
-        var exit = this.checkBundaries(this.x, nextY);
-        this.isColliding = this.checkCollision(this.x, nextY);
-        this.isColliding === false && exit === false ? this.y -= 1 : this.randomDirection();
+        this.checkBundaries(this.x, nextY) === false && this.checkCollision(this.x, nextY) === false
+        ? this.y -= 1
+        : this.randomDirection();
       }
     }
     else {
       this.randomDirection();
       this.isColliding = false;
     }
-  }
+  } 
   checkCollision(x, y) {
-    var colliding;
-    for (let i = 0; i < obstacles.length; i++) {
-      if (x + 32 <= obstacles[i][0] || x >= obstacles[i][0] + 32 ||
-        y + 32 <= obstacles[i][1] || y >= obstacles[i][1] + 32) {
-        colliding = false;
-      }
-      else {
-        colliding = true;
-        return colliding
-      }
-    }
-    return colliding
+    return collChecker(x, y, obstacles);
   }
   checkBundaries(x, y) {
     if (x >= this.bundaries[0] * 32 + 8 &&
@@ -77,7 +67,7 @@ class Monster {
   }
 }
 
-function spawnMonsters(map) {  
+function spawnMonsters(map) {
   var monsters = [];
   for (let i = 0; monsters.length < 8; i++) {
     var monster = new Monster(map, [1, 1, 1, 1]);
@@ -85,9 +75,5 @@ function spawnMonsters(map) {
   }
   return monsters;
 }
-
-
-
-
 
 export { spawnMonsters };

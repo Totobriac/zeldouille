@@ -1,4 +1,5 @@
 import { obstacles, zobi } from "./overWorld.js";
+import {collChecker} from "./functions.js";
 
 class Hero {
   constructor(x, y, spriteSize) {
@@ -54,18 +55,7 @@ class Hero {
     }
   }
   checkCollision(x, y) {
-    var colliding;
-    for (let i = 0; i < obstacles.length; i++) {
-      if (x + 32 <= obstacles[i][0] || x >= obstacles[i][0] + 32 ||
-        y + 32 <= obstacles[i][1] || y >= obstacles[i][1] + 32) {
-        colliding = false;
-      }
-      else {
-        colliding = true;
-        return colliding
-      }
-    }
-    return colliding
+    return collChecker(x, y, obstacles);
   }
   align(coord, alignTo) {
     var remainder = coord % alignTo;
