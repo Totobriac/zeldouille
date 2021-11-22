@@ -1,5 +1,12 @@
-import { obstacles, zobi, monstersList } from "./overWorld.js";
-import { collChecker } from "./functions.js";
+import {  obstacles,
+  zobi,
+  monstersList
+} from "./overWorld.js";
+import {
+  collChecker
+} from "./functions.js";
+import {checkExit} from "./maps.js";
+
 
 class Hero {
   constructor(x, y, spriteSize) {
@@ -18,15 +25,12 @@ class Hero {
       var dir = this.enemyCollison.object.direction;
       if (dir === 0) {
         this.x += this.wallBounce(1, 0);
-      }
-      else if (dir === 1) {
-        this.x += this.wallBounce(-1, 0);
-      }
-      else if (dir === 2) {
-        this.x += this.wallBounce(0, 1);
-      }
-      else if (dir === 3) {
-        this.x += this.wallBounce(0, -1);
+      } else if (dir === 1) {
+        this.x -= this.wallBounce(-1, 0);
+      } else if (dir === 2) {
+        this.y += this.wallBounce(0, 1);
+      } else if (dir === 3) {
+        this.y -= this.wallBounce(0, -1);
       }
     }
 
@@ -38,24 +42,21 @@ class Hero {
         if (this.wallCollision === false) {
           this.x += 4;
         }
-      }
-      else if (direction === 3) {
+      } else if (direction === 3) {
         this.y -= this.align(this.y + 8, 16);
         var nextX = this.x - 4;
         this.wallCollision = this.checkCollision(nextX, this.y).isColliding;
         if (this.wallCollision === false) {
           this.x -= 4;
         }
-      }
-      else if (direction === 0) {
+      } else if (direction === 0) {
         this.x += this.align(this.x + 8, 16);
         var nextY = this.y + 4;
         this.wallCollision = this.checkCollision(this.x, nextY).isColliding;
         if (this.wallCollision === false) {
           this.y += 4;
         }
-      }
-      else if (direction === 1) {
+      } else if (direction === 1) {
         this.x -= this.align(this.x + 8, 16);
         var nextY = this.y - 4;
         this.wallCollision = this.checkCollision(this.x, nextY).isColliding;
@@ -63,23 +64,20 @@ class Hero {
           this.y -= 4;
         }
       }
+
       this.enemyCollison = collChecker(this.x, this.y, monstersList);
       if (this.enemyCollison === true) {
         if (direction === 0) {
-          this.y -= 48;
-        }
-        else if (direction === 1) {
-          this.y += 48;
-        }
-        else if (direction === 2) {
-          this.x -= 48;
-        }
-        else if (direction === 3) {
-          this.x += 48;
+          this.y -= this.wallBounce(0, -1);
+        } else if (direction === 1) {
+          this.y += this.wallBounce(0, 1);
+        } else if (direction === 2) {
+          this.x -= this.wallBounce(-1, 0);
+        } else if (direction === 3) {
+          this.x += this.wallBounce(1, 0);
         }
       }
-    }
-    else {
+    } else {
       if (direction != undefined) this.exit = direction;
       if (this.exit === 3 && this.x < 840) this.x += 4;
       else if (this.exit === 2 && this.x > 40) this.x -= 4;
@@ -92,8 +90,9 @@ class Hero {
   }
   wallBounce(dirX, dirY) {
     for (let i = 0; i < 48; i++) {
+      var exit = checkExit(this.x + dirX * i, this.y + dirY * i);
       var bounce = collChecker(this.x + dirX * i, this.y + dirY * i, obstacles);
-      if (bounce.isColliding === true) return i;
+      if (bounce.isColliding === true || exit != undefined) return i - 1;
     }
     return 48;
   }
@@ -102,12 +101,13 @@ class Hero {
     var halfway = alignTo / 2;
     if (remainder > halfway) {
       return alignTo - remainder
-    }
-    else {
+    } else {
       return remainder
     }
   }
 }
 
 
-export { Hero };
+export {
+  Hero
+};
