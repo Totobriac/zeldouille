@@ -16,31 +16,31 @@ class Monster {
     this.direction = Math.floor(Math.random() * 4);
   }
   getIndex() {
-    return (Math.floor((this.y - 8) / 32) * 28 + Math.floor((this.x - 8) / 32));
+    return Math.floor((this.y - 8) / 32) * 28 + Math.floor((this.x - 8) / 32);
   }
   move() {
     if (!this.isColliding) {
       if (this.direction === 0) {
         var nextX = this.x + 1;        
-        this.checkBundaries(nextX, this.y) === false && this.checkCollision(nextX, this.y) === false 
+        this.checkBundaries(nextX, this.y) === false && this.checkCollision(nextX, this.y).isColliding === false 
           ? this.x += 1 
           : this.randomDirection();
       }
       else if (this.direction === 1) {
         var nextX = this.x - 1;
-        this.checkBundaries(nextX, this.y) === false && this.checkCollision(nextX, this.y) === false
+        this.checkBundaries(nextX, this.y) === false && this.checkCollision(nextX, this.y).isColliding === false
         ? this.x -= 1
         : this.randomDirection();
       }
       else if (this.direction === 2) {
         var nextY = this.y + 1;       
-        this.checkBundaries(this.x, nextY) === false && this.checkCollision(this.x, nextY) === false
+        this.checkBundaries(this.x, nextY) === false && this.checkCollision(this.x, nextY).isColliding === false
         ? this.y += 1
         : this.randomDirection();
       }
       else if (this.direction === 3) {
         var nextY = this.y - 1;
-        this.checkBundaries(this.x, nextY) === false && this.checkCollision(this.x, nextY) === false
+        this.checkBundaries(this.x, nextY) === false && this.checkCollision(this.x, nextY).isColliding === false
         ? this.y -= 1
         : this.randomDirection();
       }
