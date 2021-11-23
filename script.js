@@ -18,9 +18,12 @@ var direction;
 
 var isAttacking = false;
 
+var isMoving = false;
+
 window.addEventListener('keydown', function (e) {
+  isMoving = true;
   if (e.code === "ArrowDown") {
-    direction = 0;
+    direction = 0;   
   }
   if (e.code === "ArrowUp") {
     direction = 1;
@@ -38,6 +41,7 @@ window.addEventListener('keydown', function (e) {
 });
 
 window.addEventListener('keyup', function (e) {
+  isMoving = false;
   direction = undefined;
   isAttacking = false;
 });
@@ -58,9 +62,8 @@ function animate() {
 
   zelda.move(direction);
   zelda.attack(isAttacking);
-  zelda.draw();
+  zelda.draw(isMoving);
 
-  //ctx.drawImage(zeldaSprite, zelda.x, zelda.y)
 
   ctx.fillStyle = "red";
   if (monstersList) {

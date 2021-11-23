@@ -26,21 +26,22 @@ class Hero {
     this.wallCollision = false;
     this.enemyCollison = false;
     this.exit;
-    this.direction;
+    this.direction = 2;
     this.tickCount = 0;
     this.maxTickCount = 12;
     this.frame = 0;
+    this.isMoving = false;
   }
-  draw() {
+  draw(isMoving) {
     if (this.tickCount > this.maxTickCount) {
       this.tickCount = 0;
       this.frame === 0 ? this.frame = 1 : this.frame = 0
     }
     else {
-      this.tickCount += 1;
+      if (isMoving === true) this.tickCount += 1;
     }
 
-    this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32, 32, 32, this.x, this.y, 32, 32)
+    this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.direction, 32, 32, this.x, this.y, 32, 32)
   }
   move(direction) {
     if (direction != undefined) this.direction = direction;
