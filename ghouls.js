@@ -21,9 +21,9 @@ class Monster {
   move() {
     if (!this.isColliding) {
       if (this.direction === 0) {
-        var nextX = this.x + 1;        
-        this.checkBundaries(nextX, this.y) === false && this.checkCollision(nextX, this.y).isColliding === false 
-          ? this.x += 1 
+        var nextX = this.x + 1;
+        this.checkBundaries(nextX, this.y) === false && this.checkCollision(nextX, this.y).isColliding === false
+          ? this.x += 1
           : this.randomDirection();
       }
       else if (this.direction === 1) {
@@ -33,7 +33,7 @@ class Monster {
         : this.randomDirection();
       }
       else if (this.direction === 2) {
-        var nextY = this.y + 1;       
+        var nextY = this.y + 1;
         this.checkBundaries(this.x, nextY) === false && this.checkCollision(this.x, nextY).isColliding === false
         ? this.y += 1
         : this.randomDirection();
@@ -49,7 +49,7 @@ class Monster {
       this.randomDirection();
       this.isColliding = false;
     }
-  } 
+  }
   checkCollision(x, y) {
     return collChecker(x, y, obstacles);
   }

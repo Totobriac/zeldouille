@@ -18,10 +18,10 @@ function collChecker(x, y, objects) {
       colliding = false;
     }
     else {
-      return { isColliding: true, object: objects[i] };
+      return { isColliding: true, object: objects[i], index : i };
     }
   }
-  return { isColliding: colliding, index: undefined };
+  return { isColliding: colliding };
 }
 
 export { getObstaclesList, collChecker };

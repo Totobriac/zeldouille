@@ -1,25 +1,32 @@
-import {  obstacles,
+import {
+  obstacles,
   zobi,
   monstersList
 } from "./overWorld.js";
 import {
   collChecker
 } from "./functions.js";
-import {checkExit} from "./maps.js";
+import {
+  checkExit
+} from "./maps.js";
+
+var swordSprite = new Image();
+swordSprite.src = "./sword_in_order.png";
 
 
 class Hero {
-  constructor(x, y, spriteSize) {
+  constructor(x, y, spriteSize, ctx) {
     this.x = x;
     this.y = y;
     this.spriteSize = spriteSize;
-    this.nextX = x;
-    this.nextY = y;
+    this.ctx = ctx;
     this.wallCollision = false;
     this.enemyCollison = false;
     this.exit;
+    this.direction;
   }
   move(direction) {
+    if (direction != undefined) this.direction = direction;
     this.enemyCollison = collChecker(this.x, this.y, monstersList);
     if (this.enemyCollison.isColliding === true) {
       var dir = this.enemyCollison.object.direction;
@@ -105,8 +112,36 @@ class Hero {
       return remainder
     }
   }
+  attack(isAttacking) {
+    var x;
+    var y;
+    switch (this.direction) {
+      case 0:
+        x = this.x;
+        y = this.y + 32;
+        break;
+      case 1:
+        x = this.x;
+        y = this.y -32;
+        break;
+      case 2:
+        x = this.x + 32;
+        y = this.y;
+        break;
+      case 3:
+        x = this.x -32;
+        y = this.y;
+        break;
+    }
+    if (isAttacking) {
+      this.ctx.drawImage(swordSprite, this.direction * 48, 0, 48, 48, x , y, 32, 32);
+      var hasHitMonster = collChecker(x, y, monstersList);
+      if (hasHitMonster.isColliding === true) {
+        monstersList.splice(hasHitMonster.index, 1)
+      }
+    }
+  }
 }
-
 
 export {
   Hero

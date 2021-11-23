@@ -9,13 +9,15 @@ canvas.width = 1200;
 canvas.height = 400;
 
 
-var zelda = new Hero(40, 72, 32);
+var zelda = new Hero(40, 72, 32,ctx);
 
 var monstersIndexList = [];
 
 var exitTile;
 
 var direction;
+
+var isAttacking = false;
 
 window.addEventListener('keydown', function (e) {
   if (e.code === "ArrowDown") {
@@ -30,10 +32,15 @@ window.addEventListener('keydown', function (e) {
   if (e.code === "ArrowLeft") {
     direction = 3;
   }
+  if (e.code === "Space") {
+   if (e.repeat) return;
+   isAttacking = true;
+  }
 });
 
 window.addEventListener('keyup', function (e) {
   direction = undefined;
+  isAttacking = false;
 });
 
 
@@ -51,6 +58,8 @@ function animate() {
   ctx.fillRect(904, 0, 302, canvas.height);
 
   zelda.move(direction);
+  zelda.attack(isAttacking);
+
   ctx.fillStyle = "green";
   ctx.fillRect(zelda.x, zelda.y, zelda.spriteSize, zelda.spriteSize);
 
@@ -75,5 +84,3 @@ function animate() {
 }
 
 animate();
-
-
