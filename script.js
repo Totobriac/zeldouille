@@ -8,7 +8,6 @@ var ctx = canvas.getContext("2d");
 canvas.width = 1200;
 canvas.height = 400;
 
-
 var zelda = new Hero(40, 72, 32,ctx);
 
 var monstersIndexList = [];
@@ -59,9 +58,9 @@ function animate() {
 
   zelda.move(direction);
   zelda.attack(isAttacking);
+  zelda.draw();
 
-  ctx.fillStyle = "green";
-  ctx.fillRect(zelda.x, zelda.y, zelda.spriteSize, zelda.spriteSize);
+  //ctx.drawImage(zeldaSprite, zelda.x, zelda.y)
 
   ctx.fillStyle = "red";
   if (monstersList) {

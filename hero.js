@@ -13,6 +13,9 @@ import {
 var swordSprite = new Image();
 swordSprite.src = "./sword_in_order.png";
 
+var zeldaSprite = new Image();
+zeldaSprite.src = "./dino_up.png";
+
 
 class Hero {
   constructor(x, y, spriteSize, ctx) {
@@ -24,6 +27,20 @@ class Hero {
     this.enemyCollison = false;
     this.exit;
     this.direction;
+    this.tickCount = 0;
+    this.maxTickCount = 12;
+    this.frame = 0;
+  }
+  draw() {
+    if (this.tickCount > this.maxTickCount) {
+      this.tickCount = 0;
+      this.frame === 0 ? this.frame = 1 : this.frame = 0
+    }
+    else {
+      this.tickCount += 1;
+    }
+
+    this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32, 32, 32, this.x, this.y, 32, 32)
   }
   move(direction) {
     if (direction != undefined) this.direction = direction;
@@ -122,19 +139,19 @@ class Hero {
         break;
       case 1:
         x = this.x;
-        y = this.y -32;
+        y = this.y - 32;
         break;
       case 2:
         x = this.x + 32;
         y = this.y;
         break;
       case 3:
-        x = this.x -32;
+        x = this.x - 32;
         y = this.y;
         break;
     }
     if (isAttacking) {
-      this.ctx.drawImage(swordSprite, this.direction * 48, 0, 48, 48, x , y, 32, 32);
+      this.ctx.drawImage(swordSprite, this.direction * 48, 0, 48, 48, x, y, 32, 32);
       var hasHitMonster = collChecker(x, y, monstersList);
       if (hasHitMonster.isColliding === true) {
         monstersList.splice(hasHitMonster.index, 1)
