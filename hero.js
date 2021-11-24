@@ -13,9 +13,11 @@ import {
 var swordSprite = new Image();
 swordSprite.src = "./sword_in_order.png";
 
-var zeldaSprite = new Image();
-zeldaSprite.src = "./dino_up.png";
+// var zeldaSprite = new Image();
+// zeldaSprite.src = "./dino_up.png";
 
+var zeldaSprite = new Image();
+zeldaSprite.src = "./sprite_sheet.png";
 
 class Hero {
   constructor(x, y, spriteSize, ctx) {
@@ -29,19 +31,46 @@ class Hero {
     this.direction = 2;
     this.tickCount = 0;
     this.maxTickCount = 12;
+    this.totalFrame = 4;
     this.frame = 0;
     this.isMoving = false;
   }
+  // draw(isMoving) {
+  //   if (this.tickCount > this.maxTickCount) {
+  //     this.tickCount = 0;
+  //     this.frame === 0 ? this.frame = 1 : this.frame = 0
+  //   }
+  //   else {
+  //     if (isMoving === true) this.tickCount += 1;
+  //   }
+
+  //   this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.direction, 32, 32, this.x, this.y, 32, 32)
+  // }
   draw(isMoving) {
     if (this.tickCount > this.maxTickCount) {
       this.tickCount = 0;
-      this.frame === 0 ? this.frame = 1 : this.frame = 0
+      this.frame < this.totalFrame ? this.frame ++ : this.frame = 0;
     }
     else {
-      if (isMoving === true) this.tickCount += 1;
+       this.tickCount += 1;
+    }
+    var xOffset;
+    var yOffset;
+    console.log(this.direction);
+    switch(this.direction) {
+      case 0:
+        xOffset = 0;
+        yOffset = 0;
+      case 1:
+        xOffset = 0;
+        yOffset = -20
+      // case 2:
+
+      // case 3:
+
     }
 
-    this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.direction, 32, 32, this.x, this.y, 32, 32)
+    this.ctx.drawImage(zeldaSprite, 54 * this.frame, 56 * this.direction, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56)
   }
   move(direction) {
     if (direction != undefined) this.direction = direction;
