@@ -1,12 +1,6 @@
-import {
-  mainMap
-} from "./maps.js";
-import {
-  spawnMonsters
-} from "./ghouls.js";
-import {
-  getObstaclesList
-} from "./functions.js";
+import { mainMap } from "./maps.js";
+import { spawnMonsters } from "./ghouls.js";
+import { getObstaclesList } from "./functions.js";
 
 var tiles = new Image();
 tiles.src = "./overworldtiles_no_space.png";

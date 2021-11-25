@@ -11,10 +11,10 @@ import {
 } from "./maps.js";
 
 var zeldaSprite = new Image();
-zeldaSprite.src = "./dino_up.png";
+zeldaSprite.src = "./dino_up_tail.png";
 
 var zeldaAttackSprite = new Image();
-zeldaAttackSprite.src = "./sprite_sheet.png";
+zeldaAttackSprite.src = "./sprite_sheet_tail.png";
 
 class Hero {
   constructor(x, y, spriteSize, ctx) {
