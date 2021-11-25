@@ -10,14 +10,11 @@ import {
   checkExit
 } from "./maps.js";
 
-var swordSprite = new Image();
-swordSprite.src = "./sword_in_order.png";
-
-// var zeldaSprite = new Image();
-// zeldaSprite.src = "./dino_up.png";
-
 var zeldaSprite = new Image();
-zeldaSprite.src = "./sprite_sheet.png";
+zeldaSprite.src = "./dino_up.png";
+
+var zeldaAttackSprite = new Image();
+zeldaAttackSprite.src = "./sprite_sheet.png";
 
 class Hero {
   constructor(x, y, spriteSize, ctx) {
@@ -31,47 +28,26 @@ class Hero {
     this.direction = 2;
     this.tickCount = 0;
     this.maxTickCount = 12;
-    this.totalFrame = 4;
+    this.totalAttackFrame = 3;
     this.frame = 0;
     this.isMoving = false;
+    this.isAttacking = false;
   }
-  // draw(isMoving) {
-  //   if (this.tickCount > this.maxTickCount) {
-  //     this.tickCount = 0;
-  //     this.frame === 0 ? this.frame = 1 : this.frame = 0
-  //   }
-  //   else {
-  //     if (isMoving === true) this.tickCount += 1;
-  //   }
+  draw() {
+    if (this.isAttacking === false) {
+      if(this.frame != 0 && this.frame != 1) this.frame = 0;
+      if (this.tickCount > this.maxTickCount) {
+        this.tickCount = 0;
+        this.frame === 0 ? this.frame = 1 : this.frame = 0
+      }
+      else {
+        if (this.isMoving === true) this.tickCount += 1;
+      }
 
-  //   this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.direction, 32, 32, this.x, this.y, 32, 32)
-  // }
-  draw(isMoving) {
-    if (this.tickCount > this.maxTickCount) {
-      this.tickCount = 0;
-      this.frame < this.totalFrame ? this.frame ++ : this.frame = 0;
+      this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.direction, 32, 32, this.x, this.y, 32, 32)
     }
-    else {
-       this.tickCount += 1;
-    }
-    var xOffset;
-    var yOffset;
-    console.log(this.direction);
-    switch(this.direction) {
-      case 0:
-        xOffset = 0;
-        yOffset = 0;
-      case 1:
-        xOffset = 0;
-        yOffset = -20
-      // case 2:
-
-      // case 3:
-
-    }
-
-    this.ctx.drawImage(zeldaSprite, 54 * this.frame, 56 * this.direction, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56)
   }
+
   move(direction) {
     if (direction != undefined) this.direction = direction;
     this.enemyCollison = collChecker(this.x, this.y, monstersList);
@@ -159,36 +135,54 @@ class Hero {
       return remainder
     }
   }
-  attack(isAttacking) {
-    var x;
-    var y;
-    switch (this.direction) {
-      case 0:
-        x = this.x;
-        y = this.y + 32;
-        break;
-      case 1:
-        x = this.x;
-        y = this.y - 32;
-        break;
-      case 2:
-        x = this.x + 32;
-        y = this.y;
-        break;
-      case 3:
-        x = this.x - 32;
-        y = this.y;
-        break;
-    }
-    if (isAttacking) {
-      this.ctx.drawImage(swordSprite, this.direction * 48, 0, 48, 48, x, y, 32, 32);
-      var hasHitMonster = collChecker(x, y, monstersList);
+  attack() {
+    if (this.isAttacking) {
+      if (this.tickCount > this.maxTickCount * 0.5) {
+        this.tickCount = 0;
+        this.frame < this.totalAttackFrame ? this.frame++ : this.isAttacking = false;
+      }
+      else {
+        this.tickCount += 1;
+      }
+      var xOffset;
+      var yOffset;
+      var xHitOffset;
+      var yHitOffset;
+      switch (this.direction) {
+        case 0:
+          xOffset = 0;
+          yOffset = 0;
+          xHitOffset = 0;
+          yHitOffset = 20;
+          break;
+        case 1:
+          xOffset = 5;
+          yOffset = -23;
+          xHitOffset = 0;
+          yHitOffset = -20;
+          break;
+        case 2:
+          xOffset = 0;
+          yOffset = 0;
+          xHitOffset = 20;
+          yHitOffset = 0;
+          break;
+        case 3:
+          xOffset = -22;
+          yOffset = 0;
+          xHitOffset = -20;
+          yHitOffset = 0;
+          break;
+      }
+      var hasHitMonster = collChecker(this.x + xHitOffset, this.y + yHitOffset, monstersList);
       if (hasHitMonster.isColliding === true) {
         monstersList.splice(hasHitMonster.index, 1)
       }
+      this.ctx.drawImage(zeldaAttackSprite, 54 * this.frame, 56 * this.direction, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56)
     }
   }
 }
+
 
 export {
   Hero

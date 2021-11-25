@@ -16,12 +16,10 @@ var exitTile;
 
 var direction;
 
-var isAttacking = false;
-
 var isMoving = false;
 
 window.addEventListener('keydown', function (e) {
-  isMoving = true;
+  zelda.isMoving = true;
   if (e.code === "ArrowDown") {
     direction = 0;   
   }
@@ -36,14 +34,13 @@ window.addEventListener('keydown', function (e) {
   }
   if (e.code === "Space") {
    if (e.repeat) return;
-   isAttacking = true;
+   zelda.isAttacking = true;
   }
 });
 
 window.addEventListener('keyup', function (e) {
-  isMoving = false;
+  zelda.isMoving = false;
   direction = undefined;
-  isAttacking = false;
 });
 
 
@@ -60,9 +57,9 @@ function animate() {
   ctx.fillRect(0, 0, 8, canvas.height);
   ctx.fillRect(904, 0, 302, canvas.height);
 
+  zelda.attack();
   zelda.move(direction);
-  zelda.attack(isAttacking);
-  zelda.draw(isMoving);
+  zelda.draw();
 
 
   ctx.fillStyle = "red";
