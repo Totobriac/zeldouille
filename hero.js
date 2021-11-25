@@ -1,20 +1,14 @@
-import {
-  obstacles,
-  zobi,
-  monstersList
-} from "./overWorld.js";
-import {
-  collChecker
-} from "./functions.js";
-import {
-  checkExit
-} from "./maps.js";
+import { obstacles, zobi, monstersList } from "./overWorld.js";
+import { collChecker } from "./functions.js";
+import { checkExit } from "./maps.js";
 
 var zeldaSprite = new Image();
 zeldaSprite.src = "./dino_up_tail.png";
 
 var zeldaAttackSprite = new Image();
 zeldaAttackSprite.src = "./sprite_sheet_tail.png";
+
+const zeldaHit = ["./hit_1.png", "./hit_2.png", "./hit_3.png"];
 
 class Hero {
   constructor(x, y, spriteSize, ctx) {
@@ -30,12 +24,17 @@ class Hero {
     this.maxTickCount = 12;
     this.totalAttackFrame = 3;
     this.frame = 0;
+    this.hitFrame = 0;
     this.isMoving = false;
     this.isAttacking = false;
+    this.isHit = false;
+    this.hitTickCount = 0;
   }
   draw() {
+    this.hitAnimation();
+
     if (this.isAttacking === false) {
-      if(this.frame != 0 && this.frame != 1) this.frame = 0;
+      if (this.frame != 0 && this.frame != 1) this.frame = 0;
       if (this.tickCount > this.maxTickCount) {
         this.tickCount = 0;
         this.frame === 0 ? this.frame = 1 : this.frame = 0
@@ -52,6 +51,7 @@ class Hero {
     if (direction != undefined) this.direction = direction;
     this.enemyCollison = collChecker(this.x, this.y, monstersList);
     if (this.enemyCollison.isColliding === true) {
+      if (this.isHit === false) this.isHit = true;
       var dir = this.enemyCollison.object.direction;
       if (dir === 0) {
         this.x += this.wallBounce(1, 0);
@@ -96,7 +96,8 @@ class Hero {
       }
 
       this.enemyCollison = collChecker(this.x, this.y, monstersList);
-      if (this.enemyCollison === true) {
+      if (this.enemyCollison.isColliding === true) {
+        if (this.isHit === false) this.isHit = true;
         if (direction === 0) {
           this.y -= this.wallBounce(0, -1);
         } else if (direction === 1) {
@@ -107,6 +108,7 @@ class Hero {
           this.x += this.wallBounce(1, 0);
         }
       }
+
     } else {
       if (direction != undefined) this.exit = direction;
       if (this.exit === 3 && this.x < 840) this.x += 4;
@@ -181,9 +183,21 @@ class Hero {
       this.ctx.drawImage(zeldaAttackSprite, 54 * this.frame, 56 * this.direction, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56)
     }
   }
+  hitAnimation() {
+    if (this.isHit === true) {
+      this.hitTickCount++;
+      if (this.hitTickCount % 10 === 0) {
+        this.hitFrame < zeldaHit.length - 1 ? this.hitFrame++ : this.hitFrame = 0;
+        zeldaSprite.src = zeldaHit[this.hitFrame];
+      }
+      else if (this.hitTickCount > 100) {
+        this.hitTickCount = 0;
+        this.isHit = false;
+        zeldaSprite.src = "./dino_up_tail.png";
+      }
+    }
+  }
 }
 
 
-export {
-  Hero
-};
+export { Hero };

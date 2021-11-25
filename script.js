@@ -61,7 +61,6 @@ function animate() {
   zelda.move(direction);
   zelda.draw();
 
-
   ctx.fillStyle = "red";
   if (monstersList) {
     monstersIndexList = [];
