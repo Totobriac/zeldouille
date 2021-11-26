@@ -8,7 +8,7 @@ tiles.src = "./overworldtiles_no_space.png";
 var xOffset = 0;
 var yOffset = 0;
 var mapTiles = 336;
-var oldMap = 4;
+var oldMap = 3;
 var newMap;
 var direction = 0;
 var upDown = 392;
@@ -29,6 +29,7 @@ function getTile(tile) {
 }
 
 function drawTiles(ctx) {
+
   obstacles = getObstaclesList(mainMap[oldMap]);
 
   upDown === 8 ? xOffset += direction : yOffset += direction;
@@ -125,12 +126,4 @@ function monsterMayem() {
   monstersList = [];
 }
 
-export {
-  drawTiles,
-  mapMove,
-  actualMap,
-  monstersList,
-  monsterMayem,
-  obstacles,
-  zobi
-};
+export { drawTiles, mapMove, oldMap, monstersList, monsterMayem, obstacles, zobi};

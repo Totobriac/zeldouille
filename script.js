@@ -1,5 +1,5 @@
 import { Hero } from "./hero.js";
-import { drawTiles, mapMove, actualMap, monstersList, monsterMayem } from "./overWorld.js";
+import { drawTiles, mapMove, monstersList, monsterMayem,oldMap } from "./overWorld.js";
 import { checkExit } from "./maps.js";
 import {SideBar} from "./sideBar.js";
 
@@ -83,7 +83,7 @@ function animate() {
     moveMap();
   }
 
-  sideBar.draw();
+  sideBar.draw(oldMap);
 
   requestAnimationFrame(animate);
 }
