@@ -2,7 +2,7 @@ import { obstacles } from "./overWorld.js";
 import { collChecker } from "./functions.js";
 
 class Monster {
-  constructor(map, bundaries) {
+  constructor(map, bundaries, maxDist) {
     this.x = (Math.floor(Math.random() * 24) + 2) * 32 + 8;
     this.y = (Math.floor(Math.random() * 10) + 1) * 32 + 8;
     this.map = map;
@@ -11,6 +11,8 @@ class Monster {
     this.isColliding = false;
     this.isExiting = false;
     this.bundaries = bundaries;
+    this.maxDist = 64;
+    this.dist = 0;
   }
   randomDirection() {
     this.direction = Math.floor(Math.random() * 4);
@@ -20,6 +22,12 @@ class Monster {
   }
   move() {
     if (!this.isColliding) {
+
+      if (this.dist > this.maxDist) {
+        this.randomDirection();
+        this.dist = 0;
+      }
+
       if (this.direction === 0) {
         var nextX = this.x + 1;
         this.checkBundaries(nextX, this.y) === false && this.checkCollision(nextX, this.y).isColliding === false
@@ -44,6 +52,7 @@ class Monster {
         ? this.y -= 1
         : this.randomDirection();
       }
+      this.dist += 1;
     }
     else {
       this.randomDirection();
