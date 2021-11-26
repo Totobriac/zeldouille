@@ -19,24 +19,15 @@ class  SideBar {
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
 
     this.ctx.fillStyle = this.mapColor;
-    this.ctx.fillRect(this.x + this.mapOffset , this.height - this.mapHeight - this.mapOffset + 8, this.width - this.mapOffset * 2 , this.mapHeight);
+    this.ctx.fillRect(this.x + this.mapOffset ,
+                      this.height - this.mapHeight - this.mapOffset + 8,
+                      this.width - this.mapOffset * 2 ,
+                      this.mapHeight);
 
     this.ctx.font = "bold 30px pixel";
     this.ctx.fillStyle = "red";
     this.ctx.textAlign = "center";
     this.ctx.fillText("-LIFE-", 1052, 50);
-
-    this.ctx.fillStyle = "green";
-
-    var line = Math.floor(oldMap / 3);
-    var column = oldMap - line * 3;
-
-    this.ctx.fillRect(this.x + this.mapOffset +( column * 77) + 38 , this.height - this.mapHeight - this.mapOffset + 28 + (line * 40),10,10);
-
-
-    this.ctx.fillStyle = "red";
-
-
 
     var fullHeart = Math.floor(zelda.life/2);
     var halfHeart = zelda.life - fullHeart * 2;
@@ -51,6 +42,49 @@ class  SideBar {
     for (let i = 0; i < this.hearts.length; i ++) {
       this.ctx.drawImage(itemsSprite, 28 * this.hearts[i],0 ,28,32, 990 + i * 31,80,28,32)
     }
+
+    this.ctx.fillStyle = "green";
+    var line = Math.floor(oldMap / 3);
+    var column = oldMap - line * 3;
+
+    this.ctx.fillRect(this.x + this.mapOffset +( column * 77) + 38 ,
+                      this.height - this.mapHeight - this.mapOffset + 28 + (line * 40),
+                      10,
+                      10);
+
+    this.ctx.fillStyle = "rgb(51, 51, 153)";
+    this.ctx.fillRect(1100, 128, 67,100);
+
+    this.ctx.fillStyle = "black";
+    this.ctx.fillRect(1108, 136, 51,84);
+
+    this.ctx.fillRect(1100, 128,4,4);
+    this.ctx.fillRect(1163, 128, 4,4);
+    this.ctx.fillRect(1100, 224, 4,4);
+    this.ctx.fillRect(1163, 224, 4,4);
+    this.ctx.fillRect(1122,118,22,22);
+
+    this.ctx.font = "30px pixel";
+    this.ctx.fillStyle = "white";
+    this.ctx.fillText("A", 1134, 140);
+
+
+    this.ctx.fillStyle = "rgb(51, 51, 153)";
+    this.ctx.fillRect(1020, 128, 67,100);
+
+    this.ctx.fillStyle = "black";
+    this.ctx.fillRect(1028, 136, 51,84);
+
+    this.ctx.fillRect(1020, 128,4,4);
+    this.ctx.fillRect(1083, 128, 4,4);
+    this.ctx.fillRect(1020, 224, 4,4);
+    this.ctx.fillRect(1083, 224, 4,4);
+    this.ctx.fillRect(1042,118,22,22);
+
+    this.ctx.font = "30px pixel";
+    this.ctx.fillStyle = "white";
+    this.ctx.fillText("B", 1054, 140);
+
   }
 }
 
