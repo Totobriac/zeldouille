@@ -1,6 +1,9 @@
 var itemsSprite = new Image();
 itemsSprite.src = "./heart.png";
 
+var swordSprite = new Image();
+swordSprite.src = "./sword.png";
+
 class  SideBar {
   constructor(ctx) {
     this.x = 912;
@@ -66,7 +69,7 @@ class  SideBar {
 
     this.ctx.font = "30px pixel";
     this.ctx.fillStyle = "white";
-    this.ctx.fillText("A", 1134, 140);
+    this.ctx.fillText("A", 1135, 140);
 
 
     this.ctx.fillStyle = "rgb(51, 51, 153)";
@@ -84,6 +87,8 @@ class  SideBar {
     this.ctx.font = "30px pixel";
     this.ctx.fillStyle = "white";
     this.ctx.fillText("B", 1054, 140);
+
+    this.ctx.drawImage(swordSprite, 96, 0, 48,48, 1104, 145, 64,64)
 
   }
 }
