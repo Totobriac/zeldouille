@@ -9,3 +9,8 @@ body {
     display: flex;
     justify-content: center;
 }
+
+@font-face {
+    font-family: pixel;
+    src: url("./PixelEmulator-xq08.ttf");
+}
