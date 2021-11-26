@@ -29,6 +29,7 @@ class Hero {
     this.isAttacking = false;
     this.isHit = false;
     this.hitTickCount = 0;
+    this.life = 8;
   }
   draw() {
     this.hitAnimation();
@@ -50,7 +51,10 @@ class Hero {
     if (direction != undefined) this.direction = direction;
     this.enemyCollison = collChecker(this.x, this.y, monstersList);
     if (this.enemyCollison.isColliding === true) {
-      if (this.isHit === false) this.isHit = true;
+      if (this.isHit === false) {
+        this.isHit = true;
+        this.life --;
+      }
       var dir = this.enemyCollison.object.direction;
       if (dir === 0) {
         this.x += this.wallBounce(1, 0);
@@ -96,7 +100,10 @@ class Hero {
 
       this.enemyCollison = collChecker(this.x, this.y, monstersList);
       if (this.enemyCollison.isColliding === true) {
-        if (this.isHit === false) this.isHit = true;
+        if (this.isHit === false) {
+          this.isHit = true;
+          this.life --;
+        }
         if (direction === 0) {
           this.y -= this.wallBounce(0, -1);
         } else if (direction === 1) {

@@ -12,8 +12,9 @@ class  SideBar {
     this.mapOffset = 24;
     this.mapHeight = 120;
     this.ctx = ctx;
+    this.hearts = [0,0,0,0];
   }
-  draw(oldMap) {
+  draw(oldMap, zelda) {
     this.ctx.fillStyle = this.backColor;
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
 
@@ -32,8 +33,24 @@ class  SideBar {
 
     this.ctx.fillRect(this.x + this.mapOffset +( column * 77) + 38 , this.height - this.mapHeight - this.mapOffset + 28 + (line * 40),10,10);
 
+
     this.ctx.fillStyle = "red";
-    this.ctx.drawImage(itemsSprite, 28,0 ,28,32, 980,100,28,32)
+
+
+
+    var fullHeart = Math.floor(zelda.life/2);
+    var halfHeart = zelda.life - fullHeart * 2;
+    var emptyHeart = 4 - fullHeart - halfHeart;
+    if (halfHeart === 1) {
+      this.hearts.fill(2, 4 - emptyHeart);
+      this.hearts.splice(fullHeart, 1, 1)
+    } else {
+      this.hearts.fill(2, 4 - emptyHeart);
+    }
+
+    for (let i = 0; i < this.hearts.length; i ++) {
+      this.ctx.drawImage(itemsSprite, 28 * this.hearts[i],0 ,28,32, 990 + i * 31,80,28,32)
+    }
   }
 }
 

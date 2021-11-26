@@ -83,7 +83,7 @@ function animate() {
     moveMap();
   }
 
-  sideBar.draw(oldMap);
+  sideBar.draw(oldMap, zelda);
 
   requestAnimationFrame(animate);
 }
