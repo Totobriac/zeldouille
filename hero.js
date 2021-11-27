@@ -1,4 +1,4 @@
-import { obstacles, zobi, monstersList } from "./overWorld.js";
+import { obstacles, zobi, monstersList, oldMap } from "./overWorld.js";
 
 // import {obstacles} from "./cave.js"
 import { collChecker } from "./functions.js";
@@ -131,7 +131,7 @@ class Hero {
   }
   wallBounce(dirX, dirY) {
     for (let i = 0; i < 48; i++) {
-      var exit = checkExit(this.x + dirX * i, this.y + dirY * i);
+      var exit = checkExit(this.x + dirX * i, this.y + dirY * i,oldMap );
       var bounce = collChecker(this.x + dirX * i, this.y + dirY * i, obstacles);
       if (bounce.isColliding === true || exit != undefined) return i - 1;
     }

@@ -50,6 +50,8 @@ function moveMap() {
 }
 
 function animate() {
+
+  console.log(oldMap)
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (isInCave === false)drawTiles(ctx);

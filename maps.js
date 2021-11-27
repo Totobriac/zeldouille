@@ -142,7 +142,7 @@ var mainMap = [map1, map2, map3,
 
 function checkExit(x, y,map) {
   var actualTile = getActualTile(x,y);
-
+  console.log(mainMap[map][actualTile], map)
   if (mainMap[map][actualTile] === 10 && map === 3) {
     return(4);
   }
