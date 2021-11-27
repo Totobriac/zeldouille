@@ -1,6 +1,7 @@
 import { mainMap } from "./maps.js";
 import { spawnMonsters } from "./ghouls.js";
 import { getObstaclesList, getTile } from "./functions.js";
+import {map} from "./script.js";
 
 var tiles = new Image();
 tiles.src = "./overworldtiles_no_space.png";
@@ -16,17 +17,14 @@ var leftRight = 904;
 var mapMove = [moveLeft, moveRight, moveUp, moveDown];
 var actualMap = mainMap[oldMap];
 var monstersList = [];
-var obstacles = [];
-
 var zob = 0;
-
 var zobi = false;
 
 
 
 function drawTiles(ctx) {
 
-  obstacles = getObstaclesList(mainMap[oldMap]);
+  map.obstacles = getObstaclesList(mainMap[oldMap]);
 
   upDown === 8 ? xOffset += direction : yOffset += direction;
 
@@ -121,4 +119,4 @@ function monsterMayem() {
   monstersList = [];
 }
 
-export { drawTiles, mapMove, oldMap, monstersList, monsterMayem, obstacles, zobi};
+export { drawTiles, mapMove, oldMap, monstersList, monsterMayem, zobi};

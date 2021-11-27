@@ -1,6 +1,6 @@
 import { Hero } from "./hero.js";
 import { drawTiles, mapMove, monstersList, monsterMayem,oldMap } from "./overWorld.js";
-import { checkExit } from "./maps.js";
+import { checkExit, Map } from "./maps.js";
 import {SideBar} from "./sideBar.js";
 import {drawCave} from "./cave.js";
 
@@ -12,6 +12,7 @@ canvas.height = 400;
 
 var zelda = new Hero(400, 172, 32,ctx);
 var sideBar = new SideBar(ctx);
+var map = new Map();
 
 var monstersIndexList = [];
 var exitTile;
@@ -49,16 +50,25 @@ function moveMap() {
   mapMove[exitTile]();
 }
 
+function setCave() {
+  isInCave = true
+}
+
 function animate() {
 
-  console.log(oldMap)
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  if (isInCave === false)drawTiles(ctx);
+  if (isInCave === false) drawTiles(ctx);
 
   if (exitTile === 4) {
-    drawCave(0, ctx)
-  };
+    // drawCave(0, ctx);
+    // isInCave = true;
+    setCave()
+  }
+
+  if(isInCave === true) {
+     drawCave(0, ctx);
+  }
 
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, 8);
@@ -87,11 +97,11 @@ function animate() {
     moveMap();
   };
 
-
-
   sideBar.draw(oldMap, zelda);
 
   requestAnimationFrame(animate);
 }
 
 animate();
+
+export {map};

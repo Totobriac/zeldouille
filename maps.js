@@ -135,6 +135,11 @@ var map9 =
     19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19,
   ];
 
+ class Map {
+   constructor() {
+   this.obstacles;
+ }
+ }
 
 var mainMap = [map1, map2, map3,
               map4, map5, map6,
@@ -142,8 +147,8 @@ var mainMap = [map1, map2, map3,
 
 function checkExit(x, y,map) {
   var actualTile = getActualTile(x,y);
-  console.log(mainMap[map][actualTile], map)
   if (mainMap[map][actualTile] === 10 && map === 3) {
+
     return(4);
   }
   if (x < 40) {
@@ -167,4 +172,4 @@ function getActualTile(x,y) {
   return (line * 28) + column;
 }
 
-export { mainMap, checkExit };
+export {Map, mainMap, checkExit };

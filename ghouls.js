@@ -1,5 +1,5 @@
-import { obstacles } from "./overWorld.js";
 import { collChecker } from "./functions.js";
+import {map} from "./script.js";
 
 class Monster {
   constructor(map, bundaries, maxDist) {
@@ -60,7 +60,7 @@ class Monster {
     }
   }
   checkCollision(x, y) {
-    return collChecker(x, y, obstacles);
+    return collChecker(x, y, map.obstacles);
   }
   checkBundaries(x, y) {
     if (x >= this.bundaries[0] * 32 + 8 &&
