@@ -88,8 +88,9 @@ class  SideBar {
     this.ctx.fillStyle = "white";
     this.ctx.fillText("B", 1054, 140);
 
-    this.ctx.drawImage(swordSprite, 96, 0, 48,48, 1104, 145, 64,64)
-
+    if (zelda.hasSword){
+      this.ctx.drawImage(swordSprite, 96, 0, 48,48, 1104, 145, 64,64);
+    }
   }
 }
 

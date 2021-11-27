@@ -1,6 +1,6 @@
 import { mainMap } from "./maps.js";
 import { spawnMonsters } from "./ghouls.js";
-import { getObstaclesList } from "./functions.js";
+import { getObstaclesList, getTile } from "./functions.js";
 
 var tiles = new Image();
 tiles.src = "./overworldtiles_no_space.png";
@@ -22,11 +22,7 @@ var zob = 0;
 
 var zobi = false;
 
-function getTile(tile) {
-  var line = Math.floor(tile / 6);
-  var column = tile - (line * 6);
-  return [Math.floor(line * 16 + line + 1), Math.floor(column * 16 + column + 1)];
-}
+
 
 function drawTiles(ctx) {
 
@@ -36,7 +32,6 @@ function drawTiles(ctx) {
 
   ctx.fillStyle = "rgb(116,116,116)";
   ctx.fillRect(8, 8, 896, 384);
-
   for (let i = 0; i < mapTiles; i++) {
     var selectedTile = getTile(mainMap[oldMap][i]);
     var line = Math.floor(i / 28);

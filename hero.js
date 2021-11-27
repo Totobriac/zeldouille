@@ -1,4 +1,6 @@
 import { obstacles, zobi, monstersList } from "./overWorld.js";
+
+// import {obstacles} from "./cave.js"
 import { collChecker } from "./functions.js";
 import { checkExit } from "./maps.js";
 
@@ -30,6 +32,7 @@ class Hero {
     this.isHit = false;
     this.hitTickCount = 0;
     this.life = 8;
+    this.hasSword = false;
   }
   draw() {
     this.hitAnimation();

@@ -1,7 +1,7 @@
 function getObstaclesList(map) {
   var obstacles = [];
   for (let i = 0; i < map.length; i++) {
-    if (map[i] != 2) {
+    if (map[i] != 2 && map[i] != 10) {
       var line = Math.floor(i / 28);
       var column = i - (line * 28);
       obstacles.push({ x: column * 32 + 8, y: line * 32 + 8 });
@@ -24,4 +24,10 @@ function collChecker(x, y, objects) {
   return { isColliding: colliding };
 }
 
-export { getObstaclesList, collChecker };
+function getTile(tile) {
+  var line = Math.floor(tile / 6);
+  var column = tile - (line * 6);
+  return [Math.floor(line * 16 + line + 1), Math.floor(column * 16 + column + 1)];
+}
+
+export { getObstaclesList, collChecker, getTile };
