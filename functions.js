@@ -1,7 +1,7 @@
 function getObstaclesList(map) {
   var obstacles = [];
   for (let i = 0; i < map.length; i++) {
-    if (map[i] != 2 && map[i] != 10) {
+    if (map[i] != 2 && map[i] != 10 && map[i] != 53) {
       var line = Math.floor(i / 28);
       var column = i - (line * 28);
       obstacles.push({ x: column * 32 + 8, y: line * 32 + 8 });
