@@ -2,6 +2,7 @@ import { Hero } from "./hero.js";
 import { drawTiles, mapMove, monsterMayem } from "./overWorld.js";
 import { checkExit, Map } from "./map.js";
 import { SideBar } from "./sideBar.js";
+import { Control } from "./controls.js";
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -12,38 +13,10 @@ canvas.height = 400;
 var zelda = new Hero(90, 192, 32, ctx);
 var sideBar = new SideBar(ctx);
 var map = new Map();
+var control = new Control(zelda);
 
 var monstersIndexList = [];
 var exitTile;
-var direction;
-
-
-
-window.addEventListener('keydown', function (e) {
-  zelda.isMoving = true;
-  if (e.code === "ArrowDown") {
-    direction = 0;
-  }
-  if (e.code === "ArrowUp") {
-    direction = 1;
-  }
-  if (e.code === "ArrowRight") {
-    direction = 2;
-  }
-  if (e.code === "ArrowLeft") {
-    direction = 3;
-  }
-  if (e.code === "Space" && zelda.hasSword) {
-    if (e.repeat) return;
-    zelda.isAttacking = true;
-  }
-});
-
-window.addEventListener('keyup', function (e) {
-  zelda.isMoving = false;
-  direction = undefined;
-});
-
 
 function animate() {
 
@@ -58,7 +31,7 @@ function animate() {
   ctx.fillRect(904, 0, 296, canvas.height);
 
   zelda.attack();
-  zelda.move(direction);
+  zelda.move();
   zelda.draw();
 
   ctx.fillStyle = "red";

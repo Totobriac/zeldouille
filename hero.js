@@ -21,6 +21,7 @@ class Hero {
     this.enemyCollison = false;
     this.exit;
     this.direction = 2;
+    this.lastDirection = 2;
     this.tickCount = 0;
     this.maxTickCount = 12;
     this.totalAttackFrame = 3;
@@ -34,6 +35,7 @@ class Hero {
     this.hasSword = false;
   }
   draw() {
+
     this.hitAnimation();
 
     if (this.isAttacking === false) {
@@ -45,12 +47,14 @@ class Hero {
       else {
         if (this.isMoving === true || zobi === true) this.tickCount += 1;
       }
-      this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.direction, 32, 32, this.x, this.y, 32, 32)
+      this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.lastDirection, 32, 32, this.x, this.y, 32, 32)
     }
   }
 
-  move(direction) {
-    if (direction != undefined) this.direction = direction;
+  move() { 
+
+    if (this.direction != undefined) this.lastDirection = this.direction;
+
     this.enemyCollison = collChecker(this.x, this.y, map.monsters);
     if (this.enemyCollison.isColliding === true) {
       if (this.isHit === false) {
@@ -70,28 +74,28 @@ class Hero {
     }
 
     if (zobi === false) {
-      if (direction === 2) {
+      if (this.direction === 2) {
         this.y += this.align(this.y + 8, 16);
         var nextX = this.x + 4;
         this.wallCollision = this.checkCollision(nextX, this.y).isColliding;
         if (this.wallCollision === false) {
           this.x += 4;
         }
-      } else if (direction === 3) {
+      } else if (this.direction === 3) {
         this.y -= this.align(this.y + 8, 16);
         var nextX = this.x - 4;
         this.wallCollision = this.checkCollision(nextX, this.y).isColliding;
         if (this.wallCollision === false) {
           this.x -= 4;
         }
-      } else if (direction === 0) {
+      } else if (this.direction === 0) {
         this.x += this.align(this.x + 8, 16);
         var nextY = this.y + 4;
         this.wallCollision = this.checkCollision(this.x, nextY).isColliding;
         if (this.wallCollision === false) {
           this.y += 4;
         }
-      } else if (direction === 1) {
+      } else if (this.direction === 1) {
         this.x -= this.align(this.x + 8, 16);
         var nextY = this.y - 4;
         this.wallCollision = this.checkCollision(this.x, nextY).isColliding;
@@ -106,19 +110,19 @@ class Hero {
           this.isHit = true;
           this.life--;
         }
-        if (direction === 0) {
+        if (this.direction === 0) {
           this.y -= this.wallBounce(0, -1);
-        } else if (direction === 1) {
+        } else if (this.direction === 1) {
           this.y += this.wallBounce(0, 1);
-        } else if (direction === 2) {
+        } else if (this.direction === 2) {
           this.x -= this.wallBounce(-1, 0);
-        } else if (direction === 3) {
+        } else if (this.direction === 3) {
           this.x += this.wallBounce(1, 0);
         }
       }
 
     } else {
-      if (direction != undefined) this.exit = direction;
+      if (this.direction != undefined) this.exit = this.direction;
       if (this.exit === 3 && this.x < 840) this.x += 4;
       else if (this.exit === 2 && this.x > 40) this.x -= 4;
       else if (this.exit === 0 && this.y > 40) this.y -= 2;
@@ -206,6 +210,5 @@ class Hero {
     }
   }
 }
-
 
 export { Hero };
