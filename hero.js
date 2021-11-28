@@ -1,7 +1,7 @@
 import { zobi } from "./overWorld.js";
-import { map } from "./script.js"
+import { map } from "./script.js";
 import { collChecker } from "./functions.js";
-import { checkExit } from "./maps.js";
+import { checkExit } from "./map.js";
 
 var zeldaSprite = new Image();
 zeldaSprite.src = "./dino_up_tail.png";

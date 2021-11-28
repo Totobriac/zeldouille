@@ -20,7 +20,6 @@ class SideBar {
     this.hearts = [0, 0, 0, 0];
   }
   draw() {
-    console.log(zelda);
     this.ctx.fillStyle = this.backColor;
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
 

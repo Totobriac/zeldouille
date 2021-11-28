@@ -1,19 +1,20 @@
 import { mainMap } from "./maps.js";
 import { spawnMonsters } from "./ghouls.js";
 import { getObstaclesList, getTile } from "./functions.js";
-import { map } from "./script.js";
+import { map, zelda } from "./script.js";
+
 
 var tiles = new Image();
-tiles.src = "./overworldtiles_no_space.png";
+tiles.src = "./sprites.png";
 
+var newMap;
 var xOffset = 0;
 var yOffset = 0;
 var mapTiles = 336;
-var newMap;
 var direction = 0;
 var upDown = 392;
 var leftRight = 904;
-var mapMove = [moveLeft, moveRight, moveUp, moveDown];
+var mapMove = [moveLeft, moveRight, moveUp, moveDown, enterCave, exitCave];
 var zob = 0;
 var zobi = false;
 
@@ -25,7 +26,7 @@ function drawTiles(ctx) {
 
   upDown === 8 ? xOffset += direction : yOffset += direction;
 
-  ctx.fillStyle = "rgb(116,116,116)";
+  map.actual != 9 ? ctx.fillStyle = "rgb(116,116,116)" : ctx.fillStyle = "black";
   ctx.fillRect(8, 8, 896, 384);
 
   for (let i = 0; i < mapTiles; i++) {
@@ -46,16 +47,14 @@ function drawTiles(ctx) {
       yOffset = 0;
       map.actual = newMap;
       direction = 0;
-      var actualMap = mainMap[map.actual];
-      map.monsters = spawnMonsters(actualMap, ctx);
+      map.monsters = spawnMonsters(mainMap[map.actual], ctx);
     }
     if (xOffset === 888 || xOffset === -896) {
       zobi = false;
       xOffset = 0;
       map.actual = newMap;
       direction = 0;
-      var actualMap = mainMap[map.actual];
-      map.monsters = spawnMonsters(actualMap, ctx);
+      map.monsters = spawnMonsters(mainMap[map.actual], ctx);
     }
   }
 }
@@ -100,6 +99,19 @@ function moveLeft() {
   zob = 0;
 }
 
+function enterCave() {
+  map.actual = 9;
+  zelda.x = 440;
+  zelda.y = 328;
+}
+
+function exitCave() {
+  map.actual = 3;
+  zelda.x = 192;
+  zelda.y = 94;
+}
+
+
 function nextMap(side) {
   switch (side) {
     case 0:
@@ -112,6 +124,7 @@ function nextMap(side) {
       return map.actual - 1;
   }
 }
+
 
 function monsterMayem() {
   map.monsters = [];

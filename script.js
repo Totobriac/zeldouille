@@ -1,8 +1,7 @@
 import { Hero } from "./hero.js";
 import { drawTiles, mapMove, monsterMayem } from "./overWorld.js";
-import { checkExit, Map } from "./maps.js";
+import { checkExit, Map } from "./map.js";
 import { SideBar } from "./sideBar.js";
-import { drawCave } from "./cave.js";
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -10,14 +9,14 @@ var ctx = canvas.getContext("2d");
 canvas.width = 1200;
 canvas.height = 400;
 
-var zelda = new Hero(400, 172, 32, ctx);
+var zelda = new Hero(90, 192, 32, ctx);
 var sideBar = new SideBar(ctx);
 var map = new Map();
 
 var monstersIndexList = [];
 var exitTile;
 var direction;
-var isInCave = false;
+
 
 
 window.addEventListener('keydown', function (e) {
@@ -46,28 +45,12 @@ window.addEventListener('keyup', function (e) {
 });
 
 
-function moveMap() {
-  mapMove[exitTile]();
-}
-
-function setCave() {
-  isInCave = true;
-}
-
 function animate() {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  if (isInCave === false) drawTiles(ctx);
-
-  if (exitTile === 4) {
-    setCave()
-  }
-
-  if (isInCave === true) {
-    drawCave(0, ctx);
-  }
-
+  drawTiles(ctx);
+  
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, 8);
   ctx.fillRect(0, 392, canvas.width, 8);
@@ -90,9 +73,9 @@ function animate() {
 
   exitTile = checkExit(zelda.x, zelda.y, map.actual);
 
-  if (exitTile != undefined && exitTile != 4) {
+  if (exitTile != undefined) {
     monsterMayem();
-    moveMap();
+    mapMove[exitTile]();
   };
 
   sideBar.draw();
