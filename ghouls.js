@@ -1,5 +1,5 @@
 import { collChecker } from "./functions.js";
-import {map} from "./script.js";
+import { map } from "./script.js";
 
 class Monster {
   constructor(map, bundaries, maxDist) {
@@ -37,20 +37,20 @@ class Monster {
       else if (this.direction === 1) {
         var nextX = this.x - 1;
         this.checkBundaries(nextX, this.y) === false && this.checkCollision(nextX, this.y).isColliding === false
-        ? this.x -= 1
-        : this.randomDirection();
+          ? this.x -= 1
+          : this.randomDirection();
       }
       else if (this.direction === 2) {
         var nextY = this.y + 1;
         this.checkBundaries(this.x, nextY) === false && this.checkCollision(this.x, nextY).isColliding === false
-        ? this.y += 1
-        : this.randomDirection();
+          ? this.y += 1
+          : this.randomDirection();
       }
       else if (this.direction === 3) {
         var nextY = this.y - 1;
         this.checkBundaries(this.x, nextY) === false && this.checkCollision(this.x, nextY).isColliding === false
-        ? this.y -= 1
-        : this.randomDirection();
+          ? this.y -= 1
+          : this.randomDirection();
       }
       this.dist += 1;
     }

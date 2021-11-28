@@ -1,8 +1,8 @@
 import { Hero } from "./hero.js";
-import { drawTiles, mapMove, monstersList, monsterMayem,oldMap } from "./overWorld.js";
+import { drawTiles, mapMove, monsterMayem } from "./overWorld.js";
 import { checkExit, Map } from "./maps.js";
-import {SideBar} from "./sideBar.js";
-import {drawCave} from "./cave.js";
+import { SideBar } from "./sideBar.js";
+import { drawCave } from "./cave.js";
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -10,7 +10,7 @@ var ctx = canvas.getContext("2d");
 canvas.width = 1200;
 canvas.height = 400;
 
-var zelda = new Hero(400, 172, 32,ctx);
+var zelda = new Hero(400, 172, 32, ctx);
 var sideBar = new SideBar(ctx);
 var map = new Map();
 
@@ -35,8 +35,8 @@ window.addEventListener('keydown', function (e) {
     direction = 3;
   }
   if (e.code === "Space" && zelda.hasSword) {
-   if (e.repeat) return;
-   zelda.isAttacking = true;
+    if (e.repeat) return;
+    zelda.isAttacking = true;
   }
 });
 
@@ -51,7 +51,7 @@ function moveMap() {
 }
 
 function setCave() {
-  isInCave = true
+  isInCave = true;
 }
 
 function animate() {
@@ -61,13 +61,11 @@ function animate() {
   if (isInCave === false) drawTiles(ctx);
 
   if (exitTile === 4) {
-    // drawCave(0, ctx);
-    // isInCave = true;
     setCave()
   }
 
-  if(isInCave === true) {
-     drawCave(0, ctx);
+  if (isInCave === true) {
+    drawCave(0, ctx);
   }
 
   ctx.fillStyle = "white";
@@ -81,27 +79,27 @@ function animate() {
   zelda.draw();
 
   ctx.fillStyle = "red";
-  if (monstersList) {
+  if (map.monsters) {
     monstersIndexList = [];
-    for (let i = 0; i < monstersList.length; i++) {
-      ctx.fillRect(monstersList[i].x, monstersList[i].y, 32, 32);
-      monstersIndexList.push(monstersList[i].index);
-      monstersList[i].move();
+    for (let i = 0; i < map.monsters.length; i++) {
+      ctx.fillRect(map.monsters[i].x, map.monsters[i].y, 32, 32);
+      monstersIndexList.push(map.monsters[i].index);
+      map.monsters[i].move();
     }
   };
 
-  exitTile = checkExit(zelda.x, zelda.y,oldMap);
+  exitTile = checkExit(zelda.x, zelda.y, map.actual);
 
   if (exitTile != undefined && exitTile != 4) {
     monsterMayem();
     moveMap();
   };
 
-  sideBar.draw(oldMap, zelda);
+  sideBar.draw();
 
   requestAnimationFrame(animate);
 }
 
 animate();
 
-export {map};
+export { map, zelda };

@@ -1,11 +1,9 @@
-import {getTile} from "./functions.js";
-
 var map1 =
   [19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19,
     19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19,
     19, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
     19, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 2, 7, 2,
-    19, 2, 2, 46, 2, 2, 46, 2, 2, 2, 2,2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 2, 2,
+    19, 2, 2, 46, 2, 2, 46, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 2, 2,
     19, 2, 46, 46, 2, 46, 2, 2, 2, 2, 2, 3, 4, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
     19, 2, 46, 2, 2, 46, 2, 2, 2, 2, 2, 9, 10, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
     19, 2, 2, 2, 2, 2, 2, 2, 2, 46, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
@@ -90,7 +88,7 @@ var map6 =
     19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 2, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19,
   ];
 
-  var map7 =
+var map7 =
   [19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 2, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19,
     19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 2, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19,
     19, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
@@ -135,41 +133,44 @@ var map9 =
     19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19,
   ];
 
- class Map {
-   constructor() {
-   this.obstacles;
- }
- }
+class Map {
+  constructor() {
+    this.actual = 3;
+    this.obstacles;
+    this.monsters = [];
+  }
+}
 
-var mainMap = [map1, map2, map3,
-              map4, map5, map6,
-              map7, map8, map9];
+var mainMap = [
+  map1, map2, map3,
+  map4, map5, map6,
+  map7, map8, map9
+];
 
-function checkExit(x, y,map) {
-  var actualTile = getActualTile(x,y);
+function checkExit(x, y, map) {
+  var actualTile = getActualTile(x, y);
   if (mainMap[map][actualTile] === 10 && map === 3) {
-
-    return(4);
+    return (4);
   }
   if (x < 40) {
-    return(0);
+    return (0);
   }
   if (x > 840) {
-    return(1);
+    return (1);
   }
   if (y < 40) {
-    return(2);
+    return (2);
   }
   if (y > 328) {
-    return(3);
+    return (3);
   }
   else return undefined
 }
 
-function getActualTile(x,y) {
-  var line = Math.floor((y-8) / 32);
-  var column = Math.floor((x-8) / 32);
+function getActualTile(x, y) {
+  var line = Math.floor((y - 8) / 32);
+  var column = Math.floor((x - 8) / 32);
   return (line * 28) + column;
 }
 
-export {Map, mainMap, checkExit };
+export { Map, mainMap, checkExit };

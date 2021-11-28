@@ -1,5 +1,5 @@
-import {  zobi, monstersList, oldMap } from "./overWorld.js";
-import {map} from "./script.js"
+import { zobi } from "./overWorld.js";
+import { map } from "./script.js"
 import { collChecker } from "./functions.js";
 import { checkExit } from "./maps.js";
 
@@ -51,11 +51,11 @@ class Hero {
 
   move(direction) {
     if (direction != undefined) this.direction = direction;
-    this.enemyCollison = collChecker(this.x, this.y, monstersList);
+    this.enemyCollison = collChecker(this.x, this.y, map.monsters);
     if (this.enemyCollison.isColliding === true) {
       if (this.isHit === false) {
         this.isHit = true;
-        this.life --;
+        this.life--;
       }
       var dir = this.enemyCollison.object.direction;
       if (dir === 0) {
@@ -100,11 +100,11 @@ class Hero {
         }
       }
 
-      this.enemyCollison = collChecker(this.x, this.y, monstersList);
+      this.enemyCollison = collChecker(this.x, this.y, map.monsters);
       if (this.enemyCollison.isColliding === true) {
         if (this.isHit === false) {
           this.isHit = true;
-          this.life --;
+          this.life--;
         }
         if (direction === 0) {
           this.y -= this.wallBounce(0, -1);
@@ -130,7 +130,7 @@ class Hero {
   }
   wallBounce(dirX, dirY) {
     for (let i = 0; i < 48; i++) {
-      var exit = checkExit(this.x + dirX * i, this.y + dirY * i,oldMap );
+      var exit = checkExit(this.x + dirX * i, this.y + dirY * i, map.actual);
       var bounce = collChecker(this.x + dirX * i, this.y + dirY * i, map.obstacles);
       if (bounce.isColliding === true || exit != undefined) return i - 1;
     }
@@ -184,9 +184,9 @@ class Hero {
           yHitOffset = 0;
           break;
       }
-      var hasHitMonster = collChecker(this.x + xHitOffset, this.y + yHitOffset, monstersList);
+      var hasHitMonster = collChecker(this.x + xHitOffset, this.y + yHitOffset, map.monsters);
       if (hasHitMonster.isColliding === true) {
-        monstersList.splice(hasHitMonster.index, 1)
+        map.monsters.splice(hasHitMonster.index, 1)
       }
       this.ctx.drawImage(zeldaAttackSprite, 54 * this.frame, 56 * this.direction, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56)
     }

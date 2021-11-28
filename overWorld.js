@@ -1,7 +1,7 @@
 import { mainMap } from "./maps.js";
 import { spawnMonsters } from "./ghouls.js";
 import { getObstaclesList, getTile } from "./functions.js";
-import {map} from "./script.js";
+import { map } from "./script.js";
 
 var tiles = new Image();
 tiles.src = "./overworldtiles_no_space.png";
@@ -9,14 +9,11 @@ tiles.src = "./overworldtiles_no_space.png";
 var xOffset = 0;
 var yOffset = 0;
 var mapTiles = 336;
-var oldMap = 3;
 var newMap;
 var direction = 0;
 var upDown = 392;
 var leftRight = 904;
 var mapMove = [moveLeft, moveRight, moveUp, moveDown];
-var actualMap = mainMap[oldMap];
-var monstersList = [];
 var zob = 0;
 var zobi = false;
 
@@ -24,14 +21,15 @@ var zobi = false;
 
 function drawTiles(ctx) {
 
-  map.obstacles = getObstaclesList(mainMap[oldMap]);
+  map.obstacles = getObstaclesList(mainMap[map.actual]);
 
   upDown === 8 ? xOffset += direction : yOffset += direction;
 
   ctx.fillStyle = "rgb(116,116,116)";
   ctx.fillRect(8, 8, 896, 384);
+
   for (let i = 0; i < mapTiles; i++) {
-    var selectedTile = getTile(mainMap[oldMap][i]);
+    var selectedTile = getTile(mainMap[map.actual][i]);
     var line = Math.floor(i / 28);
     var column = i - (line * 28);
     ctx.drawImage(tiles, selectedTile[1], selectedTile[0], 16, 16,
@@ -46,18 +44,18 @@ function drawTiles(ctx) {
     if (yOffset === 390 || yOffset === -390) {
       zobi = false;
       yOffset = 0;
-      oldMap = newMap;
+      map.actual = newMap;
       direction = 0;
-      actualMap = mainMap[oldMap];
-      monstersList = spawnMonsters(actualMap, ctx);
+      var actualMap = mainMap[map.actual];
+      map.monsters = spawnMonsters(actualMap, ctx);
     }
     if (xOffset === 888 || xOffset === -896) {
       zobi = false;
       xOffset = 0;
-      oldMap = newMap;
+      map.actual = newMap;
       direction = 0;
-      actualMap = mainMap[oldMap];
-      monstersList = spawnMonsters(actualMap, ctx);
+      var actualMap = mainMap[map.actual];
+      map.monsters = spawnMonsters(actualMap, ctx);
     }
   }
 }
@@ -105,18 +103,18 @@ function moveLeft() {
 function nextMap(side) {
   switch (side) {
     case 0:
-      return (oldMap + 3);
+      return (map.actual + 3);
     case 1:
-      return (oldMap - 3);
+      return (map.actual - 3);
     case 2:
-      return oldMap + 1;
+      return map.actual + 1;
     case 3:
-      return oldMap - 1;
+      return map.actual - 1;
   }
 }
 
 function monsterMayem() {
-  monstersList = [];
+  map.monsters = [];
 }
 
-export { drawTiles, mapMove, oldMap, monstersList, monsterMayem, zobi};
+export { drawTiles, mapMove, monsterMayem, zobi };
