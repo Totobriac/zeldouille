@@ -22,7 +22,7 @@ var zobi = false;
 
 function drawTiles(ctx) {
 
-  map.obstacles = getObstaclesList(mainMap[map.actual]);
+  map.obstacles = getObstaclesList(mainMap[map.actual].bluePrint);
 
   upDown === 8 ? xOffset += direction : yOffset += direction;
 
@@ -30,13 +30,13 @@ function drawTiles(ctx) {
   ctx.fillRect(8, 8, 896, 384);
 
   for (let i = 0; i < mapTiles; i++) {
-    var selectedTile = getTile(mainMap[map.actual][i]);
+    var selectedTile = getTile(mainMap[map.actual].bluePrint[i]);
     var line = Math.floor(i / 28);
     var column = i - (line * 28);
     ctx.drawImage(tiles, selectedTile[1], selectedTile[0], 16, 16,
       Math.floor(column * 32 + 8 + xOffset), Math.floor(line * 32 + 8 + yOffset), 32, 32);
     if (newMap != undefined) {
-      var selectedTile = getTile(mainMap[newMap][i]);
+      var selectedTile = getTile(mainMap[newMap].bluePrint[i]);
       var line = Math.floor(i / 28);
       var column = i - (line * 28);
       ctx.drawImage(tiles, selectedTile[1], selectedTile[0], 16, 16,
@@ -47,16 +47,21 @@ function drawTiles(ctx) {
       yOffset = 0;
       map.actual = newMap;
       direction = 0;
-      map.monsters = spawnMonsters(mainMap[map.actual], ctx);
+      map.monsters = spawnMonsters(mainMap[map.actual].bluePrint, ctx);
     }
     if (xOffset === 888 || xOffset === -896) {
       zobi = false;
       xOffset = 0;
       map.actual = newMap;
       direction = 0;
-      map.monsters = spawnMonsters(mainMap[map.actual], ctx);
+      map.monsters = spawnMonsters(mainMap[map.actual].bluePrint, ctx);
     }
   }
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, 8);
+  ctx.fillRect(0, 392, canvas.width, 8);
+  ctx.fillRect(0, 0, 8, canvas.height);
+  ctx.fillRect(904, 0, 296, canvas.height);
 }
 
 function moveDown() {
@@ -110,7 +115,6 @@ function exitCave() {
   zelda.x = 192;
   zelda.y = 94;
 }
-
 
 function nextMap(side) {
   switch (side) {

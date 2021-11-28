@@ -3,18 +3,18 @@ import { mainMap } from "./maps.js";
 class Map {
   constructor() {
     this.actual = 3;
-    this.bluePrint = mainMap[3];
     this.obstacles;
     this.monsters = [];
   }
 }
 
 function checkExit(x, y, map) {
+  
   var actualTile = getActualTile(x, y);
-  if (mainMap[map][actualTile] === 10 && map === 3) {
+  if (mainMap[map].bluePrint[actualTile] === 10 && map === 3) {
     return (4);
   }
-  if (mainMap[map][actualTile] === 10 && map === 9) {
+  if (mainMap[map].bluePrint[actualTile] === 10 && map === 9) {
     return (5);
   }
   if (x < 40) {

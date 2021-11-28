@@ -85,4 +85,16 @@ function spawnMonsters(map) {
   return monsters;
 }
 
-export { spawnMonsters };
+function monsterAnimation(ctx) {
+  ctx.fillStyle = "red";
+  if (map.monsters) {
+    var monstersIndexList = [];
+    for (let i = 0; i < map.monsters.length; i++) {
+      ctx.fillRect(map.monsters[i].x, map.monsters[i].y, 32, 32);
+      monstersIndexList.push(map.monsters[i].index);
+      map.monsters[i].move();
+    }
+  };
+}
+
+export { spawnMonsters, monsterAnimation };

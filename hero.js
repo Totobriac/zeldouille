@@ -20,7 +20,7 @@ class Hero {
     this.wallCollision = false;
     this.enemyCollison = false;
     this.exit;
-    this.direction = 2;
+    this.direction;
     this.lastDirection = 2;
     this.tickCount = 0;
     this.maxTickCount = 12;
