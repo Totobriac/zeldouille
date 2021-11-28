@@ -1,10 +1,15 @@
 function getObstaclesList(map) {
   var obstacles = [];
-  for (let i = 0; i < map.length; i++) {
-    if (map[i] != 2 && map[i] != 10 && map[i] != 53) {
+  for (let i = 0; i < map.bluePrint.length; i++) {
+    if (map.bluePrint[i] != 2 && map.bluePrint[i] != 10 && map.bluePrint[i] != 53) {
       var line = Math.floor(i / 28);
       var column = i - (line * 28);
       obstacles.push({ x: column * 32 + 8, y: line * 32 + 8 });
+    }
+  }
+  if (map.itemsPng) {
+    for (let i = 0; i < map.itemsPng.length; i++) {
+      obstacles.push({ x: map.itemsPng[i].x, y: map.itemsPng[i].y });
     }
   }
   return obstacles;
@@ -18,7 +23,7 @@ function collChecker(x, y, objects) {
       colliding = false;
     }
     else {
-      return { isColliding: true, object: objects[i], index : i };
+      return { isColliding: true, object: objects[i], index: i };
     }
   }
   return { isColliding: colliding };

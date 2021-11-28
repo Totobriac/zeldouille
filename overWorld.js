@@ -22,7 +22,7 @@ var zobi = false;
 
 function drawTiles(ctx) {
 
-  map.obstacles = getObstaclesList(mainMap[map.actual].bluePrint);
+  map.obstacles = getObstaclesList(mainMap[map.actual]);
 
   upDown === 8 ? xOffset += direction : yOffset += direction;
 
@@ -128,7 +128,6 @@ function nextMap(side) {
       return map.actual - 1;
   }
 }
-
 
 function monsterMayem() {
   map.monsters = [];

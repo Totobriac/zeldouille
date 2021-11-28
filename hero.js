@@ -47,7 +47,7 @@ class Hero {
       else {
         if (this.isMoving === true || zobi === true) this.tickCount += 1;
       }
-      this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.lastDirection, 32, 32, this.x, this.y, 32, 32)
+      this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.lastDirection, 32, 32, this.x, this.y, 32, 32);
     }
   }
 

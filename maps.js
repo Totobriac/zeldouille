@@ -161,8 +161,9 @@ var swordCave = {
     ],
   itemsPng: [
     { img: 50, x: 438, y: 150 },
-    { img: 48, x: 264, y: 146 },
-    { img: 48, x: 616, y: 146 }]
+    { img: 48, x: 264, y: 146, frames: [48, 49] },
+    { img: 48, x: 616, y: 146, frames: [48, 49] },
+    { img: 54, x: 438, y: 200 }]
 }
 
 var mainMap = [
