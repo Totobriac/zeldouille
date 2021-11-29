@@ -13,7 +13,7 @@ sprites.src = "./sprites.png";
 
 var tickCount = 0;
 var textTickCount = 0;
-var maxTextTickCount = 6;
+var maxTextTickCount = 5;
 var maxTickCount = 12;
 var frame = 0;
 var index = 0;
@@ -53,7 +53,9 @@ function displayItemsPng(ctx) {
       for (let i = 0; i < index; i++) {
         ctx.font = "30px pixel";
         ctx.fillStyle = "white";
-        ctx.fillText(mainMap[map.actual].text.content[i], mainMap[map.actual].text.x + i * 25, mainMap[map.actual].text.y);
+        var breakLine = [];
+        i < mainMap[map.actual].text.lineBreak ? breakLine = [0,0]: breakLine = [450,24];
+        ctx.fillText(mainMap[map.actual].text.content[i], mainMap[map.actual].text.x + i * 25 - breakLine[0], mainMap[map.actual].text.y + breakLine[1]);
       }
     }
   }

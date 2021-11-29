@@ -4,7 +4,7 @@ import { collChecker } from "./functions.js";
 import { checkExit } from "./map.js";
 
 var zeldaSprite = new Image();
-zeldaSprite.src = "./dino_up_tail.png";
+zeldaSprite.src = "./dino.png";
 
 var zeldaAttackSprite = new Image();
 zeldaAttackSprite.src = "./sprite_sheet_tail.png";
@@ -51,7 +51,7 @@ class Hero {
     }
   }
 
-  move() { 
+  move() {
 
     if (this.direction != undefined) this.lastDirection = this.direction;
 
