@@ -1,8 +1,7 @@
 import { mainMap } from "./maps.js";
 import { spawnMonsters } from "./ghouls.js";
 import { getObstaclesList, getTile } from "./functions.js";
-import { map, zelda } from "./script.js";
-import { monsterAnimation } from "./ghouls.js";
+import { map } from "./script.js";
 
 var tiles = new Image();
 tiles.src = "./assets/sprites.png";

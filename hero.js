@@ -1,5 +1,6 @@
 import { map } from "./script.js";
 import { collChecker } from "./functions.js";
+import { checkAction } from "./map.js";
 
 var zeldaSprite = new Image();
 zeldaSprite.src = "./assets/dino.png";
@@ -132,7 +133,7 @@ class Hero {
   }
   wallBounce(dirX, dirY) {
     for (let i = 0; i < 48; i++) {
-      var exit = checkExit(this.x + dirX * i, this.y + dirY * i, map.actual);
+      var exit = checkAction(this.x + dirX * i, this.y + dirY * i, map.actual);
       var bounce = collChecker(this.x + dirX * i, this.y + dirY * i, map.obstacles);
       if (bounce.isColliding === true || exit != undefined) return i - 1;
     }
@@ -203,7 +204,7 @@ class Hero {
       else if (this.hitTickCount > 100) {
         this.hitTickCount = 0;
         this.isHit = false;
-        zeldaSprite.src = "./dino_up_tail.png";
+        zeldaSprite.src = "./assets/dino_up_tail.png";
       }
     }
   }

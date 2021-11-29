@@ -1,12 +1,6 @@
-import {
-  map
-} from "./script.js";
-import {
-  mainMap
-} from "./maps.js";
-import {
-  getTile
-} from "./functions.js";
+import { map } from "./script.js";
+import { mainMap } from "./maps.js";
+import { getTile } from "./functions.js";
 
 var sprites = new Image();
 sprites.src = "./assets/sprites.png";
@@ -43,21 +37,20 @@ function displayItemsPng(ctx) {
         32
       );
     }
-    if (mainMap[map.actual].text && mainMap[map.actual].hasEntered === false ) {
+    if (mainMap[map.actual].text && mainMap[map.actual].hasEntered === false) {
       if (textTickCount > maxTextTickCount) {
         textTickCount = 0;
-        if (index < mainMap[map.actual].text.content.length ) index ++
+        if (index < mainMap[map.actual].text.content.length) index++
       }
       for (let i = 0; i < index; i++) {
         ctx.font = "30px pixel";
         ctx.fillStyle = "white";
         var breakLine = [];
-        i < mainMap[map.actual].text.lineBreak ? breakLine = [0,0]: breakLine = [450,24];
+        i < mainMap[map.actual].text.lineBreak ? breakLine = [0, 0] : breakLine = [450, 24];
         ctx.fillText(mainMap[map.actual].text.content[i], mainMap[map.actual].text.x + i * 25 - breakLine[0], mainMap[map.actual].text.y + breakLine[1]);
       }
     }
   }
 }
-export {
-  displayItemsPng
-};
+
+export { displayItemsPng };
