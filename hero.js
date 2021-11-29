@@ -1,4 +1,3 @@
-import { zobi } from "./overWorld.js";
 import { map } from "./script.js";
 import { collChecker } from "./functions.js";
 import { checkExit } from "./map.js";
@@ -45,7 +44,7 @@ class Hero {
         this.frame === 0 ? this.frame = 1 : this.frame = 0
       }
       else {
-        if (this.isMoving === true || zobi === true) this.tickCount += 1;
+        if (this.isMoving === true || map.zobi === true) this.tickCount += 1;
       }
       this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.lastDirection, 32, 32, this.x, this.y, 32, 32);
     }
@@ -73,7 +72,7 @@ class Hero {
       }
     }
 
-    if (zobi === false) {
+    if (map.zobi === false) {
       if (this.direction === 2) {
         this.y += this.align(this.y + 8, 16);
         var nextX = this.x + 4;

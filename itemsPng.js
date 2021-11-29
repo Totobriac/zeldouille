@@ -19,10 +19,8 @@ var frame = 0;
 var index = 0;
 
 function displayItemsPng(ctx) {
-
   tickCount++;
   textTickCount++;
-
   if (mainMap[map.actual].itemsPng) {
     for (let i = 0; i < mainMap[map.actual].itemsPng.length; i++) {
       if (mainMap[map.actual].itemsPng[i].frames) {
@@ -60,7 +58,6 @@ function displayItemsPng(ctx) {
     }
   }
 }
-
 export {
   displayItemsPng
 };

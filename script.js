@@ -1,5 +1,5 @@
 import { Hero } from "./hero.js";
-import { drawTiles, mapMove, monsterMayem } from "./overWorld.js";
+import { drawTiles, monsterMayem } from "./overWorld.js";
 import { checkExit, Map } from "./map.js";
 import { SideBar } from "./sideBar.js";
 import { Control } from "./controls.js";
@@ -21,7 +21,7 @@ function animate() {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  drawTiles(ctx); 
+  drawTiles(ctx);
 
   zelda.attack();
   zelda.move();
@@ -30,9 +30,11 @@ function animate() {
   monsterAnimation(ctx);
 
   var exitTile = checkExit(zelda.x, zelda.y, map.actual);
+
+  console.log(exitTile)
   if (exitTile != undefined) {
     monsterMayem();
-    mapMove[exitTile]();
+    map.mapMove[exitTile]();
   };
 
   sideBar.draw();
