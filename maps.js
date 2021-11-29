@@ -179,11 +179,6 @@ var swordCave = {
     y: 100,
     lineBreak: 20,
   } ,
-  // {
-  //   content: ["A", "L", "O", "N", "E", "!", " ", "T", "A", "K", "E", " ", "T", "H", "I", "S", "."],
-  //   x: 310,
-  //   y: 200,
-  // }],
   hasEntered: false
 }
 

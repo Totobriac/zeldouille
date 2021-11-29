@@ -1,6 +1,4 @@
-import {
-  mainMap
-} from "./maps.js";
+import { mainMap } from "./maps.js";
 
 class Map {
   constructor() {
@@ -20,16 +18,16 @@ class Map {
   mapMove(tile) {
     switch (tile) {
       case 3:
-      this.moveDown();
+        this.moveDown();
         break;
       case 1:
-      this.moveRight();
+        this.moveRight();
         break;
       case 2:
-      this.moveUp();
+        this.moveUp();
         break;
       case 0:
-      this.moveLeft();
+        this.moveLeft();
         break;
     }
   }
@@ -113,7 +111,4 @@ function getActualTile(x, y) {
   return (line * 28) + column;
 }
 
-export {
-  Map,
-  checkAction,
-};
+export { Map, checkAction, };
