@@ -6,6 +6,7 @@ import { Control } from "./controls.js";
 import { monsterAnimation } from "./ghouls.js";
 import { displayItemsPng } from "./itemsPng.js";
 import {action} from "./actions.js";
+import { drawTransition } from "./transition.js";
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -40,6 +41,8 @@ function animate() {
 
   sideBar.draw();
   displayItemsPng(ctx);
+
+  drawTransition(ctx);
 
   requestAnimationFrame(animate);
 }
