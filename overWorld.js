@@ -23,7 +23,6 @@ function drawTiles(ctx) {
     ctx.drawImage(tiles, selectedTile[1], selectedTile[0], 16, 16,
       Math.floor(column * 32 + 8 + map.xOffset), Math.floor(line * 32 + 8 + map.yOffset), 32, 32);
     if (map.newMap != undefined) {
-
       var selectedTile = getTile(mainMap[map.newMap].bluePrint[i]);
       var line = Math.floor(i / 28);
       var column = i - (line * 28);
