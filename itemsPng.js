@@ -1,31 +1,37 @@
-import { map } from "./script.js";
-import { mainMap } from "./maps.js";
-import { getTile } from "./functions.js";
+import {
+  map
+} from "./script.js";
+import {
+  mainMap
+} from "./maps.js";
+import {
+  getTile
+} from "./functions.js";
 
 var sprites = new Image();
 sprites.src = "./sprites.png";
 
 var tickCount = 0;
+var textTickCount = 0;
+var maxTextTickCount = 6;
+var maxTickCount = 12;
 var frame = 0;
-
+var index = 0;
 
 function displayItemsPng(ctx) {
 
   tickCount++;
+  textTickCount++;
 
   if (mainMap[map.actual].itemsPng) {
     for (let i = 0; i < mainMap[map.actual].itemsPng.length; i++) {
-
       if (mainMap[map.actual].itemsPng[i].frames) {
-        if (tickCount % 12 === 0) {
-          frame > mainMap[map.actual].itemsPng[i].frames.length -1
-           ? frame = 0
-           : frame ++
+        if (tickCount > maxTickCount) {
+          tickCount = 0;
+          frame === 0 ? frame = 1 : frame = 0
         }
-        console.log(frame);
         mainMap[map.actual].itemsPng[i].img = mainMap[map.actual].itemsPng[i].frames[frame];
       }
-
       var sprite = getTile(mainMap[map.actual].itemsPng[i].img);
       ctx.drawImage(
         sprites,
@@ -39,7 +45,20 @@ function displayItemsPng(ctx) {
         32
       );
     }
+    if (mainMap[map.actual].text && mainMap[map.actual].hasEntered === false ) {
+      if (textTickCount > maxTextTickCount) {
+        textTickCount = 0;
+        if (index < mainMap[map.actual].text.content.length ) index ++
+      }
+      for (let i = 0; i < index; i++) {
+        ctx.font = "30px pixel";
+        ctx.fillStyle = "white";
+        ctx.fillText(mainMap[map.actual].text.content[i], mainMap[map.actual].text.x + i * 25, mainMap[map.actual].text.y);
+      }
+    }
   }
 }
 
-export { displayItemsPng };
+export {
+  displayItemsPng
+};
