@@ -1,15 +1,13 @@
-import { zobi } from "./overWorld.js";
 import { map } from "./script.js";
 import { collChecker } from "./functions.js";
-import { checkExit } from "./map.js";
 
 var zeldaSprite = new Image();
-zeldaSprite.src = "./dino.png";
+zeldaSprite.src = "./assets/dino.png";
 
 var zeldaAttackSprite = new Image();
-zeldaAttackSprite.src = "./sprite_sheet_tail.png";
+zeldaAttackSprite.src = "./assets/sprite_sheet_tail.png";
 
-const zeldaHit = ["./hit_1.png", "./hit_2.png", "./hit_3.png"];
+const zeldaHit = ["./assets/hit_1.png", "./assets/hit_2.png", "./assets/hit_3.png"];
 
 class Hero {
   constructor(x, y, spriteSize, ctx) {
@@ -45,7 +43,7 @@ class Hero {
         this.frame === 0 ? this.frame = 1 : this.frame = 0
       }
       else {
-        if (this.isMoving === true || zobi === true) this.tickCount += 1;
+        if (this.isMoving === true || map.zobi === true) this.tickCount += 1;
       }
       this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.lastDirection, 32, 32, this.x, this.y, 32, 32);
     }
@@ -73,7 +71,7 @@ class Hero {
       }
     }
 
-    if (zobi === false) {
+    if (map.zobi === false) {
       if (this.direction === 2) {
         this.y += this.align(this.y + 8, 16);
         var nextX = this.x + 4;

@@ -1,7 +1,7 @@
 import {getTile, getObstaclesList} from "./functions.js";
 
 var tiles = new Image();
-tiles.src = "./overworldtiles_no_space.png";
+tiles.src = "./assets/overworldtiles_no_space.png";
 
 var zwordCave =
 [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,

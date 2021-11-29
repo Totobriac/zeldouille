@@ -9,7 +9,7 @@ import {
 } from "./functions.js";
 
 var sprites = new Image();
-sprites.src = "./sprites.png";
+sprites.src = "./assets/sprites.png";
 
 var tickCount = 0;
 var textTickCount = 0;
@@ -19,10 +19,8 @@ var frame = 0;
 var index = 0;
 
 function displayItemsPng(ctx) {
-
   tickCount++;
   textTickCount++;
-
   if (mainMap[map.actual].itemsPng) {
     for (let i = 0; i < mainMap[map.actual].itemsPng.length; i++) {
       if (mainMap[map.actual].itemsPng[i].frames) {
@@ -60,7 +58,6 @@ function displayItemsPng(ctx) {
     }
   }
 }
-
 export {
   displayItemsPng
 };
