@@ -1,10 +1,10 @@
 import { map, zelda } from "./script.js";
 
 var itemsSprite = new Image();
-itemsSprite.src = "./heart.png";
+itemsSprite.src = "./assets/heart.png";
 
 var swordSprite = new Image();
-swordSprite.src = "./sword.png";
+swordSprite.src = "./assets/sword.png";
 
 class SideBar {
   constructor(ctx) {

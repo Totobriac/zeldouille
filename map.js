@@ -1,4 +1,6 @@
-import { mainMap } from "./maps.js";
+import {
+  mainMap
+} from "./maps.js";
 
 class Map {
   constructor() {
@@ -12,9 +14,24 @@ class Map {
     this.direction = 0;
     this.upDown = 392;
     this.leftRight = 904;
-    this.mapMove = [this.moveLeft(), this.moveRight(), this.moveUp(), this.moveDown(), enterCave, exitCave];
     this.zob = 0;
     this.zobi = false;
+  }
+  mapMove(tile) {
+    switch (tile) {
+      case 3:
+      this.moveDown();
+        break;
+      case 1:
+      this.moveRight();
+        break;
+      case 2:
+      this.moveUp();
+        break;
+      case 0:
+      this.moveLeft();
+        break;
+    }
   }
   moveDown() {
     this.zobi = true;
@@ -66,8 +83,9 @@ class Map {
   }
 }
 
-function checkExit(x, y, map) {
+function checkAction(x, y, map) {
   var actualTile = getActualTile(x, y);
+
   if (mainMap[map].bluePrint[actualTile] === 10 && map === 3) {
     return (4);
   }
@@ -85,21 +103,7 @@ function checkExit(x, y, map) {
   }
   if (y > 328) {
     return (3);
-  }
-  else return undefined
-}
-
-
-function enterCave() {
-  map.actual = 9;
-  zelda.x = 440;
-  zelda.y = 328;
-}
-
-function exitCave() {
-  map.actual = 3;
-  zelda.x = 192;
-  zelda.y = 94;
+  } else return undefined
 }
 
 
@@ -109,4 +113,7 @@ function getActualTile(x, y) {
   return (line * 28) + column;
 }
 
-export { Map, checkExit };
+export {
+  Map,
+  checkAction,
+};

@@ -9,7 +9,7 @@ import {
 } from "./functions.js";
 
 var sprites = new Image();
-sprites.src = "./sprites.png";
+sprites.src = "./assets/sprites.png";
 
 var tickCount = 0;
 var textTickCount = 0;

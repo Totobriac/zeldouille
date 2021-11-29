@@ -5,7 +5,7 @@ import { map, zelda } from "./script.js";
 import { monsterAnimation } from "./ghouls.js";
 
 var tiles = new Image();
-tiles.src = "./sprites.png";
+tiles.src = "./assets/sprites.png";
 
 function drawTiles(ctx) {
 

@@ -1,14 +1,13 @@
 import { map } from "./script.js";
 import { collChecker } from "./functions.js";
-import { checkExit } from "./map.js";
 
 var zeldaSprite = new Image();
-zeldaSprite.src = "./dino.png";
+zeldaSprite.src = "./assets/dino.png";
 
 var zeldaAttackSprite = new Image();
-zeldaAttackSprite.src = "./sprite_sheet_tail.png";
+zeldaAttackSprite.src = "./assets/sprite_sheet_tail.png";
 
-const zeldaHit = ["./hit_1.png", "./hit_2.png", "./hit_3.png"];
+const zeldaHit = ["./assets/hit_1.png", "./assets/hit_2.png", "./assets/hit_3.png"];
 
 class Hero {
   constructor(x, y, spriteSize, ctx) {
