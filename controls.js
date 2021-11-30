@@ -1,7 +1,7 @@
 export class Control {
   constructor(zelda) {
     window.addEventListener('keydown', function (e) {
-      
+
       zelda.isMoving = true;
       if (e.code === "ArrowDown") {
         zelda.direction = 0;
@@ -20,7 +20,7 @@ export class Control {
         zelda.isAttacking = true;
       }
     });
-    
+
     window.addEventListener('keyup', function (e) {
       zelda.isMoving = false;
       zelda.direction = undefined;

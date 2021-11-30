@@ -3,7 +3,7 @@ import { collChecker } from "./functions.js";
 import { checkAction } from "./map.js";
 
 var zeldaSprite = new Image();
-zeldaSprite.src = "./assets/dino.png";
+zeldaSprite.src = "./assets/dino_2.png";
 
 var zeldaAttackSprite = new Image();
 zeldaAttackSprite.src = "./assets/sprite_sheet_tail.png";
@@ -51,14 +51,17 @@ class Hero {
       }
       this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.lastDirection, 32, 32, this.x, this.y, 32, 32);
     }
-    if (this.isAttacking === false && this.isGrabingSword === true) {
-      console.log("tututtu")
+    if (this.isGrabingSword === true) {
       this.ctx.drawImage(zeldaSprite, 0,128 , 32, 32, this.x, this.y, 32, 32);
+      this.ctx.drawImage(zeldaSprite, 32,128 , 32, 32, this.x-15, this.y - 32, 32, 32);
+    }
+
+    if (this.isAttacking === true) {
+      this.attack();
     }
   }
 
   move() {
-
     if (this.direction != undefined) this.lastDirection = this.direction;
 
     this.enemyCollison = collChecker(this.x, this.y, map.monsters);
@@ -156,7 +159,6 @@ class Hero {
     }
   }
   attack() {
-    if (this.isAttacking) {
       if (this.tickCount > this.maxTickCount * 0.5) {
         this.tickCount = 0;
         this.frame < this.totalAttackFrame ? this.frame++ : this.isAttacking = false;
@@ -168,7 +170,7 @@ class Hero {
       var yOffset;
       var xHitOffset;
       var yHitOffset;
-      switch (this.direction) {
+      switch (this.lastDirection) {
         case 0:
           xOffset = 0;
           yOffset = 0;
@@ -198,8 +200,7 @@ class Hero {
       if (hasHitMonster.isColliding === true) {
         map.monsters.splice(hasHitMonster.index, 1)
       }
-      this.ctx.drawImage(zeldaAttackSprite, 54 * this.frame, 56 * this.direction, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56)
-    }
+      this.ctx.drawImage(zeldaAttackSprite, 54 * this.frame, 56 * this.lastDirection, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56);
   }
   hitAnimation() {
     if (this.isHit === true) {

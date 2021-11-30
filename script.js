@@ -24,10 +24,8 @@ function animate() {
 
   drawTiles(ctx);
 
-  zelda.attack();
   zelda.move();
   zelda.draw();
-
   monsterAnimation(ctx);
 
   var actionTile = checkAction(zelda.x, zelda.y, map.actual);

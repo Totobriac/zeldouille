@@ -84,8 +84,8 @@ class Map {
 
 function checkAction(x, y, map) {
 
-  if (mainMap[map].object) {
-    var objectInteraction = collChecker(x,y,mainMap[map].object )
+  if (mainMap[map].objects) {
+    var objectInteraction = collChecker(x,y,mainMap[map].objects )
     if (objectInteraction.isColliding=== true && map === 9) {
       return 6;
     };

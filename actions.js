@@ -17,14 +17,11 @@ function action(i, ctx) {
 }
 
 function enterCave(ctx) {
-  zelda.isEnteringCave = true;
+  if (zelda.direction === 1 && zelda.y === 40) zelda.isEnteringCave = true;
 }
 
 function exitCave() {
-  zelda.isExitingCave = true;
-  map.actual = 3;
-  zelda.x = 192;
-  zelda.y = 68;
+  if (zelda.direction === 0) zelda.isExitingCave = true;
 }
 
 function getSword() {
