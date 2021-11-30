@@ -34,12 +34,13 @@ class Hero {
     this.hasSword = false;
     this.isEnteringCave =false;
     this.isExitingCave =false;
+    this.isGrabingSword = false;
   }
   draw() {
 
     this.hitAnimation();
 
-    if (this.isAttacking === false) {
+    if (this.isAttacking === false && this.isGrabingSword === false) {
       if (this.frame != 0 && this.frame != 1) this.frame = 0;
       if (this.tickCount > this.maxTickCount) {
         this.tickCount = 0;
@@ -49,6 +50,10 @@ class Hero {
         if (this.isMoving === true || map.zobi === true) this.tickCount += 1;
       }
       this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.lastDirection, 32, 32, this.x, this.y, 32, 32);
+    }
+    if (this.isAttacking === false && this.isGrabingSword === true) {
+      console.log("tututtu")
+      this.ctx.drawImage(zeldaSprite, 0,128 , 32, 32, this.x, this.y, 32, 32);
     }
   }
 

@@ -166,7 +166,9 @@ var swordCave = {
       y: 140,
       frames: [48, 49]
     },
-    {
+  ],
+  objects: [{
+
       img: 54,
       x: 438,
       y: 200
@@ -179,7 +181,8 @@ var swordCave = {
     y: 100,
     lineBreak: 20,
   } ,
-  hasEntered: false
+  hasEntered: false,
+  object: [{x:438,y:200}],
 }
 
 var mainMap = [

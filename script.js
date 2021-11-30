@@ -20,7 +20,6 @@ var map = new Map();
 var control = new Control(zelda);
 
 function animate() {
-
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   drawTiles(ctx);
@@ -40,6 +39,7 @@ function animate() {
   };
 
   sideBar.draw();
+
   displayItemsPng(ctx);
 
   drawTransition(ctx);

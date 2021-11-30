@@ -50,6 +50,21 @@ function displayItemsPng(ctx) {
         ctx.fillText(mainMap[map.actual].text.content[i], mainMap[map.actual].text.x + i * 25 - breakLine[0], mainMap[map.actual].text.y + breakLine[1]);
       }
     }
+    if (mainMap[map.actual].objects) {
+      for (let i = 0; i < mainMap[map.actual].objects.length; i++) {
+        var sprite = getTile(mainMap[map.actual].objects[i].img);
+        ctx.drawImage(
+          sprites,
+          sprite[1],
+          sprite[0],
+          16,
+          16,
+          mainMap[map.actual].objects[i].x,
+          mainMap[map.actual].objects[i].y,
+          32,
+          32
+        );
+    }}
   }
 }
 

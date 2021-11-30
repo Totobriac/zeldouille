@@ -1,22 +1,23 @@
 import { map, zelda } from "./script.js";
 
-function action(i) {
+var tickCount = 0;
+
+function action(i, ctx) {
   switch (i) {
     case 4:
-      enterCave();
+      enterCave(ctx);
       break;
     case 5:
       exitCave();
       break;
+    case 6:
+      getSword();
+      break;
   }
 }
 
-function enterCave() {
+function enterCave(ctx) {
   zelda.isEnteringCave = true;
-  map.actual = 9;
-  zelda.x = 440;
-  zelda.y = 328;
-
 }
 
 function exitCave() {
@@ -26,4 +27,7 @@ function exitCave() {
   zelda.y = 68;
 }
 
+function getSword() {
+  zelda.isGrabingSword = true;
+}
 export { action };

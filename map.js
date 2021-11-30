@@ -1,4 +1,5 @@
 import { mainMap } from "./maps.js";
+import {collChecker} from "./functions.js";
 
 class Map {
   constructor() {
@@ -82,6 +83,14 @@ class Map {
 }
 
 function checkAction(x, y, map) {
+
+  if (mainMap[map].object) {
+    var objectInteraction = collChecker(x,y,mainMap[map].object )
+    if (objectInteraction.isColliding=== true && map === 9) {
+      return 6;
+    };
+  }
+
   var actualTile = getActualTile(x, y);
 
   if (mainMap[map].bluePrint[actualTile] === 10 && map === 3) {
@@ -101,7 +110,8 @@ function checkAction(x, y, map) {
   }
   if (y > 328) {
     return (3);
-  } else return undefined
+  }
+  else return undefined
 }
 
 
