@@ -17,7 +17,7 @@ canvas.height = 400;
 var zelda = new Hero(90, 192, 32, ctx);
 var sideBar = new SideBar(ctx);
 var map = new Map();
-var control = new Control(zelda);
+var control = new Control(zelda, map);
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);

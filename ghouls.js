@@ -1,8 +1,12 @@
 import { collChecker } from "./functions.js";
 import { map } from "./script.js";
 
+var octorok = new Image();
+octorok.src = "./assets/beast_1.png";
+
+
 class Monster {
-  constructor(map, bundaries, maxDist) {
+  constructor(map, bundaries) {
     this.x = (Math.floor(Math.random() * 24) + 2) * 32 + 8;
     this.y = (Math.floor(Math.random() * 10) + 1) * 32 + 8;
     this.map = map;
@@ -13,6 +17,10 @@ class Monster {
     this.bundaries = bundaries;
     this.maxDist = 64;
     this.dist = 0;
+    this.hasAppeard = false;
+    this.tickCount = 0;
+    this.maxTickCount = 12;
+    this.frame = 0;
   }
   randomDirection() {
     this.direction = Math.floor(Math.random() * 4);
@@ -27,7 +35,6 @@ class Monster {
         this.randomDirection();
         this.dist = 0;
       }
-
       if (this.direction === 0) {
         var nextX = this.x + 1;
         this.checkBundaries(nextX, this.y) === false && this.checkCollision(nextX, this.y).isColliding === false
@@ -86,13 +93,33 @@ function spawnMonsters(map) {
 }
 
 function monsterAnimation(ctx) {
-  ctx.fillStyle = "red";
+
   if (map.monsters) {
     var monstersIndexList = [];
     for (let i = 0; i < map.monsters.length; i++) {
-      ctx.fillRect(map.monsters[i].x, map.monsters[i].y, 32, 32);
-      monstersIndexList.push(map.monsters[i].index);
-      map.monsters[i].move();
+
+      map.monsters[i].tickCount ++
+
+      if (map.monsters[i].hasAppeard === false) {
+        if (map.monsters[i].tickCount < map.monsters[i].maxTickCount) {
+          ctx.drawImage(octorok, 0, 128, 32, 32, map.monsters[i].x, map.monsters[i].y, 32, 32);
+        }
+        else if (map.monsters[i].tickCount >= map.monsters[i].maxTickCount && map.monsters[i].tickCount < 2 * map.monsters[i].maxTickCount) {
+          ctx.drawImage(octorok, 32, 128, 32, 32, map.monsters[i].x, map.monsters[i].y, 32, 32);
+        }
+        else {
+          map.monsters[i].hasAppeard = true;
+        }
+      }
+      else {
+        if (map.monsters[i].tickCount > map.monsters[i].maxTickCount) {
+          map.monsters[i].frame === 0 ? map.monsters[i].frame = 1 : map.monsters[i].frame = 0;
+          map.monsters[i].tickCount = 0;
+        }
+        ctx.drawImage(octorok, map.monsters[i].frame * 32, map.monsters[i].direction * 32, 32, 32, map.monsters[i].x, map.monsters[i].y, 32, 32);
+        monstersIndexList.push(map.monsters[i].index);
+        map.monsters[i].move();
+      }
     }
   };
 }
