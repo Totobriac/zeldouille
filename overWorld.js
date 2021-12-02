@@ -50,8 +50,4 @@ function drawTiles(ctx) {
   ctx.fillRect(904, 0, 296, canvas.height);
 }
 
-function monsterMayem() {
-  map.monsters = [];
-}
-
-export { drawTiles, monsterMayem };
+export { drawTiles };

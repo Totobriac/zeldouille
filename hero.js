@@ -17,7 +17,6 @@ class Hero {
     this.spriteSize = spriteSize;
     this.ctx = ctx;
     this.wallCollision = false;
-    this.enemyCollison = false;
     this.exit;
     this.direction;
     this.lastDirection = 2;
@@ -32,8 +31,8 @@ class Hero {
     this.hitTickCount = 0;
     this.life = 8;
     this.hasSword = false;
-    this.isEnteringCave =false;
-    this.isExitingCave =false;
+    this.isEnteringCave = false;
+    this.isExitingCave = false;
     this.isGrabingSword = false;
   }
   draw() {
@@ -52,8 +51,8 @@ class Hero {
       this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.lastDirection, 32, 32, this.x, this.y, 32, 32);
     }
     if (this.isGrabingSword === true) {
-      this.ctx.drawImage(zeldaSprite, 0,128 , 32, 32, this.x, this.y, 32, 32);
-      this.ctx.drawImage(zeldaSprite, 32,128 , 32, 32, this.x-15, this.y - 32, 32, 32);
+      this.ctx.drawImage(zeldaSprite, 0, 128, 32, 32, this.x, this.y, 32, 32);
+      this.ctx.drawImage(zeldaSprite, 32, 128, 32, 32, this.x - 15, this.y - 32, 32, 32);
     }
 
     if (this.isAttacking === true) {
@@ -64,13 +63,35 @@ class Hero {
   move() {
     if (this.direction != undefined) this.lastDirection = this.direction;
 
-    this.enemyCollison = collChecker(this.x, this.y, map.monsters);
-    if (this.enemyCollison.isColliding === true) {
+    var enemyCollison = collChecker(this.x, this.y, map.monsters);
+    var missileCollison = collChecker(this.x, this.y, map.missiles);
+
+
+    if (enemyCollison.isColliding === true) {
       if (this.isHit === false) {
         this.isHit = true;
         this.life--;
       }
-      var dir = this.enemyCollison.object.direction;
+
+      var dir = enemyCollison.object.direction;
+      if (dir === 0) {
+        this.x += this.wallBounce(1, 0);
+      } else if (dir === 1) {
+        this.x -= this.wallBounce(-1, 0);
+      } else if (dir === 2) {
+        this.y += this.wallBounce(0, 1);
+      } else if (dir === 3) {
+        this.y -= this.wallBounce(0, -1);
+      }
+    }
+    
+    if (missileCollison.isColliding === true) {
+      if (this.isHit === false) {
+        this.isHit = true;
+        this.life--;
+      }
+
+      var dir = missileCollison.object.direction;
       if (dir === 0) {
         this.x += this.wallBounce(1, 0);
       } else if (dir === 1) {
@@ -113,8 +134,8 @@ class Hero {
         }
       }
 
-      this.enemyCollison = collChecker(this.x, this.y, map.monsters);
-      if (this.enemyCollison.isColliding === true) {
+      enemyCollison = collChecker(this.x, this.y, map.monsters);
+      if (enemyCollison.isColliding === true) {
         if (this.isHit === false) {
           this.isHit = true;
           this.life--;
@@ -159,48 +180,48 @@ class Hero {
     }
   }
   attack() {
-      if (this.tickCount > this.maxTickCount * 0.5) {
-        this.tickCount = 0;
-        this.frame < this.totalAttackFrame ? this.frame++ : this.isAttacking = false;
-      }
-      else {
-        this.tickCount += 1;
-      }
-      var xOffset;
-      var yOffset;
-      var xHitOffset;
-      var yHitOffset;
-      switch (this.lastDirection) {
-        case 0:
-          xOffset = 0;
-          yOffset = 0;
-          xHitOffset = 0;
-          yHitOffset = 20;
-          break;
-        case 1:
-          xOffset = 5;
-          yOffset = -23;
-          xHitOffset = 0;
-          yHitOffset = -20;
-          break;
-        case 2:
-          xOffset = 0;
-          yOffset = 0;
-          xHitOffset = 20;
-          yHitOffset = 0;
-          break;
-        case 3:
-          xOffset = -22;
-          yOffset = 0;
-          xHitOffset = -20;
-          yHitOffset = 0;
-          break;
-      }
-      var hasHitMonster = collChecker(this.x + xHitOffset, this.y + yHitOffset, map.monsters);
-      if (hasHitMonster.isColliding === true) {
-        map.monsters.splice(hasHitMonster.index, 1)
-      }
-      this.ctx.drawImage(zeldaAttackSprite, 54 * this.frame, 56 * this.lastDirection, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56);
+    if (this.tickCount > this.maxTickCount * 0.5) {
+      this.tickCount = 0;
+      this.frame < this.totalAttackFrame ? this.frame++ : this.isAttacking = false;
+    }
+    else {
+      this.tickCount += 1;
+    }
+    var xOffset;
+    var yOffset;
+    var xHitOffset;
+    var yHitOffset;
+    switch (this.lastDirection) {
+      case 0:
+        xOffset = 0;
+        yOffset = 0;
+        xHitOffset = 0;
+        yHitOffset = 20;
+        break;
+      case 1:
+        xOffset = 5;
+        yOffset = -23;
+        xHitOffset = 0;
+        yHitOffset = -20;
+        break;
+      case 2:
+        xOffset = 0;
+        yOffset = 0;
+        xHitOffset = 20;
+        yHitOffset = 0;
+        break;
+      case 3:
+        xOffset = -22;
+        yOffset = 0;
+        xHitOffset = -20;
+        yHitOffset = 0;
+        break;
+    }
+    var hasHitMonster = collChecker(this.x + xHitOffset, this.y + yHitOffset, map.monsters);
+    if (hasHitMonster.isColliding === true) {
+      map.monsters.splice(hasHitMonster.index, 1)
+    }
+    this.ctx.drawImage(zeldaAttackSprite, 54 * this.frame, 56 * this.lastDirection, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56);
   }
   hitAnimation() {
     if (this.isHit === true) {

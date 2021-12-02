@@ -1,11 +1,11 @@
 import { Hero } from "./hero.js";
-import { drawTiles, monsterMayem } from "./overWorld.js";
+import { drawTiles } from "./overWorld.js";
 import { checkAction, Map } from "./map.js";
 import { SideBar } from "./sideBar.js";
 import { Control } from "./controls.js";
-import { monsterAnimation } from "./ghouls.js";
+import { monsterAnimation, monsterMayem } from "./ghouls.js";
 import { displayItemsPng } from "./itemsPng.js";
-import {action} from "./actions.js";
+import { action } from "./actions.js";
 import { drawTransition } from "./transition.js";
 
 var canvas = document.getElementById("canvas");

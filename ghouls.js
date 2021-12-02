@@ -4,8 +4,6 @@ import { map } from "./script.js";
 var octorok = new Image();
 octorok.src = "./assets/beast_1.png";
 
-var missiles = [];
-
 class Monster {
   constructor(map, bundaries) {
     this.x = (Math.floor(Math.random() * 24) + 2) * 32 + 8;
@@ -139,7 +137,6 @@ function spawnMonsters(map) {
 function monsterAnimation(ctx) {
 
   if (map.monsters) {
-
     var monstersIndexList = [];
 
     for (let i = 0; i < map.monsters.length; i++) {
@@ -169,21 +166,26 @@ function monsterAnimation(ctx) {
       if (map.monsters[i].checkShot() === true &&
         map.monsters[i].misileCount > map.monsters[i].reload) {
         map.monsters[i].misileCount = 0;
-        var missile = new Missile(map.monsters[i].x, map.monsters[i].y, map.monsters[i].direction, 2, 180);
-        missiles.push(missile)
+        var missile = new Missile(map.monsters[i].x, map.monsters[i].y, map.monsters[i].direction, 4, 280);
+        map.missiles.push(missile)
       };
     }
-    for (let i = 0; i < missiles.length; i++) {
-      missiles[i].fly();
-      if (missiles[i].dist < missiles[i].maxDist) {
-        ctx.drawImage(octorok, 0, 160, 32, 32, missiles[i].x, missiles[i].y, 32, 32);
+    for (let i = 0; i < map.missiles.length; i++) {
+      map.missiles[i].fly();
+      if (map.missiles[i].dist < map.missiles[i].maxDist) {
+        ctx.drawImage(octorok, 0, 160, 32, 32, map.missiles[i].x, map.missiles[i].y, 32, 32);
       }
       else {
-        missiles.splice(i,1);
+        map.missiles.splice(i,1);
       }
     }
 
   }
 }
 
-export { spawnMonsters, monsterAnimation };
+function monsterMayem() {
+  map.monsters = [];
+  map.missiles = [];
+}
+
+export { spawnMonsters, monsterAnimation, monsterMayem };
