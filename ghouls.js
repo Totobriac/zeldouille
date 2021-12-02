@@ -4,6 +4,7 @@ import { map } from "./script.js";
 var octorok = new Image();
 octorok.src = "./assets/beast_1.png";
 
+var missiles = [];
 
 class Monster {
   constructor(map, bundaries) {
@@ -21,6 +22,8 @@ class Monster {
     this.tickCount = 0;
     this.maxTickCount = 12;
     this.frame = 0;
+    this.misileCount = 0;
+    this.reload = 200;
   }
   randomDirection() {
     this.direction = Math.floor(Math.random() * 4);
@@ -65,6 +68,7 @@ class Monster {
       this.randomDirection();
       this.isColliding = false;
     }
+
   }
   checkCollision(x, y) {
     return collChecker(x, y, map.obstacles);
@@ -81,6 +85,46 @@ class Monster {
       return true
     }
   }
+  checkShot() {
+    var dir = [];
+    if (this.direction === 0) {
+      dir = [1, 0];
+    } else if (this.direction === 1) {
+      dir = [-1, 0];
+    } else if (this.direction === 2) {
+      dir = [0, 1];
+    } else if (this.direction === 3) {
+      dir = [0, -1];
+    }
+    for (let i = 0; i < 180; i++) {
+      var shot = collChecker(this.x + dir[0] * i, this.y + dir[1] * i, map.obstacles);
+      if (shot.isColliding === true) return false;
+    }
+    return true;
+  }
+}
+
+class Missile {
+  constructor(x, y, direction, speed, maxDist) {
+    this.x = x;
+    this.y = y;
+    this.direction = direction;
+    this.speed = speed;
+    this.maxDist = maxDist;
+    this.dist = 0;
+  }
+  fly() {
+    if (this.direction === 0) {
+      this.x += this.speed;
+    } else if (this.direction === 1) {
+      this.x -= this.speed;
+    } else if (this.direction === 2) {
+      this.y += this.speed;
+    } else if (this.direction === 3) {
+      this.y -= this.speed;
+    }
+    this.dist += this.speed;
+  }
 }
 
 function spawnMonsters(map) {
@@ -95,10 +139,12 @@ function spawnMonsters(map) {
 function monsterAnimation(ctx) {
 
   if (map.monsters) {
-    var monstersIndexList = [];
-    for (let i = 0; i < map.monsters.length; i++) {
 
-      map.monsters[i].tickCount ++
+    var monstersIndexList = [];
+
+    for (let i = 0; i < map.monsters.length; i++) {
+      map.monsters[i].misileCount++;
+      map.monsters[i].tickCount++
 
       if (map.monsters[i].hasAppeard === false) {
         if (map.monsters[i].tickCount < map.monsters[i].maxTickCount) {
@@ -120,8 +166,26 @@ function monsterAnimation(ctx) {
         monstersIndexList.push(map.monsters[i].index);
         map.monsters[i].move();
       }
+      console.log(map.monsters[i].misileCount, map.monsters[i].reload);
+      if (map.monsters[i].checkShot() === true &&
+        map.monsters[i].misileCount > map.monsters[i].reload) {
+        map.monsters[i].misileCount = 0;
+        var missile = new Missile(map.monsters[i].x, map.monsters[i].y, map.monsters[i].direction, 2, 180);
+        missiles.push(missile)
+      };
     }
-  };
+    console.log(missiles);
+    for (let i = 0; i < missiles.length; i++) {
+      missiles[i].fly();
+      if (missiles[i].dist < missiles[i].maxDist) {
+        ctx.drawImage(octorok, 0, 160, 32, 32, missiles[i].x, missiles[i].y, 32, 32);
+      }
+      else {
+        missiles.splice(i,1);
+      }
+    }
+
+  }
 }
 
 export { spawnMonsters, monsterAnimation };
