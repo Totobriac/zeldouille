@@ -166,7 +166,6 @@ function monsterAnimation(ctx) {
         monstersIndexList.push(map.monsters[i].index);
         map.monsters[i].move();
       }
-      console.log(map.monsters[i].misileCount, map.monsters[i].reload);
       if (map.monsters[i].checkShot() === true &&
         map.monsters[i].misileCount > map.monsters[i].reload) {
         map.monsters[i].misileCount = 0;
@@ -174,7 +173,6 @@ function monsterAnimation(ctx) {
         missiles.push(missile)
       };
     }
-    console.log(missiles);
     for (let i = 0; i < missiles.length; i++) {
       missiles[i].fly();
       if (missiles[i].dist < missiles[i].maxDist) {
