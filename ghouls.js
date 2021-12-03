@@ -4,11 +4,17 @@ import { map } from "./script.js";
 var octorok = new Image();
 octorok.src = "./assets/beast_1.png";
 
+
+var dyingEffect = new Image();
+dyingEffect.src = "./assets/effects.png"; 
+
+
 class Monster {
-  constructor(map, bundaries) {
+  constructor(map, bundaries, ctx) {
     this.x = (Math.floor(Math.random() * 24) + 2) * 32 + 8;
     this.y = (Math.floor(Math.random() * 10) + 1) * 32 + 8;
     this.map = map;
+    this.ctx = ctx;
     this.direction = Math.floor(Math.random() * 4);
     this.index = this.getIndex();
     this.isColliding = false;
@@ -100,6 +106,9 @@ class Monster {
     }
     return true;
   }
+  vanish() {
+    dyingAnimation(this.x, this.y, this.ctx);
+  }
 }
 
 class Missile {
@@ -125,10 +134,10 @@ class Missile {
   }
 }
 
-function spawnMonsters(map) {
+function spawnMonsters(map,ctx) {
   var monsters = [];
   for (let i = 0; monsters.length < 8; i++) {
-    var monster = new Monster(map, [1, 1, 1, 1]);
+    var monster = new Monster(map, [1, 1, 1, 1],ctx);
     if (map[monster.index] === 2) monsters.push(monster)
   }
   return monsters;
@@ -186,6 +195,16 @@ function monsterAnimation(ctx) {
 function monsterMayem() {
   map.monsters = [];
   map.missiles = [];
+}
+
+function dyingAnimation(x, y, ctx) {
+  var tickCount = 0;
+  var totalTickount = 2800;
+  while (tickCount < totalTickount) {
+    tickCount ++;
+    var frame = Math.floor(tickCount/400);
+    ctx.drawImage(dyingEffect, frame * 32, 0, 32,32, x, y, 32,32 );
+  }
 }
 
 export { spawnMonsters, monsterAnimation, monsterMayem };
