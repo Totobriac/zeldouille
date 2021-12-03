@@ -3,7 +3,7 @@ import { drawTiles } from "./overWorld.js";
 import { checkAction, Map } from "./map.js";
 import { SideBar } from "./sideBar.js";
 import { Control } from "./controls.js";
-import { monsterAnimation, monsterMayem } from "./ghouls.js";
+import { monsterAnimation, monsterMayem } from "./monsters/ghouls.js";
 import { displayItemsPng } from "./itemsPng.js";
 import { action } from "./actions.js";
 import { drawTransition } from "./transition.js";

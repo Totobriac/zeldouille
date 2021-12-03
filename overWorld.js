@@ -1,7 +1,9 @@
 import { mainMap } from "./maps.js";
-import { spawnMonsters } from "./ghouls.js";
 import { getObstaclesList, getTile } from "./functions.js";
 import { map } from "./script.js";
+
+import {Octorok} from "./monsters/octorok.js";
+import { Moblin } from "./monsters/moblin.js";
 
 var tiles = new Image();
 tiles.src = "./assets/sprites.png";
@@ -48,6 +50,16 @@ function drawTiles(ctx) {
   ctx.fillRect(0, 392, canvas.width, 8);
   ctx.fillRect(0, 0, 8, canvas.height);
   ctx.fillRect(904, 0, 296, canvas.height);
+}
+
+function spawnMonsters(map,ctx) {
+  var monsters = [];
+  for (let i = 0; monsters.length < 8; i++) {
+    var monster = new Moblin(map, [1, 1, 1, 1],ctx);
+    if (map[monster.index] === 2) monsters.push(monster)
+  }
+  console.log(monsters);
+  return monsters;
 }
 
 export { drawTiles };

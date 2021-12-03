@@ -1,15 +1,11 @@
-import { collChecker } from "./functions.js";
-import { map } from "./script.js";
-
-var octorok = new Image();
-octorok.src = "./assets/beast_1.png";
-
+import { collChecker } from "../functions.js";
+import { map } from "../script.js";
 
 var dyingEffect = new Image();
-dyingEffect.src = "./assets/effects.png"; 
+dyingEffect.src = "./assets/effects.png";
 
 
-class Monster {
+export class Monster {
   constructor(map, bundaries, ctx) {
     this.x = (Math.floor(Math.random() * 24) + 2) * 32 + 8;
     this.y = (Math.floor(Math.random() * 10) + 1) * 32 + 8;
@@ -134,15 +130,6 @@ class Missile {
   }
 }
 
-function spawnMonsters(map,ctx) {
-  var monsters = [];
-  for (let i = 0; monsters.length < 8; i++) {
-    var monster = new Monster(map, [1, 1, 1, 1],ctx);
-    if (map[monster.index] === 2) monsters.push(monster)
-  }
-  return monsters;
-}
-
 function monsterAnimation(ctx) {
 
   if (map.monsters) {
@@ -154,10 +141,10 @@ function monsterAnimation(ctx) {
 
       if (map.monsters[i].hasAppeard === false) {
         if (map.monsters[i].tickCount < map.monsters[i].maxTickCount) {
-          ctx.drawImage(octorok, 0, 128, 32, 32, map.monsters[i].x, map.monsters[i].y, 32, 32);
+          ctx.drawImage(map.monsters[i].sprite, 0, 128, 32, 32, map.monsters[i].x, map.monsters[i].y, 32, 32);
         }
         else if (map.monsters[i].tickCount >= map.monsters[i].maxTickCount && map.monsters[i].tickCount < 2 * map.monsters[i].maxTickCount) {
-          ctx.drawImage(octorok, 32, 128, 32, 32, map.monsters[i].x, map.monsters[i].y, 32, 32);
+          ctx.drawImage(map.monsters[i].sprite, 32, 128, 32, 32, map.monsters[i].x, map.monsters[i].y, 32, 32);
         }
         else {
           map.monsters[i].hasAppeard = true;
@@ -168,7 +155,7 @@ function monsterAnimation(ctx) {
           map.monsters[i].frame === 0 ? map.monsters[i].frame = 1 : map.monsters[i].frame = 0;
           map.monsters[i].tickCount = 0;
         }
-        ctx.drawImage(octorok, map.monsters[i].frame * 32, map.monsters[i].direction * 32, 32, 32, map.monsters[i].x, map.monsters[i].y, 32, 32);
+        ctx.drawImage(map.monsters[i].sprite, map.monsters[i].frame * 32, map.monsters[i].direction * 32, 32, 32, map.monsters[i].x, map.monsters[i].y, 32, 32);
         monstersIndexList.push(map.monsters[i].index);
         map.monsters[i].move();
       }
@@ -182,10 +169,20 @@ function monsterAnimation(ctx) {
     for (let i = 0; i < map.missiles.length; i++) {
       map.missiles[i].fly();
       if (map.missiles[i].dist < map.missiles[i].maxDist) {
-        ctx.drawImage(octorok, 0, 160, 32, 32, map.missiles[i].x, map.missiles[i].y, 32, 32);
+        var dir = [];
+        if (map.missiles[i].direction === 0) {
+          dir = [0, 160];
+        } else if (map.missiles[i].direction === 1) {
+          dir = [32, 160];
+        } else if (map.missiles[i].direction === 2) {
+          dir = [32, 192];
+        } else if (map.missiles[i].direction === 3) {
+          dir = [0, 192];
+        }
+        ctx.drawImage(map.monsters[i].sprite, dir[0], dir[1], 32, 32, map.missiles[i].x, map.missiles[i].y, 32, 32);
       }
       else {
-        map.missiles.splice(i,1);
+        map.missiles.splice(i, 1);
       }
     }
 
@@ -201,10 +198,10 @@ function dyingAnimation(x, y, ctx) {
   var tickCount = 0;
   var totalTickount = 2800;
   while (tickCount < totalTickount) {
-    tickCount ++;
-    var frame = Math.floor(tickCount/400);
-    ctx.drawImage(dyingEffect, frame * 32, 0, 32,32, x, y, 32,32 );
+    tickCount++;
+    var frame = Math.floor(tickCount / 400);
+    ctx.drawImage(dyingEffect, frame * 32, 0, 32, 32, x, y, 32, 32);
   }
 }
 
-export { spawnMonsters, monsterAnimation, monsterMayem };
+export { monsterAnimation, monsterMayem };
