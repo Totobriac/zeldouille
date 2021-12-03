@@ -57,7 +57,7 @@ function drawTiles(ctx) {
 
 function spawnMonsters(map,ctx) {
   var monsters = [];
-  for (let i = 0; monsters.length < 8; i++) {
+  for (let i = 0; monsters.length < 0; i++) {
     var monster = new Moblin(map, [1, 1, 1, 1],ctx);
     if (map[monster.index] === 2) monsters.push(monster)
   }
