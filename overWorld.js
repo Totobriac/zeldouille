@@ -4,6 +4,7 @@ import { map } from "./script.js";
 
 import {Octorok} from "./monsters/octorok.js";
 import { Moblin } from "./monsters/moblin.js";
+import {Zora} from "./monsters/zora.js";
 
 var tiles = new Image();
 tiles.src = "./assets/sprites.png";
@@ -36,6 +37,7 @@ function drawTiles(ctx) {
       map.actual = map.newMap;
       map.direction = 0;
       map.monsters = spawnMonsters(mainMap[map.actual].bluePrint, ctx);
+      if (mainMap[map.actual].hasWater === true) map.zora = spawnZora();
     }
     if (map.xOffset === 888 || map.xOffset === -896) {
       map.zobi = false;
@@ -43,6 +45,7 @@ function drawTiles(ctx) {
       map.actual = map.newMap;
       map.direction = 0;
       map.monsters = spawnMonsters(mainMap[map.actual].bluePrint, ctx);
+      if (mainMap[map.actual].hasWater === true) map.zora = spawnZora(mainMap[map.actual].bluePrint);
     }
   }
   ctx.fillStyle = "white";
@@ -58,8 +61,21 @@ function spawnMonsters(map,ctx) {
     var monster = new Moblin(map, [1, 1, 1, 1],ctx);
     if (map[monster.index] === 2) monsters.push(monster)
   }
-  console.log(monsters);
   return monsters;
+}
+
+function spawnZora(map) {
+  var waterTiles = [];
+  for (let i = 0; i < map.length; i++) {
+    if ( [24,25,26,30,31,32,36,37,38].includes(map[i])) {
+      var line = Math.floor(i / 28);
+      var column = i - (line * 28);
+      waterTiles.push({ x: column * 32 + 8, y: line * 32 + 8 });
+    }
+  }
+  var zoraCoord = waterTiles[Math.floor(Math.random() * waterTiles.length)];
+  var zora = new Zora(zoraCoord.x, zoraCoord.y, waterTiles);
+  return zora;
 }
 
 export { drawTiles };

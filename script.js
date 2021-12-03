@@ -4,6 +4,7 @@ import { checkAction, Map } from "./map.js";
 import { SideBar } from "./sideBar.js";
 import { Control } from "./controls.js";
 import { monsterAnimation, monsterMayem } from "./monsters/ghouls.js";
+import { zoraAnimation} from "./monsters/zora.js";
 import { displayItemsPng } from "./itemsPng.js";
 import { action } from "./actions.js";
 import { drawTransition } from "./transition.js";
@@ -27,6 +28,7 @@ function animate() {
   zelda.move();
   zelda.draw();
   monsterAnimation(ctx);
+  zoraAnimation(ctx);
 
   var actionTile = checkAction(zelda.x, zelda.y, map.actual);
 
