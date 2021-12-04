@@ -15,6 +15,9 @@ class Zora {
     this.maxTickCount = 12;
     this.ringsFrame = 0;
     this.totalCount = 0;
+    this.isFiring = false;
+    this.zoraX;
+    this.zoraY;
   }
 }
 
@@ -36,8 +39,16 @@ function zoraAnimation(ctx) {
     }
 
     if (map.zora.totalCount === 300) {
-      var angle = Math.atan2(zelda.x - map.zora.x, zelda.y - map.zora.y) * 180 / Math.PI;
-      console.log(angle)
+      var radians = Math.atan2(zelda.y - map.zora.y, zelda.x - map.zora.x);
+      map.zora.isFiring = true;
+      map.zora.zoraX = map.zora.x;
+      map.zora.zoraY = map.zora.y;
+    }
+
+    if (map.zora.isFiring === true) {
+
+      fireMissile(radians,ctx)
+
     }
 
     if (map.zora.totalCount > 500) {
@@ -46,6 +57,19 @@ function zoraAnimation(ctx) {
       map.zora.y = zoraCoord.y;
       map.zora.totalCount = 0;
     }
+  }
+}
+
+function fireMissile(radians,ctx) {
+  var fireBalls = 1000;
+  var i = 0;
+  while (i < fireBalls) {
+    i++;
+    var x2 = map.zora.zoraX + Math.cos(radians) * i;
+    var y2 = map.zora.zoraY + Math.sin(radians) * i;
+
+    ctx.fillRect(x2,y2, 32,32)
+
   }
 }
 
