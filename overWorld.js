@@ -37,7 +37,7 @@ function drawTiles(ctx) {
       map.actual = map.newMap;
       map.direction = 0;
       map.monsters = spawnMonsters(mainMap[map.actual].bluePrint, ctx);
-      if (mainMap[map.actual].hasWater === true) map.zora = spawnZora();
+      if (mainMap[map.actual].hasWater === true) map.zora = spawnZora(mainMap[map.actual].bluePrint);
     }
     if (map.xOffset === 888 || map.xOffset === -896) {
       map.zobi = false;
@@ -57,7 +57,7 @@ function drawTiles(ctx) {
 
 function spawnMonsters(map,ctx) {
   var monsters = [];
-  for (let i = 0; monsters.length < 0; i++) {
+  for (let i = 0; monsters.length < 4; i++) {
     var monster = new Moblin(map, [1, 1, 1, 1],ctx);
     if (map[monster.index] === 2) monsters.push(monster)
   }

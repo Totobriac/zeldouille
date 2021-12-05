@@ -84,7 +84,7 @@ class Hero {
         this.y -= this.wallBounce(0, -1);
       }
     }
-    
+
     if (missileCollison.isColliding === true) {
       if (this.isHit === false) {
         this.isHit = true;
@@ -107,6 +107,9 @@ class Hero {
       if (this.direction === 2) {
         this.y += this.align(this.y + 8, 16);
         var nextX = this.x + 4;
+
+        if (nextX > 864) map.moveRight();
+
         this.wallCollision = this.checkCollision(nextX, this.y).isColliding;
         if (this.wallCollision === false) {
           this.x += 4;
@@ -114,6 +117,9 @@ class Hero {
       } else if (this.direction === 3) {
         this.y -= this.align(this.y + 8, 16);
         var nextX = this.x - 4;
+
+        if (nextX < 32) map.moveLeft();
+
         this.wallCollision = this.checkCollision(nextX, this.y).isColliding;
         if (this.wallCollision === false) {
           this.x -= 4;
@@ -121,6 +127,10 @@ class Hero {
       } else if (this.direction === 0) {
         this.x += this.align(this.x + 8, 16);
         var nextY = this.y + 4;
+
+        if (nextY > 352) map.moveDown();
+
+
         this.wallCollision = this.checkCollision(this.x, nextY).isColliding;
         if (this.wallCollision === false) {
           this.y += 4;
@@ -128,6 +138,9 @@ class Hero {
       } else if (this.direction === 1) {
         this.x -= this.align(this.x + 8, 16);
         var nextY = this.y - 4;
+
+        if (nextY < 32) map.moveUp();
+
         this.wallCollision = this.checkCollision(this.x, nextY).isColliding;
         if (this.wallCollision === false) {
           this.y -= 4;

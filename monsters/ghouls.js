@@ -192,6 +192,7 @@ function monsterAnimation(ctx) {
 function monsterMayem() {
   map.monsters = [];
   map.missiles = [];
+  map.zora = undefined;
 }
 
 function dyingAnimation(x, y, ctx) {

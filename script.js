@@ -33,8 +33,6 @@ function animate() {
   var actionTile = checkAction(zelda.x, zelda.y, map.actual);
 
   if (actionTile != undefined) {
-    monsterMayem();
-    map.mapMove(actionTile);
     action(actionTile);
   };
 

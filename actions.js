@@ -1,6 +1,5 @@
-import { map, zelda } from "./script.js";
+import { zelda } from "./script.js";
 
-var tickCount = 0;
 
 function action(i, ctx) {
   switch (i) {

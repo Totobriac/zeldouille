@@ -1,5 +1,6 @@
 import { mainMap } from "./maps.js";
-import {collChecker} from "./functions.js";
+import { collChecker } from "./functions.js";
+import { monsterMayem } from "./monsters/ghouls.js";
 
 class Map {
   constructor() {
@@ -18,22 +19,7 @@ class Map {
     this.zob = 0;
     this.zobi = false;
   }
-  mapMove(tile) {
-    switch (tile) {
-      case 3:
-        this.moveDown();
-        break;
-      case 1:
-        this.moveRight();
-        break;
-      case 2:
-        this.moveUp();
-        break;
-      case 0:
-        this.moveLeft();
-        break;
-    }
-  }
+
   moveDown() {
     this.zobi = true;
     this.newMap = this.nextMap(0);
@@ -42,6 +28,7 @@ class Map {
     this.leftRight = 0;
     this.xOffset = 0;
     this.zob = 0;
+    monsterMayem();
   }
   moveUp() {
     this.zobi = true;
@@ -51,6 +38,7 @@ class Map {
     this.leftRight = 0;
     this.xOffset = 0;
     this.zob = 0;
+    monsterMayem();
   }
   moveRight() {
     this.zobi = true;
@@ -60,6 +48,7 @@ class Map {
     this.leftRight = 904;
     this.yOffset = 0;
     this.zob = 8;
+    monsterMayem();
   }
   moveLeft() {
     this.zobi = true;
@@ -69,6 +58,7 @@ class Map {
     this.leftRight = -888;
     this.yOffset = 0;
     this.zob = 0;
+    monsterMayem();
   }
   nextMap(side) {
     switch (side) {
@@ -87,8 +77,8 @@ class Map {
 function checkAction(x, y, map) {
 
   if (mainMap[map].objects) {
-    var objectInteraction = collChecker(x,y,mainMap[map].objects )
-    if (objectInteraction.isColliding=== true && map === 9) {
+    var objectInteraction = collChecker(x, y, mainMap[map].objects)
+    if (objectInteraction.isColliding === true && map === 9) {
       return 6;
     };
   }
