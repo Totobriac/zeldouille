@@ -15,9 +15,11 @@ class Zora {
     this.maxTickCount = 12;
     this.ringsFrame = 0;
     this.totalCount = 0;
-    this.isFiring = false;
     this.zoraX;
     this.zoraY;
+    this.missileTC = 0;
+    this.missileDist = 0;
+    this.radians;
   }
 }
 
@@ -39,16 +41,10 @@ function zoraAnimation(ctx) {
     }
 
     if (map.zora.totalCount === 300) {
-      var radians = Math.atan2(zelda.y - map.zora.y, zelda.x - map.zora.x);
+      map.zora.radians = Math.atan2(zelda.y - map.zora.y, zelda.x - map.zora.x);
       map.zora.isFiring = true;
       map.zora.zoraX = map.zora.x;
       map.zora.zoraY = map.zora.y;
-    }
-
-    if (map.zora.isFiring === true) {
-
-      fireMissile(radians,ctx)
-
     }
 
     if (map.zora.totalCount > 500) {
@@ -56,21 +52,42 @@ function zoraAnimation(ctx) {
       map.zora.x = zoraCoord.x;
       map.zora.y = zoraCoord.y;
       map.zora.totalCount = 0;
+      map.zora.isFiring  = false;
+    }
+
+    if (map.zora.isFiring === true) {
+      var x2 = Math.cos(map.zora.radians) * 5;
+      var y2 = Math.sin(map.zora.radians) * 5;
+      map.zora.zoraX += x2;
+      map.zora.zoraY += y2;
+      animateFireBall(ctx,map.zora.zoraX,map.zora.zoraY);
     }
   }
 }
 
-function fireMissile(radians,ctx) {
-  var fireBalls = 1000;
-  var i = 0;
-  while (i < fireBalls) {
-    i++;
-    var x2 = map.zora.zoraX + Math.cos(radians) * i;
-    var y2 = map.zora.zoraY + Math.sin(radians) * i;
+let numColumns = 2;
+let numRows = 2;
+let frameWidth = 32;
+let frameHeight = 32;
+let currentFrame = 0;
+let maxframe = 3;
+let tickCount = 0;
+let maxTickCount = 12;
 
-    ctx.fillRect(x2,y2, 32,32)
-
+function animateFireBall(ctx,x,y) {  
+  if (tickCount > maxTickCount) {
+    currentFrame ++;
+    tickCount = 0;
   }
+  else {
+    tickCount ++
+  }
+  if (currentFrame > maxframe){
+        currentFrame = 0;
+    }
+  let row = Math.floor(currentFrame / numRows);
+  let column = currentFrame - (row * 2);
+  ctx.drawImage(zoraSprite, column * 32, (row * 32) + 64, frameWidth, frameHeight, x, y, frameWidth, frameHeight);
 }
 
 
