@@ -45,7 +45,7 @@ function drawTiles(ctx) {
       map.xOffset = 0;
       map.actual = map.newMap;
       map.direction = 0;
-      map.monsters = spawnMonsters(mainMap[map.actual].bluePrint, ctx);
+      map.monsters = spawnMonsters(mainMap[map.actual], ctx);
       if (mainMap[map.actual].hasWater === true) map.zora = spawnZora(mainMap[map.actual].bluePrint);
     }
   }
@@ -58,9 +58,24 @@ function drawTiles(ctx) {
 
 function spawnMonsters(map,ctx) {
   var monsters = [];
-  for (let i = 0; monsters.length < 4; i++) {
-    var monster = new Lynel(map, [1, 1, 1, 1],ctx);
-    if (map[monster.index] === 2) monsters.push(monster)
+  for (let i = 0; i < map.monsterList.length; i ++) {
+    for (let j = 0; j < map.monsterList[i].nb; j ++) {
+      var type = map.monsterList[i].type;
+      switch(type) {
+        case "Octorok":
+        var monster = new Octorok(map, [1, 1, 1, 1],ctx);
+        if (map.bluePrint[monster.index] === 2) monsters.push(monster);
+        break;
+        case "Moblin":
+        var monster = new Moblin(map, [1, 1, 1, 1],ctx);
+        if (map.bluePrint[monster.index] === 2) monsters.push(monster);
+        break;
+        case "Lynel":
+        var monster = new Lynel(map, [1, 1, 1, 1],ctx);
+        if (map.bluePrint[monster.index] === 2) monsters.push(monster);
+        break;
+      }
+    }
   }
   return monsters;
 }
