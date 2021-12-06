@@ -5,6 +5,7 @@ import { map } from "./script.js";
 import {Octorok} from "./monsters/octorok.js";
 import { Moblin } from "./monsters/moblin.js";
 import {Zora} from "./monsters/zora.js";
+import {Lynel} from "./monsters/lynel.js";
 
 var tiles = new Image();
 tiles.src = "./assets/sprites.png";
@@ -58,7 +59,7 @@ function drawTiles(ctx) {
 function spawnMonsters(map,ctx) {
   var monsters = [];
   for (let i = 0; monsters.length < 4; i++) {
-    var monster = new Moblin(map, [1, 1, 1, 1],ctx);
+    var monster = new Lynel(map, [1, 1, 1, 1],ctx);
     if (map[monster.index] === 2) monsters.push(monster)
   }
   return monsters;
