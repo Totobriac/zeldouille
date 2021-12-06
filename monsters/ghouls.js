@@ -6,7 +6,7 @@ dyingEffect.src = "./assets/effects.png";
 
 
 export class Monster {
-  constructor(map, bundaries, ctx) {
+  constructor(map, bundaries, ctx, speed) {
     this.x = (Math.floor(Math.random() * 24) + 2) * 32 + 8;
     this.y = (Math.floor(Math.random() * 10) + 1) * 32 + 8;
     this.map = map;
@@ -24,8 +24,11 @@ export class Monster {
     this.frame = 0;
     this.misileCount = 0;
     this.reload = 200;
+    this.speed = speed;
   }
   randomDirection() {
+    console.log("oo");
+
     this.direction = Math.floor(Math.random() * 4);
   }
   getIndex() {
@@ -179,7 +182,10 @@ function monsterAnimation(ctx) {
         } else if (map.missiles[i].direction === 3) {
           dir = [0, 192];
         }
-        ctx.drawImage(map.monsters[i].sprite, dir[0], dir[1], 32, 32, map.missiles[i].x, map.missiles[i].y, 32, 32);
+        if (map.missiles[i].x > 0 && map.missiles[i].x < 888
+          && map.missiles[i].y > 0 && map.missiles[i].y < 376) {
+          ctx.drawImage(map.monsters[i].sprite, dir[0], dir[1], 32, 32, map.missiles[i].x, map.missiles[i].y, 32, 32);
+        }
       }
       else {
         map.missiles.splice(i, 1);

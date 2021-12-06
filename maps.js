@@ -79,7 +79,7 @@ var map5 = {
     19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 2, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19,
   ],
   hasWater: true,
-  monsterList: [{type: "Octorok", nb:2}, {type: "Moblin", nb:2},{type: "Lynel", nb:2}],
+  monsterList: [{type: "Octorok", nb:0}, {type: "Moblin", nb:0},{type: "Lynel", nb:1}],
 }
 var map6 = {
   bluePrint: [19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 2, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19,

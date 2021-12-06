@@ -58,20 +58,24 @@ function drawTiles(ctx) {
 
 function spawnMonsters(map,ctx) {
   var monsters = [];
+  var monstersNb = 0;
+
   for (let i = 0; i < map.monsterList.length; i ++) {
-    for (let j = 0; j < map.monsterList[i].nb; j ++) {
+    monstersNb += map.monsterList[i].nb;
+    
+    while ( monsters.length < monstersNb) {
       var type = map.monsterList[i].type;
       switch(type) {
         case "Octorok":
-        var monster = new Octorok(map, [1, 1, 1, 1],ctx);
+        var monster = new Octorok(map, [1, 1, 1, 1],ctx, 1);
         if (map.bluePrint[monster.index] === 2) monsters.push(monster);
         break;
         case "Moblin":
-        var monster = new Moblin(map, [1, 1, 1, 1],ctx);
+        var monster = new Moblin(map, [1, 1, 1, 1],ctx, 0.75);
         if (map.bluePrint[monster.index] === 2) monsters.push(monster);
         break;
         case "Lynel":
-        var monster = new Lynel(map, [1, 1, 1, 1],ctx);
+        var monster = new Lynel(map, [1, 1, 1, 1],ctx, 1.25);
         if (map.bluePrint[monster.index] === 2) monsters.push(monster);
         break;
       }

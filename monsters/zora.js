@@ -52,15 +52,18 @@ function zoraAnimation(ctx) {
       map.zora.x = zoraCoord.x;
       map.zora.y = zoraCoord.y;
       map.zora.totalCount = 0;
-      map.zora.isFiring  = false;
+      map.zora.isFiring = false;
     }
 
     if (map.zora.isFiring === true) {
-      var x2 = Math.cos(map.zora.radians) * 5;
-      var y2 = Math.sin(map.zora.radians) * 5;
-      map.zora.zoraX += x2;
-      map.zora.zoraY += y2;
-      animateFireBall(ctx,map.zora.zoraX,map.zora.zoraY);
+      if (map.zora.zoraX > 40 && map.zora.zoraX < 840
+        && map.zora.zoraY > 40 && map.zora.zoraY < 328) {
+        var x2 = Math.cos(map.zora.radians) * 5;
+        var y2 = Math.sin(map.zora.radians) * 5;
+        map.zora.zoraX += x2;
+        map.zora.zoraY += y2;
+        animateFireBall(ctx, map.zora.zoraX, map.zora.zoraY);
+      }
     }
   }
 }
@@ -74,17 +77,17 @@ let maxframe = 3;
 let tickCount = 0;
 let maxTickCount = 12;
 
-function animateFireBall(ctx,x,y) {  
+function animateFireBall(ctx, x, y) {
   if (tickCount > maxTickCount) {
-    currentFrame ++;
+    currentFrame++;
     tickCount = 0;
   }
   else {
-    tickCount ++
+    tickCount++
   }
-  if (currentFrame > maxframe){
-        currentFrame = 0;
-    }
+  if (currentFrame > maxframe) {
+    currentFrame = 0;
+  }
   let row = Math.floor(currentFrame / numRows);
   let column = currentFrame - (row * 2);
   ctx.drawImage(zoraSprite, column * 32, (row * 32) + 64, frameWidth, frameHeight, x, y, frameWidth, frameHeight);
