@@ -4,8 +4,8 @@ var octorok = new Image();
 octorok.src = "./assets/beast_1.png";
 
 export class Octorok extends Monster {
-  constructor(map, bundaries, ctx) {
-    super(map, bundaries, ctx);
+  constructor(map, bundaries, ctx, speed) {
+    super(map, bundaries, ctx, speed);
     this.sprite = octorok;
   }
 }

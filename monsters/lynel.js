@@ -4,8 +4,8 @@ var lynel = new Image();
 lynel.src = "./assets/lynel.png";
 
 export class Lynel extends Monster {
-  constructor(map, bundaries, ctx) {
-    super(map, bundaries, ctx);
+  constructor(map, bundaries, ctx, speed) {
+    super(map, bundaries, ctx,speed);
     this.sprite = lynel;
   }
 }

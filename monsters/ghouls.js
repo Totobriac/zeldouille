@@ -27,8 +27,6 @@ export class Monster {
     this.speed = speed;
   }
   randomDirection() {
-    console.log("oo");
-
     this.direction = Math.floor(Math.random() * 4);
   }
   getIndex() {
@@ -42,30 +40,30 @@ export class Monster {
         this.dist = 0;
       }
       if (this.direction === 0) {
-        var nextX = this.x + 1;
+        var nextX = this.x + this.speed;
         this.checkBundaries(nextX, this.y) === false && this.checkCollision(nextX, this.y).isColliding === false
-          ? this.x += 1
+          ? this.x += this.speed
           : this.randomDirection();
       }
       else if (this.direction === 1) {
-        var nextX = this.x - 1;
+        var nextX = this.x - this.speed;
         this.checkBundaries(nextX, this.y) === false && this.checkCollision(nextX, this.y).isColliding === false
-          ? this.x -= 1
+          ? this.x -= this.speed
           : this.randomDirection();
       }
       else if (this.direction === 2) {
-        var nextY = this.y + 1;
+        var nextY = this.y + this.speed;
         this.checkBundaries(this.x, nextY) === false && this.checkCollision(this.x, nextY).isColliding === false
-          ? this.y += 1
+          ? this.y += this.speed
           : this.randomDirection();
       }
       else if (this.direction === 3) {
-        var nextY = this.y - 1;
+        var nextY = this.y - this.speed;
         this.checkBundaries(this.x, nextY) === false && this.checkCollision(this.x, nextY).isColliding === false
-          ? this.y -= 1
+          ? this.y -= this.speed
           : this.randomDirection();
       }
-      this.dist += 1;
+      this.dist += this.speed;
     }
     else {
       this.randomDirection();
@@ -111,13 +109,14 @@ export class Monster {
 }
 
 class Missile {
-  constructor(x, y, direction, speed, maxDist) {
+  constructor(x, y, direction, speed, maxDist, sprite) {
     this.x = x;
     this.y = y;
     this.direction = direction;
     this.speed = speed;
     this.maxDist = maxDist;
     this.dist = 0;
+    this.sprite = sprite;
   }
   fly() {
     if (this.direction === 0) {
@@ -165,7 +164,7 @@ function monsterAnimation(ctx) {
       if (map.monsters[i].checkShot() === true &&
         map.monsters[i].misileCount > map.monsters[i].reload) {
         map.monsters[i].misileCount = 0;
-        var missile = new Missile(map.monsters[i].x, map.monsters[i].y, map.monsters[i].direction, 4, 280);
+        var missile = new Missile(map.monsters[i].x, map.monsters[i].y, map.monsters[i].direction, map.monsters[i].speed * 2, 280,map.monsters[i].sprite );
         map.missiles.push(missile)
       };
     }
@@ -184,7 +183,7 @@ function monsterAnimation(ctx) {
         }
         if (map.missiles[i].x > 0 && map.missiles[i].x < 888
           && map.missiles[i].y > 0 && map.missiles[i].y < 376) {
-          ctx.drawImage(map.monsters[i].sprite, dir[0], dir[1], 32, 32, map.missiles[i].x, map.missiles[i].y, 32, 32);
+          ctx.drawImage(map.missiles[i].sprite, dir[0], dir[1], 32, 32, map.missiles[i].x, map.missiles[i].y, 32, 32);
         }
       }
       else {
