@@ -25,6 +25,9 @@ export class Monster {
     this.misileCount = 0;
     this.reload = 200;
     this.speed = speed;
+    this.isDead = false;
+    this.dyingTick = 0;
+    this.dyingFrame = 0;
   }
   randomDirection() {
     this.direction = Math.floor(Math.random() * 4);
@@ -103,9 +106,6 @@ export class Monster {
     }
     return true;
   }
-  vanish() {
-    dyingAnimation(this.x, this.y, this.ctx);
-  }
 }
 
 class Missile {
@@ -139,7 +139,8 @@ function monsterAnimation(ctx) {
 
     for (let i = 0; i < map.monsters.length; i++) {
       map.monsters[i].misileCount++;
-      map.monsters[i].tickCount++
+      map.monsters[i].tickCount++;
+
 
       if (map.monsters[i].hasAppeard === false) {
         if (map.monsters[i].tickCount < map.monsters[i].maxTickCount) {
@@ -152,7 +153,7 @@ function monsterAnimation(ctx) {
           map.monsters[i].hasAppeard = true;
         }
       }
-      else {
+      else if(map.monsters[i].hasAppeard === true && map.monsters[i].isDead === false) {
         if (map.monsters[i].tickCount > map.monsters[i].maxTickCount) {
           map.monsters[i].frame === 0 ? map.monsters[i].frame = 1 : map.monsters[i].frame = 0;
           map.monsters[i].tickCount = 0;
@@ -161,6 +162,22 @@ function monsterAnimation(ctx) {
         monstersIndexList.push(map.monsters[i].index);
         map.monsters[i].move();
       }
+      else {
+        console.log(map.monsters)
+        if (map.monsters[i].dyingTick < map.monsters[i].maxTickCount * 2) {
+          map.monsters[i].dyingFrame ++;
+          map.monsters[i].dyingTick = 0;
+        }
+        if (map.monsters[i].dyingFrame === 5) {
+          map.monsters.splice(i, 1);
+          return
+        }
+        else {
+          map.monsters[i].dyingTick ++;
+        }
+        ctx.drawImage(dyingEffect, map.monsters[i].dyingFrame * 32, 0, 32,32, map.monsters[i].x, map.monsters[i].y, 32, 32);
+      }
+
       if (map.monsters[i].checkShot() === true &&
         map.monsters[i].misileCount > map.monsters[i].reload) {
         map.monsters[i].misileCount = 0;
@@ -168,6 +185,8 @@ function monsterAnimation(ctx) {
         map.missiles.push(missile)
       };
     }
+
+
     for (let i = 0; i < map.missiles.length; i++) {
       map.missiles[i].fly();
       if (map.missiles[i].dist < map.missiles[i].maxDist) {
@@ -200,14 +219,5 @@ function monsterMayem() {
   map.zora = undefined;
 }
 
-function dyingAnimation(x, y, ctx) {
-  var tickCount = 0;
-  var totalTickount = 2800;
-  while (tickCount < totalTickount) {
-    tickCount++;
-    var frame = Math.floor(tickCount / 400);
-    ctx.drawImage(dyingEffect, frame * 32, 0, 32, 32, x, y, 32, 32);
-  }
-}
 
 export { monsterAnimation, monsterMayem };

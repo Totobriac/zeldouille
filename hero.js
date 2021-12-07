@@ -232,8 +232,9 @@ class Hero {
     }
     var hasHitMonster = collChecker(this.x + xHitOffset, this.y + yHitOffset, map.monsters);
     if (hasHitMonster.isColliding === true) {
-      map.monsters[hasHitMonster.index].vanish();
-      map.monsters.splice(hasHitMonster.index, 1)
+      // map.monsters[hasHitMonster.index].vanish();
+      map.monsters[hasHitMonster.index].isDead = true;
+      //map.monsters.splice(hasHitMonster.index, 1);
     }
     this.ctx.drawImage(zeldaAttackSprite, 54 * this.frame, 56 * this.lastDirection, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56);
   }
