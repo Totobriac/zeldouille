@@ -1,6 +1,12 @@
-import { map } from "./script.js";
-import { collChecker } from "./functions.js";
-import { checkAction } from "./map.js";
+import {
+  map
+} from "./script.js";
+import {
+  collChecker
+} from "./functions.js";
+import {
+  checkAction
+} from "./map.js";
 
 var zeldaSprite = new Image();
 zeldaSprite.src = "./assets/dino_2.png";
@@ -44,8 +50,7 @@ class Hero {
       if (this.tickCount > this.maxTickCount) {
         this.tickCount = 0;
         this.frame === 0 ? this.frame = 1 : this.frame = 0
-      }
-      else {
+      } else {
         if (this.isMoving === true || map.zobi === true) this.tickCount += 1;
       }
       this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.lastDirection, 32, 32, this.x, this.y, 32, 32);
@@ -86,9 +91,14 @@ class Hero {
     }
 
     if (missileCollison.isColliding === true) {
-      if (this.isHit === false) {
-        this.isHit = true;
-        this.life--;
+      if (missileCollison.object.direction === 0 && this.lastDirection != 3 ||
+        missileCollison.object.direction === 1 && this.lastDirection != 2 ||
+        missileCollison.object.direction === 2 && this.lastDirection != 1 ||
+        missileCollison.object.direction === 3 && this.lastDirection != 0) {
+        if (this.isHit === false) {
+          this.isHit = true;
+          this.life--;
+        }
       }
 
       var dir = missileCollison.object.direction;
@@ -196,8 +206,7 @@ class Hero {
     if (this.tickCount > this.maxTickCount * 0.5) {
       this.tickCount = 0;
       this.frame < this.totalAttackFrame ? this.frame++ : this.isAttacking = false;
-    }
-    else {
+    } else {
       this.tickCount += 1;
     }
     var xOffset;
@@ -232,9 +241,7 @@ class Hero {
     }
     var hasHitMonster = collChecker(this.x + xHitOffset, this.y + yHitOffset, map.monsters);
     if (hasHitMonster.isColliding === true) {
-      // map.monsters[hasHitMonster.index].vanish();
       map.monsters[hasHitMonster.index].isDead = true;
-      //map.monsters.splice(hasHitMonster.index, 1);
     }
     this.ctx.drawImage(zeldaAttackSprite, 54 * this.frame, 56 * this.lastDirection, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56);
   }
@@ -244,8 +251,7 @@ class Hero {
       if (this.hitTickCount % 10 === 0) {
         this.hitFrame < zeldaHit.length - 1 ? this.hitFrame++ : this.hitFrame = 0;
         zeldaSprite.src = zeldaHit[this.hitFrame];
-      }
-      else if (this.hitTickCount > 100) {
+      } else if (this.hitTickCount > 100) {
         this.hitTickCount = 0;
         this.isHit = false;
         zeldaSprite.src = "./assets/dino_up_tail.png";
@@ -254,4 +260,6 @@ class Hero {
   }
 }
 
-export { Hero };
+export {
+  Hero
+};

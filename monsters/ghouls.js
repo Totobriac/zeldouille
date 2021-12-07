@@ -186,7 +186,6 @@ function monsterAnimation(ctx) {
       };
     }
 
-
     for (let i = 0; i < map.missiles.length; i++) {
       map.missiles[i].fly();
       if (map.missiles[i].dist < map.missiles[i].maxDist) {
@@ -209,7 +208,6 @@ function monsterAnimation(ctx) {
         map.missiles.splice(i, 1);
       }
     }
-
   }
 }
 
