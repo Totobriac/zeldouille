@@ -117,6 +117,7 @@ class Missile {
     this.maxDist = maxDist;
     this.dist = 0;
     this.sprite = sprite;
+    this.isIntercepted = false;
   }
   fly() {
     if (this.direction === 0) {
@@ -202,6 +203,9 @@ function monsterAnimation(ctx) {
         if (map.missiles[i].x > 0 && map.missiles[i].x < 888
           && map.missiles[i].y > 0 && map.missiles[i].y < 376) {
           ctx.drawImage(map.missiles[i].sprite, dir[0], dir[1], 32, 32, map.missiles[i].x, map.missiles[i].y, 32, 32);
+        }
+        if (map.missiles[i].isIntercepted === true) {
+          console.log("dies");
         }
       }
       else {
