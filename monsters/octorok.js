@@ -7,5 +7,6 @@ export class Octorok extends Monster {
   constructor(map, bundaries, ctx, speed) {
     super(map, bundaries, ctx, speed);
     this.sprite = octorok;
+    this.isPiercing = false;
   }
 }

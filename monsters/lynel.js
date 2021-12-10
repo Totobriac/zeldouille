@@ -7,5 +7,6 @@ export class Lynel extends Monster {
   constructor(map, bundaries, ctx, speed) {
     super(map, bundaries, ctx,speed);
     this.sprite = lynel;
+    this.isPiercing = true;
   }
 }

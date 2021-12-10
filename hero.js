@@ -61,13 +61,11 @@ class Hero {
 
   move() {
 
-    console.log(this.isAttacking)
 
     if (this.direction != undefined) this.lastDirection = this.direction;
 
     var enemyCollison = collChecker(this.x, this.y, map.monsters);
     var missileCollison = collChecker(this.x, this.y, map.missiles);
-
 
     if (enemyCollison.isColliding === true) {
       if (this.isHit === false) {
@@ -91,26 +89,29 @@ class Hero {
       if (missileCollison.object.direction === 0 && this.lastDirection != 3 ||
         missileCollison.object.direction === 1 && this.lastDirection != 2 ||
         missileCollison.object.direction === 2 && this.lastDirection != 1 ||
-        missileCollison.object.direction === 3 && this.lastDirection != 0 &&
-        this.isAttacking === false) {
+        missileCollison.object.direction === 3 && this.lastDirection != 0 ||
+        this.isAttacking === true || missileCollison.object.isPiercing === true ) {
         if (this.isHit === false) {
           this.isHit = true;
           this.life--;
         }
       }
-      else {
+      else if (missileCollison.object.isPiercing === false) {
         missileCollison.object.isIntercepted = true;
       }
 
       var dir = missileCollison.object.direction;
-      if (dir === 0) {
-        this.x += this.wallBounce(1, 0);
-      } else if (dir === 1) {
-        this.x -= this.wallBounce(-1, 0);
-      } else if (dir === 2) {
-        this.y += this.wallBounce(0, 1);
-      } else if (dir === 3) {
-        this.y -= this.wallBounce(0, -1);
+
+      if ( missileCollison.object.isPiercing === false) {
+        if (dir === 0) {
+          this.x += this.wallBounce(1, 0);
+        } else if (dir === 1) {
+          this.x -= this.wallBounce(-1, 0);
+        } else if (dir === 2) {
+          this.y += this.wallBounce(0, 1);
+        } else if (dir === 3) {
+          this.y -= this.wallBounce(0, -1);
+        }
       }
     }
 

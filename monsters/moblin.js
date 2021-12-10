@@ -7,5 +7,6 @@ export class Moblin extends Monster {
   constructor(map, bundaries, ctx,speed) {
     super(map, bundaries, ctx,speed);
     this.sprite = moblin;
+    this.isPiercing = false;
   }
 }

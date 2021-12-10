@@ -109,7 +109,7 @@ export class Monster {
 }
 
 class Missile {
-  constructor(x, y, direction, speed, maxDist, sprite) {
+  constructor(x, y, direction, speed, maxDist, sprite, isPiercing) {
     this.x = x;
     this.y = y;
     this.direction = direction;
@@ -120,6 +120,7 @@ class Missile {
     this.isIntercepted = false;
     this.interceptionTick = 0;
     this.maxTickCount = 8;
+    this.isPiercing = isPiercing;
   }
   fly() {
     if (this.direction === 0) {
@@ -184,14 +185,16 @@ function monsterAnimation(ctx) {
       if (map.monsters[i].checkShot() === true &&
         map.monsters[i].misileCount > map.monsters[i].reload) {
         map.monsters[i].misileCount = 0;
-        var missile = new Missile(map.monsters[i].x, map.monsters[i].y, map.monsters[i].direction, map.monsters[i].speed * 2, 280,map.monsters[i].sprite );
+        var missile = new Missile(map.monsters[i].x, map.monsters[i].y,
+                                  map.monsters[i].direction, map.monsters[i].speed * 2,
+                                  280, map.monsters[i].sprite, map.monsters[i].isPiercing );
         map.missiles.push(missile)
       };
     }
 
     for (let i = 0; i < map.missiles.length; i++) {
 
-      if (map.missiles[i].isIntercepted === false) map.missiles[i].fly();
+      if (map.missiles[i].isIntercepted === false ) map.missiles[i].fly();
 
       if (map.missiles[i].dist < map.missiles[i].maxDist) {
         var dir = [];
