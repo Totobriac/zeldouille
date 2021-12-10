@@ -118,6 +118,8 @@ class Missile {
     this.dist = 0;
     this.sprite = sprite;
     this.isIntercepted = false;
+    this.interceptionTick = 0;
+    this.maxTickCount = 8;
   }
   fly() {
     if (this.direction === 0) {
@@ -188,7 +190,9 @@ function monsterAnimation(ctx) {
     }
 
     for (let i = 0; i < map.missiles.length; i++) {
-      map.missiles[i].fly();
+
+      if (map.missiles[i].isIntercepted === false) map.missiles[i].fly();
+
       if (map.missiles[i].dist < map.missiles[i].maxDist) {
         var dir = [];
         if (map.missiles[i].direction === 0) {
@@ -201,11 +205,18 @@ function monsterAnimation(ctx) {
           dir = [0, 192];
         }
         if (map.missiles[i].x > 0 && map.missiles[i].x < 888
-          && map.missiles[i].y > 0 && map.missiles[i].y < 376) {
+          && map.missiles[i].y > 0 && map.missiles[i].y < 376
+          && map.missiles[i].isIntercepted === false ) {
           ctx.drawImage(map.missiles[i].sprite, dir[0], dir[1], 32, 32, map.missiles[i].x, map.missiles[i].y, 32, 32);
         }
         if (map.missiles[i].isIntercepted === true) {
-          console.log("dies");
+          if (map.missiles[i].interceptionTick < map.missiles[i].maxTickCount) {
+            map.missiles[i].interceptionTick ++;
+            ctx.drawImage(dyingEffect, 256,0,32,32, map.missiles[i].x, map.missiles[i].y, 32,32)
+          }
+          else {
+            map.missiles.splice(i, 1);
+          }
         }
       }
       else {

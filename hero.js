@@ -60,6 +60,9 @@ class Hero {
   }
 
   move() {
+
+    console.log(this.isAttacking)
+
     if (this.direction != undefined) this.lastDirection = this.direction;
 
     var enemyCollison = collChecker(this.x, this.y, map.monsters);
@@ -88,7 +91,8 @@ class Hero {
       if (missileCollison.object.direction === 0 && this.lastDirection != 3 ||
         missileCollison.object.direction === 1 && this.lastDirection != 2 ||
         missileCollison.object.direction === 2 && this.lastDirection != 1 ||
-        missileCollison.object.direction === 3 && this.lastDirection != 0) {
+        missileCollison.object.direction === 3 && this.lastDirection != 0 &&
+        this.isAttacking === false) {
         if (this.isHit === false) {
           this.isHit = true;
           this.life--;
