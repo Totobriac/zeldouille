@@ -61,11 +61,22 @@ class Hero {
 
   move() {
 
-
     if (this.direction != undefined) this.lastDirection = this.direction;
 
     var enemyCollison = collChecker(this.x, this.y, map.monsters);
     var missileCollison = collChecker(this.x, this.y, map.missiles);
+
+
+    if (map.zora) {
+       var zoraCollision = collChecker(this.x, this.y, map.zora);
+       if (zoraCollision.isColliding === true) {
+         if (this.isHit === false) {
+           this.isHit = true;
+           this.life--;
+         }
+       }
+     }
+
 
     if (enemyCollison.isColliding === true) {
       if (this.isHit === false) {

@@ -1,22 +1,19 @@
-import {
-  map,
-  zelda
-} from "../script.js";
+import { map, zelda } from "../script.js";
 
 var zoraSprite = new Image();
 zoraSprite.src = "../assets/zora.png";
 
 class Zora {
   constructor(x, y, waterTiles) {
-    this.x = x;
-    this.y = y;
+    this.zoraX = x;
+    this.zoraY = y;
     this.waterTiles = waterTiles;
     this.tickCount = 0;
     this.maxTickCount = 12;
     this.ringsFrame = 0;
     this.totalCount = 0;
-    this.zoraX;
-    this.zoraY;
+    this.x;
+    this.y;
     this.missileTC = 0;
     this.missileDist = 0;
     this.radians;
@@ -25,44 +22,46 @@ class Zora {
 
 function zoraAnimation(ctx) {
   if (map.zora) {
-    map.zora.totalCount++;
-    if (map.zora.tickCount > map.zora.maxTickCount) {
-      map.zora.ringsFrame === 0 ? map.zora.ringsFrame = 1 : map.zora.ringsFrame = 0;
-      map.zora.tickCount = 0;
+
+
+    map.zora[0].totalCount++;
+    if (map.zora[0].tickCount > map.zora[0].maxTickCount) {
+      map.zora[0].ringsFrame === 0 ? map.zora[0].ringsFrame = 1 : map.zora[0].ringsFrame = 0;
+      map.zora[0].tickCount = 0;
     } else {
-      map.zora.tickCount++;
+      map.zora[0].tickCount++;
     }
-    ctx.drawImage(zoraSprite, map.zora.ringsFrame * 32, 0, 32, 32, map.zora.x, map.zora.y, 32, 32);
+    ctx.drawImage(zoraSprite, map.zora[0].ringsFrame * 32, 0, 32, 32, map.zora[0].zoraX, map.zora[0].zoraY, 32, 32);
 
-    if (map.zora.totalCount > 200 && map.zora.totalCount < 400) {
+    if (map.zora[0].totalCount > 200 && map.zora[0].totalCount < 400) {
       var zoraFace;
-      zelda.y > map.zora.y ? zoraFace = 0 : zoraFace = 1;
-      ctx.drawImage(zoraSprite, 32 * zoraFace, 32, 32, 32, map.zora.x, map.zora.y, 32, 32);
+      zelda.zoraY > map.zora[0].zoraY ? zoraFace = 0 : zoraFace = 1;
+      ctx.drawImage(zoraSprite, 32 * zoraFace, 32, 32, 32, map.zora[0].zoraX, map.zora[0].zoraY, 32, 32);
     }
 
-    if (map.zora.totalCount === 300) {
-      map.zora.radians = Math.atan2(zelda.y - map.zora.y, zelda.x - map.zora.x);
-      map.zora.isFiring = true;
-      map.zora.zoraX = map.zora.x;
-      map.zora.zoraY = map.zora.y;
+    if (map.zora[0].totalCount === 300) {
+      map.zora[0].radians = Math.atan2(zelda.y - map.zora[0].zoraY, zelda.x - map.zora[0].zoraX);
+      map.zora[0].isFiring = true;
+      map.zora[0].x = map.zora[0].zoraX;
+      map.zora[0].y = map.zora[0].zoraY;
     }
 
-    if (map.zora.totalCount > 500) {
-      var zoraCoord = map.zora.waterTiles[Math.floor(Math.random() * map.zora.waterTiles.length)];
-      map.zora.x = zoraCoord.x;
-      map.zora.y = zoraCoord.y;
-      map.zora.totalCount = 0;
-      map.zora.isFiring = false;
+    if (map.zora[0].totalCount > 500) {
+      var zoraCoord = map.zora[0].waterTiles[Math.floor(Math.random() * map.zora[0].waterTiles.length)];
+      map.zora[0].zoraX = zoraCoord.x;
+      map.zora[0].zoraY = zoraCoord.y;
+      map.zora[0].totalCount = 0;
+      map.zora[0].isFiring = false;
     }
 
-    if (map.zora.isFiring === true) {
-      if (map.zora.zoraX > 40 && map.zora.zoraX < 840
-        && map.zora.zoraY > 40 && map.zora.zoraY < 328) {
-        var x2 = Math.cos(map.zora.radians) * 5;
-        var y2 = Math.sin(map.zora.radians) * 5;
-        map.zora.zoraX += x2;
-        map.zora.zoraY += y2;
-        animateFireBall(ctx, map.zora.zoraX, map.zora.zoraY);
+    if (map.zora[0].isFiring === true) {
+      if (map.zora[0].x > 40 && map.zora[0].x < 840
+        && map.zora[0].y > 40 && map.zora[0].y < 328) {
+        var x2 = Math.cos(map.zora[0].radians) * 5;
+        var y2 = Math.sin(map.zora[0].radians) * 5;
+        map.zora[0].x += x2;
+        map.zora[0].y += y2;
+        animateFireBall(ctx, map.zora[0].x, map.zora[0].y);
       }
     }
   }

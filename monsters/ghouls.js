@@ -167,7 +167,6 @@ function monsterAnimation(ctx) {
         map.monsters[i].move();
       }
       else {
-        console.log(map.monsters)
         if (map.monsters[i].dyingTick < map.monsters[i].maxTickCount * 2) {
           map.monsters[i].dyingFrame ++;
           map.monsters[i].dyingTick = 0;
