@@ -1,12 +1,6 @@
-import {
-  map
-} from "./script.js";
-import {
-  collChecker
-} from "./functions.js";
-import {
-  checkAction
-} from "./map.js";
+import { map } from "./script.js";
+import { collChecker } from "./functions.js";
+import { checkAction } from "./map.js";
 
 var zeldaSprite = new Image();
 zeldaSprite.src = "./assets/dino_2.png";
@@ -99,6 +93,9 @@ class Hero {
           this.isHit = true;
           this.life--;
         }
+      }
+      else {
+        missileCollison.object.isIntercepted = true;
       }
 
       var dir = missileCollison.object.direction;
