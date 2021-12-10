@@ -67,7 +67,7 @@ class Hero {
     var missileCollison = collChecker(this.x, this.y, map.missiles);
 
 
-    if (map.zora) {
+    if (map.zora &&  map.zora[0].x) {
        var zoraCollision = collChecker(this.x, this.y, map.zora);
        if (zoraCollision.isColliding === true) {
          if (this.isHit === false) {

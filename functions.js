@@ -19,7 +19,7 @@ function collChecker(x, y, objects) {
   var colliding;
   for (let i = 0; i < objects.length; i++) {
     if (x + 32 <= objects[i].x || x >= objects[i].x + 32 ||
-      y + 32 <= objects[i].y || y >= objects[i].y + 32) {
+      y + 32 <= objects[i].y || y >= objects[i].y + 32 ) {
       colliding = false;
     }
     else {

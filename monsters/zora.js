@@ -23,7 +23,6 @@ class Zora {
 function zoraAnimation(ctx) {
   if (map.zora) {
 
-
     map.zora[0].totalCount++;
     if (map.zora[0].tickCount > map.zora[0].maxTickCount) {
       map.zora[0].ringsFrame === 0 ? map.zora[0].ringsFrame = 1 : map.zora[0].ringsFrame = 0;
