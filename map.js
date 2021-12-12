@@ -91,6 +91,9 @@ function checkAction(x, y, map) {
   if (mainMap[map].bluePrint[actualTile] === 10 && map === 9) {
     return (5);
   }
+  if (mainMap[map].bluePrint[actualTile] === 10 && map === 4) {
+    return (7);
+  }
   if (x < 40) {
     return (0);
   }

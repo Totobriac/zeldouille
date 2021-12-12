@@ -34,6 +34,7 @@ class Hero {
     this.isEnteringCave = false;
     this.isExitingCave = false;
     this.isGrabingSword = false;
+    this.cave = 0;
   }
   draw() {
 

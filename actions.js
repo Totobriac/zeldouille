@@ -1,10 +1,10 @@
 import { zelda } from "./script.js";
 
 
-function action(i, ctx) {
+function action(i) {
   switch (i) {
     case 4:
-      enterCave(ctx);
+      enterCave(9);
       break;
     case 5:
       exitCave();
@@ -12,11 +12,17 @@ function action(i, ctx) {
     case 6:
       getSword();
       break;
+    case 7:
+      enterCave(10);
+      break;
   }
 }
 
-function enterCave(ctx) {
-  if (zelda.direction === 1 && zelda.y === 40) zelda.isEnteringCave = true;
+function enterCave(cave) {
+  if (zelda.direction === 1 && zelda.y === 40) {
+    zelda.isEnteringCave = true;
+    zelda.cave = cave
+  }
 }
 
 function exitCave() {
