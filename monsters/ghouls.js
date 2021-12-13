@@ -1,6 +1,5 @@
 import { collChecker } from "../functions.js";
 import { map } from "../script.js";
-import { gannonAnimation } from "./gannon.js";
 import { zoraAnimation} from "./zora.js";
 
 
@@ -146,7 +145,7 @@ function monsterAnimation(ctx) {
   }
 
   if(map.actual === 10) {
-    gannonAnimation(ctx);
+    map.gannon.gannonAnimation();
   }
 
   if (map.monsters) {

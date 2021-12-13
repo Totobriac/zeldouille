@@ -29,6 +29,17 @@ function collChecker(x, y, objects) {
   return { isColliding: colliding };
 }
 
+function gannonCollChecker(x, y, gannonX, gannonY) {
+  var colliding;
+    if (x + 32 <= gannonX || x >= gannonX + 64 ||
+      y + 32 <= gannonY || y >= gannonY + 64 ) {
+      return false;
+    }
+    else {
+      return true;
+    }
+}
+
 function getTile(tile) {
   var line = Math.floor(tile / 6);
   var column = tile - (line * 6);
@@ -63,4 +74,4 @@ function animateFireBall(ctx, x, y) {
   ctx.drawImage(zoraSprite, column * 32, (row * 32) + 64, frameWidth, frameHeight, x, y, frameWidth, frameHeight);
 }
 
-export { getObstaclesList, collChecker, getTile, animateFireBall };
+export { getObstaclesList, collChecker, getTile, animateFireBall, gannonCollChecker };

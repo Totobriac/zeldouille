@@ -36,7 +36,7 @@ function drawTransition(ctx) {
       zelda.x = 440;
       zelda.y = 324;
       if (map.actual === 10) {
-        map.gannon = new Gannon(400, 200);        
+        map.gannon = new Gannon(ctx);
       }
     }
     else if (tickCount >= 126 && tickCount < 166) {

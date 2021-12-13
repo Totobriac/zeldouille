@@ -1,5 +1,5 @@
 import { map } from "./script.js";
-import { collChecker } from "./functions.js";
+import { collChecker, gannonCollChecker } from "./functions.js";
 import { checkAction } from "./map.js";
 
 import { action } from "./actions.js";
@@ -268,7 +268,8 @@ class Hero {
       map.monsters[hasHitMonster.index].isDead = true;
     }
     if (map.gannon) {
-      console.log(map.gannon);
+      var hasHitGannon = gannonCollChecker(this.x + xHitOffset, this.y + yHitOffset, map.gannon.gannonX, map.gannon.gannonY );
+      console.log(hasHitGannon)
     }
 
     this.ctx.drawImage(zeldaAttackSprite, 54 * this.frame, 56 * this.lastDirection, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56);
