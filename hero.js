@@ -2,6 +2,8 @@ import { map } from "./script.js";
 import { collChecker } from "./functions.js";
 import { checkAction } from "./map.js";
 
+import { action } from "./actions.js";
+
 var zeldaSprite = new Image();
 zeldaSprite.src = "./assets/dino_2.png";
 
@@ -68,16 +70,15 @@ class Hero {
     var missileCollison = collChecker(this.x, this.y, map.missiles);
 
 
-    if (map.zora &&  map.zora[0].x) {
-       var zoraCollision = collChecker(this.x, this.y, map.zora);
-       if (zoraCollision.isColliding === true) {
-         if (this.isHit === false) {
-           this.isHit = true;
-           this.life--;
-         }
-       }
-     }
-
+    if (map.zora && map.zora[0].x) {
+      var zoraCollision = collChecker(this.x, this.y, map.zora);
+      if (zoraCollision.isColliding === true) {
+        if (this.isHit === false) {
+          this.isHit = true;
+          this.life--;
+        }
+      }
+    }
 
     if (enemyCollison.isColliding === true) {
       if (this.isHit === false) {
@@ -102,7 +103,7 @@ class Hero {
         missileCollison.object.direction === 1 && this.lastDirection != 2 ||
         missileCollison.object.direction === 2 && this.lastDirection != 1 ||
         missileCollison.object.direction === 3 && this.lastDirection != 0 ||
-        this.isAttacking === true || missileCollison.object.isPiercing === true ) {
+        this.isAttacking === true || missileCollison.object.isPiercing === true) {
         if (this.isHit === false) {
           this.isHit = true;
           this.life--;
@@ -114,7 +115,7 @@ class Hero {
 
       var dir = missileCollison.object.direction;
 
-      if ( missileCollison.object.isPiercing === false) {
+      if (missileCollison.object.isPiercing === false) {
         if (dir === 0) {
           this.x += this.wallBounce(1, 0);
         } else if (dir === 1) {
@@ -195,6 +196,15 @@ class Hero {
       else if (this.exit === 0 && this.y > 40) this.y -= 2;
       else if (this.exit === 1 && this.y < 328) this.y += 2;
     }
+
+    var actionTile = checkAction(this.x, this.y, map.actual);
+
+    if (actionTile != undefined) {
+      action(actionTile);
+    };
+
+    this.draw();
+
   }
   checkCollision(x, y) {
     return collChecker(x, y, map.obstacles);
@@ -257,6 +267,10 @@ class Hero {
     if (hasHitMonster.isColliding === true) {
       map.monsters[hasHitMonster.index].isDead = true;
     }
+    if (map.gannon) {
+      console.log(map.gannon);
+    }
+
     this.ctx.drawImage(zeldaAttackSprite, 54 * this.frame, 56 * this.lastDirection, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56);
   }
   hitAnimation() {

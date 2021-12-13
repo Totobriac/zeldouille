@@ -2,6 +2,9 @@ import { map } from "./script.js";
 import { mainMap } from "./maps.js";
 import { getTile } from "./functions.js";
 
+import { Gannon } from "./monsters/gannon.js";
+
+
 var sprites = new Image();
 sprites.src = "./assets/sprites.png";
 
@@ -64,8 +67,9 @@ function displayItemsPng(ctx) {
           32,
           32
         );
-    }}
-  }
+      }
+    }  
+  }  
 }
 
 export { displayItemsPng };

@@ -2,10 +2,13 @@ import { mainMap } from "./maps.js";
 import { getObstaclesList, getTile } from "./functions.js";
 import { map } from "./script.js";
 
+import { displayItemsPng } from "./itemsPng.js";
+
 import { Octorok } from "./monsters/octorok.js";
 import { Moblin } from "./monsters/moblin.js";
 import { Zora } from "./monsters/zora.js";
 import { Lynel } from "./monsters/lynel.js";
+
 
 var tiles = new Image();
 tiles.src = "./assets/sprites.png";
@@ -67,6 +70,9 @@ function drawTiles(ctx) {
     ctx.fillRect(0, 0, 8, canvas.height);
     ctx.fillRect(904, 0, 296, canvas.height);
   }
+
+  displayItemsPng(ctx);
+
 }
 
 function spawnMonsters(map, ctx) {

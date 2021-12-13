@@ -35,4 +35,32 @@ function getTile(tile) {
   return [Math.floor(line * 16 + line + 1), Math.floor(column * 16 + column + 1)];
 }
 
-export { getObstaclesList, collChecker, getTile };
+
+var zoraSprite = new Image();
+zoraSprite.src = "../assets/zora.png";
+
+var numRows = 2;
+var frameWidth = 32;
+var frameHeight = 32;
+var currentFrame = 0;
+var maxframe = 3;
+var tickCount = 0;
+var maxTickCount = 12;
+
+function animateFireBall(ctx, x, y) {
+  if (tickCount > maxTickCount) {
+    currentFrame++;
+    tickCount = 0;
+  }
+  else {
+    tickCount++
+  }
+  if (currentFrame > maxframe) {
+    currentFrame = 0;
+  }
+  var row = Math.floor(currentFrame / numRows);
+  var column = currentFrame - (row * 2);
+  ctx.drawImage(zoraSprite, column * 32, (row * 32) + 64, frameWidth, frameHeight, x, y, frameWidth, frameHeight);
+}
+
+export { getObstaclesList, collChecker, getTile, animateFireBall };

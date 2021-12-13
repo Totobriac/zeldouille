@@ -1,5 +1,8 @@
 import { collChecker } from "../functions.js";
 import { map } from "../script.js";
+import { gannonAnimation } from "./gannon.js";
+import { zoraAnimation} from "./zora.js";
+
 
 var dyingEffect = new Image();
 dyingEffect.src = "./assets/effects.png";
@@ -137,6 +140,14 @@ class Missile {
 }
 
 function monsterAnimation(ctx) {
+
+  if (map.zora) {
+    zoraAnimation(ctx);
+  }
+
+  if(map.actual === 10) {
+    gannonAnimation(ctx);
+  }
 
   if (map.monsters) {
     var monstersIndexList = [];

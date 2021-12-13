@@ -1,12 +1,9 @@
 import { Hero } from "./hero.js";
 import { drawTiles } from "./overWorld.js";
-import { checkAction, Map } from "./map.js";
+import { Map } from "./map.js";
 import { SideBar } from "./sideBar.js";
 import { Control } from "./controls.js";
 import { monsterAnimation } from "./monsters/ghouls.js";
-import { zoraAnimation} from "./monsters/zora.js";
-import { displayItemsPng } from "./itemsPng.js";
-import { action } from "./actions.js";
 import { drawTransition } from "./transition.js";
 
 var canvas = document.getElementById("canvas");
@@ -26,19 +23,10 @@ function animate() {
   drawTiles(ctx);
 
   zelda.move();
-  zelda.draw();
+
   monsterAnimation(ctx);
-  zoraAnimation(ctx);
-
-  var actionTile = checkAction(zelda.x, zelda.y, map.actual);
-
-  if (actionTile != undefined) {
-    action(actionTile);
-  };
 
   sideBar.draw();
-
-  displayItemsPng(ctx);
 
   drawTransition(ctx);
 
