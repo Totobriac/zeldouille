@@ -66,14 +66,14 @@ function zoraAnimation(ctx) {
   }
 }
 
-let numColumns = 2;
-let numRows = 2;
-let frameWidth = 32;
-let frameHeight = 32;
-let currentFrame = 0;
-let maxframe = 3;
-let tickCount = 0;
-let maxTickCount = 12;
+var numColumns = 2;
+var numRows = 2;
+var frameWidth = 32;
+var frameHeight = 32;
+var currentFrame = 0;
+var maxframe = 3;
+var tickCount = 0;
+var maxTickCount = 12;
 
 function animateFireBall(ctx, x, y) {
   if (tickCount > maxTickCount) {
@@ -86,8 +86,8 @@ function animateFireBall(ctx, x, y) {
   if (currentFrame > maxframe) {
     currentFrame = 0;
   }
-  let row = Math.floor(currentFrame / numRows);
-  let column = currentFrame - (row * 2);
+  var row = Math.floor(currentFrame / numRows);
+  var column = currentFrame - (row * 2);
   ctx.drawImage(zoraSprite, column * 32, (row * 32) + 64, frameWidth, frameHeight, x, y, frameWidth, frameHeight);
 }
 
