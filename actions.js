@@ -1,6 +1,5 @@
 import { zelda } from "./script.js";
 
-
 function action(i) {
   switch (i) {
     case 4:
@@ -14,6 +13,9 @@ function action(i) {
       break;
     case 7:
       enterCave(10);
+      break;
+    case 8:
+      exitCave();
       break;
   }
 }

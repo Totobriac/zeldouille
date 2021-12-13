@@ -1,5 +1,6 @@
 import { zelda, map } from "./script.js";
 import { mainMap } from "./maps.js";
+import { monsterMayem } from "./monsters/ghouls.js";
 
 var hasGameStarted = false;
 var tickCount = 0;
@@ -20,11 +21,12 @@ function drawTransition(ctx) {
   }
 
   if (zelda.isEnteringCave === true) {
+    monsterMayem();
     tickCount++;
     if (tickCount < 100) {
       zelda.x = undefined;
       zelda.y = undefined;
-      ctx.fillRect(200, 40, 32, 32);
+      zelda.cave === 9 ? ctx.fillRect(200, 40, 32, 32) : ctx.fillRect(424, 40, 32, 32);
     }
     else if (tickCount >= 100 && tickCount < 126) {
       ctx.fillStyle = "black";
@@ -49,16 +51,16 @@ function drawTransition(ctx) {
     if (tickCount < 26) {
       ctx.fillStyle = "black";
       ctx.fillRect(8, 8, 896, 384);
-      map.actual = 3;
+      zelda.cave === 9 ? map.actual = 3 : map.actual = 4;
       zelda.x = undefined;
       zelda.y = undefined;
     }
     else if (tickCount >= 26 && tickCount < 126) {
       ctx.fillStyle = "white";
-      ctx.fillRect(200, 40, 32, 32);
+      zelda.cave === 9 ? ctx.fillRect(200, 40, 32, 32) : ctx.fillRect(424, 40, 32, 32);
     }
     else {
-      zelda.x = 200;
+      zelda.cave === 9 ? zelda.x = 200 : zelda.x = 424;
       zelda.y = 40;
       zelda.isExitingCave = false;
       tickCount = 0;

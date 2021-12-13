@@ -274,6 +274,4 @@ class Hero {
   }
 }
 
-export {
-  Hero
-};
+export { Hero };
