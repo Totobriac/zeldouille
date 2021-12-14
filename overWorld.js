@@ -53,7 +53,7 @@ function drawTiles(ctx) {
         map.actual = map.newMap;
         map.direction = 0;
         map.monsters = spawnMonsters(mainMap[map.actual].bluePrint, ctx);
-        if (mainMap[map.actual].hasWater === true) map.zora = [spawnZora(mainMap[map.actual].bluePrint)];
+        if (mainMap[map.actual].hasWater === true) map.zora = [spawnZora(mainMap[map.actual].bluePrint, ctx)];
       }
       if (map.xOffset === 888 || map.xOffset === -896) {
         map.zobi = false;
@@ -61,7 +61,7 @@ function drawTiles(ctx) {
         map.actual = map.newMap;
         map.direction = 0;
         map.monsters = spawnMonsters(mainMap[map.actual], ctx);
-        if (mainMap[map.actual].hasWater === true) map.zora = [spawnZora(mainMap[map.actual].bluePrint)];
+        if (mainMap[map.actual].hasWater === true) map.zora = [spawnZora(mainMap[map.actual].bluePrint, ctx)];
       }
     }
     ctx.fillStyle = "white";
@@ -103,7 +103,7 @@ function spawnMonsters(map, ctx) {
   return monsters;
 }
 
-function spawnZora(map) {
+function spawnZora(map, ctx) {
   var waterTiles = [];
   for (let i = 0; i < map.length; i++) {
     if ([24, 25, 26, 30, 31, 32, 36, 37, 38].includes(map[i])) {
@@ -113,7 +113,7 @@ function spawnZora(map) {
     }
   }
   var zoraCoord = waterTiles[Math.floor(Math.random() * waterTiles.length)];
-  var zora = new Zora(zoraCoord.x, zoraCoord.y, waterTiles);
+  var zora = new Zora(zoraCoord.x, zoraCoord.y, waterTiles, ctx);
   return zora;
 }
 

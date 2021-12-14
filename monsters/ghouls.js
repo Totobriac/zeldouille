@@ -1,6 +1,5 @@
 import { collChecker } from "../functions.js";
 import { map } from "../script.js";
-import { zoraAnimation} from "./zora.js";
 
 
 var dyingEffect = new Image();
@@ -141,7 +140,7 @@ class Missile {
 function monsterAnimation(ctx) {
 
   if (map.zora) {
-    zoraAnimation(ctx);
+    map.zora[0].zoraAnimation();
   }
 
   if(map.actual === 10) {

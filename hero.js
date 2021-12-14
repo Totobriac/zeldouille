@@ -269,7 +269,7 @@ class Hero {
     }
     if (map.gannon) {
       var hasHitGannon = gannonCollChecker(this.x + xHitOffset, this.y + yHitOffset, map.gannon.gannonX, map.gannon.gannonY );
-      console.log(hasHitGannon)
+      hasHitGannon ? map.gannon.isVisible = true : map.gannon.isVisible = false;
     }
 
     this.ctx.drawImage(zeldaAttackSprite, 54 * this.frame, 56 * this.lastDirection, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56);
