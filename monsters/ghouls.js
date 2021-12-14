@@ -140,7 +140,7 @@ class Missile {
 function monsterAnimation(ctx) {
 
   if (map.zora) {
-    map.zora[0].zoraAnimation();
+    map.zora.zoraAnimation();
   }
 
   if(map.actual === 10) {

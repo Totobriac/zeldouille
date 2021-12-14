@@ -21,14 +21,18 @@ class Gannon {
     this.radians;
     this.isFiring = false;
     this.isVisible = false;
+    this.life = 5;
   }
   spawn() {
     this.gannonX = 264 + Math.floor(Math.random() * 320);
     this.gannonY = 104 + Math.floor(Math.random() * 160);
   }
   gannonAnimation() {
-    if (this.isVisible === true) this.ctx.drawImage(gannonSprite, 0, 64, 64, 64, this.gannonX, this.gannonY, 64, 64);
-
+    console.log(this.life)
+    if (this.isVisible === true) {
+      this.ctx.drawImage(gannonSprite, 0, 64, 64, 64, this.gannonX, this.gannonY, 64, 64);
+      this.life --;
+    }
     if (this.tickCount > this.maxTickCount * 45) {
       this.spawn();
       this.tickCount = 0;

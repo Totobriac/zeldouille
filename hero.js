@@ -70,9 +70,19 @@ class Hero {
     var missileCollison = collChecker(this.x, this.y, map.missiles);
 
 
-    if (map.zora && map.zora[0].x) {
-      var zoraCollision = collChecker(this.x, this.y, map.zora);
+    if (map.zora && map.zora.x) {
+      var zoraCollision = collChecker(this.x, this.y, [map.zora]);
       if (zoraCollision.isColliding === true) {
+        if (this.isHit === false) {
+          this.isHit = true;
+          this.life--;
+        }
+      }
+    }
+
+    if (map.gannon && map.gannon.x) {
+      var gannonCollision = collChecker(this.x, this.y, [map.gannon]);
+      if (gannonCollision.isColliding === true) {
         if (this.isHit === false) {
           this.isHit = true;
           this.life--;
