@@ -85,6 +85,7 @@ class Hero {
       var gannonCollision = collChecker(this.x, this.y, [map.gannon]);
       if (gannonCollision.isColliding === true) {
         if (this.isHit === false) {
+          console.log('gannon fault!!!!');
           this.isHit = true;
           this.life--;
         }
