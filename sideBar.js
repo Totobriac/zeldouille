@@ -1,7 +1,7 @@
 import { map, zelda } from "./script.js";
 
 var itemsSprite = new Image();
-itemsSprite.src = "./assets/heart.png";
+itemsSprite.src = "./assets/heart_key.png";
 
 var swordSprite = new Image();
 swordSprite.src = "./assets/sword.png";
@@ -89,6 +89,15 @@ class SideBar {
     this.ctx.font = "30px pixel";
     this.ctx.fillStyle = "white";
     this.ctx.fillText("B", 1054, 140);
+
+    this.ctx.drawImage(itemsSprite, 84, 0, 32, 32, 930, 190, 32, 32);
+    this.ctx.font = "32px pixel";
+    this.ctx.fillStyle = "white";
+
+    var key;
+    zelda.hasKey === true ? key = 1 : key = 0;
+
+    this.ctx.fillText("X" + key, 990, 220)
 
     if (zelda.hasSword) {
       this.ctx.drawImage(swordSprite, 96, 0, 48, 48, 1104, 145, 64, 64);
