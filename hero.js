@@ -278,8 +278,14 @@ class Hero {
       map.monsters[hasHitMonster.index].isDead = true;
     }
     if (map.gannon) {
-      var hasHitGannon = gannonCollChecker(this.x + xHitOffset, this.y + yHitOffset, map.gannon.gannonX, map.gannon.gannonY );
-      hasHitGannon ? map.gannon.isVisible = true : map.gannon.isVisible = false;
+      var hasHitGannon = gannonCollChecker(this.x + xHitOffset, this.y + yHitOffset, map.gannon.gannonX, map.gannon.gannonY);
+      if (hasHitGannon) {
+        if (map.gannon.isVisible === false) map.gannon.life --;
+        map.gannon.isVisible = true;        
+      }
+      else {
+        map.gannon.isVisible = false;
+      }
     }
 
     this.ctx.drawImage(zeldaAttackSprite, 54 * this.frame, 56 * this.lastDirection, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56);
