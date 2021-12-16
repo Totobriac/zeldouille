@@ -88,7 +88,7 @@ class Gannon {
         this.tickCount++;
       }
     }
-    else if (this.dyingTickCount >= 150 && this.dyingTickCount < 250 ) {
+    else if (this.dyingTickCount >= 150 && this.dyingTickCount < 250) {
       if (this.tickCount > this.maxTickCount * 0.5) {
         this.frame === 7 ? this.frame = 8 : this.frame = 7;
         this.tickCount = 0;
@@ -99,6 +99,19 @@ class Gannon {
     }
     else {
       this.frame = 9;
+      if (zelda.hasKey === false) {
+        this.ctx.drawImage(gannonSprite, 0, 320, 64, 64, this.gannonX, this.gannonY, 64, 64);
+        this.grabKey();
+      }      
+    }
+  }
+  grabKey() {
+    if (zelda.x + 32 < this.gannonX || zelda.x > this.gannonX + 64 ||
+      zelda.y + 32 < this.gannonY || zelda.y > this.gannonY + 64) {
+      zelda.hasKey = false;
+    }
+    else {
+      zelda.hasKey = true;
     }
   }
 }
