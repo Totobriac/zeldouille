@@ -5,10 +5,10 @@ import { checkAction } from "./map.js";
 import { action } from "./actions.js";
 
 var zeldaSprite = new Image();
-zeldaSprite.src = "./assets/dino_2.png";
+zeldaSprite.src = "./assets/dino.png";
 
 var zeldaAttackSprite = new Image();
-zeldaAttackSprite.src = "./assets/sprite_sheet_tail.png";
+zeldaAttackSprite.src = "./assets/dino_attack.png";
 
 const zeldaHit = ["./assets/hit_1.png", "./assets/hit_2.png", "./assets/hit_3.png"];
 
@@ -283,7 +283,7 @@ class Hero {
       var hasHitGannon = gannonCollChecker(this.x + xHitOffset, this.y + yHitOffset, map.gannon.gannonX, map.gannon.gannonY);
       if (hasHitGannon) {
         if (map.gannon.isVisible === false) map.gannon.life --;
-        map.gannon.isVisible = true;        
+        map.gannon.isVisible = true;
       }
       else {
         map.gannon.isVisible = false;
