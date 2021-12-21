@@ -21,7 +21,7 @@ function action(i) {
 }
 
 function enterCave(cave) {
-  if (zelda.direction === 1 && zelda.y === 40) {
+  if (zelda.direction === 1 && zelda.y === 40 || zelda.direction === 1 && zelda.y === 200 ) {
     zelda.isEnteringCave = true;
     zelda.cave = cave
   }
