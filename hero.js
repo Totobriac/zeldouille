@@ -301,7 +301,7 @@ class Hero {
       } else if (this.hitTickCount > 100) {
         this.hitTickCount = 0;
         this.isHit = false;
-        zeldaSprite.src = "./assets/dino_up_tail.png";
+        zeldaSprite.src = "./assets/dino.png";
       }
     }
   }
