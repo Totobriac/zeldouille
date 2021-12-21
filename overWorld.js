@@ -1,13 +1,30 @@
-import { mainMap } from "./maps.js";
-import { getObstaclesList, getTile } from "./functions.js";
-import { map } from "./script.js";
+import {
+  mainMap
+} from "./maps.js";
+import {
+  getObstaclesList,
+  getTile
+} from "./functions.js";
+import {
+  map
+} from "./script.js";
 
-import { displayItemsPng } from "./itemsPng.js";
+import {
+  displayItemsPng
+} from "./itemsPng.js";
 
-import { Octorok } from "./monsters/octorok.js";
-import { Moblin } from "./monsters/moblin.js";
-import { Zora } from "./monsters/zora.js";
-import { Lynel } from "./monsters/lynel.js";
+import {
+  Octorok
+} from "./monsters/octorok.js";
+import {
+  Moblin
+} from "./monsters/moblin.js";
+import {
+  Zora
+} from "./monsters/zora.js";
+import {
+  Lynel
+} from "./monsters/lynel.js";
 
 
 var tiles = new Image();
@@ -16,17 +33,18 @@ tiles.src = "./assets/sprites.png";
 var gannonCave = new Image();
 gannonCave.src = "./assets/gannon_cave.png";
 
+var mansionSprite = new Image();
+mansionSprite.src = "./assets/mansion.png";
+
 function drawTiles(ctx) {
 
 
   if (map.actual === 10) {
     ctx.fillStyle = "black";
     ctx.fillRect(8, 8, 896, 384);
-    ctx.drawImage(gannonCave, 0,0, 256,176,200,40,512,352);
+    ctx.drawImage(gannonCave, 0, 0, 256, 176, 200, 40, 512, 352);
     map.obstacles = getObstaclesList(mainMap[10]);
-  }
-
-  else {
+  } else {
     map.obstacles = getObstaclesList(mainMap[map.actual]);
 
     map.upDown === 8 ? map.xOffset += map.direction : map.yOffset += map.direction;
@@ -41,12 +59,15 @@ function drawTiles(ctx) {
       var column = i - (line * 28);
       ctx.drawImage(tiles, selectedTile[1], selectedTile[0], 16, 16,
         Math.floor(column * 32 + 8 + map.xOffset), Math.floor(line * 32 + 8 + map.yOffset), 32, 32);
+      if (map.actual === 2) ctx.drawImage(mansionSprite, 0, 0, 892, 1000, 400 + map.xOffset, 10 + map.yOffset, 178, 200)
+
       if (map.newMap != undefined) {
         var selectedTile = getTile(mainMap[map.newMap].bluePrint[i]);
         var line = Math.floor(i / 28);
         var column = i - (line * 28);
         ctx.drawImage(tiles, selectedTile[1], selectedTile[0], 16, 16,
           Math.floor(column * 32 + 8 - map.zob + map.leftRight + map.xOffset), Math.floor(line * 32 + map.upDown + map.yOffset), 32, 32);
+        if (map.newMap === 2) ctx.drawImage(mansionSprite, 0, 0, 892, 1000, 400 - map.zob + map.xOffset + map.leftRight, 10 + map.yOffset + map.upDown, 178, 200);
       }
       if (map.yOffset === 390 || map.yOffset === -390) {
         map.zobi = false;
@@ -65,6 +86,8 @@ function drawTiles(ctx) {
         if (mainMap[map.actual].hasWater === true) map.zora = spawnZora(mainMap[map.actual].bluePrint, ctx);
       }
     }
+
+
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, 8);
     ctx.fillRect(0, 392, canvas.width, 8);
@@ -109,7 +132,10 @@ function spawnZora(map, ctx) {
     if ([24, 25, 26, 30, 31, 32, 36, 37, 38].includes(map[i])) {
       var line = Math.floor(i / 28);
       var column = i - (line * 28);
-      waterTiles.push({ x: column * 32 + 8, y: line * 32 + 8 });
+      waterTiles.push({
+        x: column * 32 + 8,
+        y: line * 32 + 8
+      });
     }
   }
   var zoraCoord = waterTiles[Math.floor(Math.random() * waterTiles.length)];
@@ -117,4 +143,6 @@ function spawnZora(map, ctx) {
   return zora;
 }
 
-export { drawTiles };
+export {
+  drawTiles
+};
