@@ -18,6 +18,7 @@ gannonCave.src = "./assets/gannon_cave.png";
 
 function drawTiles(ctx) {
 
+
   if (map.actual === 10) {
     ctx.fillStyle = "black";
     ctx.fillRect(8, 8, 896, 384);
@@ -52,7 +53,7 @@ function drawTiles(ctx) {
         map.yOffset = 0;
         map.actual = map.newMap;
         map.direction = 0;
-        map.monsters = spawnMonsters(mainMap[map.actual].bluePrint, ctx);
+        map.monsters = spawnMonsters(mainMap[map.actual], ctx);
         if (mainMap[map.actual].hasWater === true) map.zora = spawnZora(mainMap[map.actual].bluePrint, ctx);
       }
       if (map.xOffset === 888 || map.xOffset === -896) {
@@ -78,7 +79,6 @@ function drawTiles(ctx) {
 function spawnMonsters(map, ctx) {
   var monsters = [];
   var monstersNb = 0;
-
   for (let i = 0; i < map.monsterList.length; i++) {
     monstersNb += map.monsterList[i].nb;
 
