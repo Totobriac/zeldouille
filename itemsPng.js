@@ -40,6 +40,7 @@ function displayItemsPng(ctx) {
         32
       );
     }
+  }
     if (mainMap[map.actual].text && mainMap[map.actual].hasEntered === false) {
       if (textTickCount > maxTextTickCount) {
         textTickCount = 0;
@@ -47,7 +48,7 @@ function displayItemsPng(ctx) {
       }
       for (let i = 0; i < index; i++) {
         ctx.font = "30px pixel";
-        ctx.fillStyle = "white";
+        ctx.fillStyle = mainMap[map.actual].text.color;
         var breakLine = [];
         i < mainMap[map.actual].text.lineBreak ? breakLine = [0, 0] : breakLine = [450, 24];
         ctx.fillText(mainMap[map.actual].text.content[i], mainMap[map.actual].text.x + i * 25 - breakLine[0], mainMap[map.actual].text.y + breakLine[1]);
@@ -68,8 +69,8 @@ function displayItemsPng(ctx) {
           32
         );
       }
-    }  
-  }  
+    }
+
 }
 
 export { displayItemsPng };

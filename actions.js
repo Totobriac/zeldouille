@@ -1,4 +1,10 @@
-import { zelda } from "./script.js";
+import {
+  zelda,
+} from "./script.js";
+
+import {
+  mainMap
+} from "./maps.js";
 
 function action(i) {
   switch (i) {
@@ -17,11 +23,17 @@ function action(i) {
     case 8:
       exitCave();
       break;
+    case 9:
+      openDoor();
+      break;
+    case 10:
+      removeMessage();
+      break;
   }
 }
 
 function enterCave(cave) {
-  if (zelda.direction === 1 && zelda.y === 40 || zelda.direction === 1 && zelda.y === 200 ) {
+  if (zelda.direction === 1 && zelda.y === 40 || zelda.direction === 1 && zelda.y === 200) {
     zelda.isEnteringCave = true;
     zelda.cave = cave
   }
@@ -34,4 +46,19 @@ function exitCave() {
 function getSword() {
   zelda.isGrabingSword = true;
 }
-export { action };
+
+function openDoor() {
+  if (zelda.hasKey === true) {
+    console.log("game is over !!!!!");
+  } else {
+    mainMap[2].hasEntered = false;
+  }
+}
+
+function removeMessage() {
+  mainMap[2].hasEntered = true;
+}
+
+export {
+  action
+};

@@ -4,7 +4,7 @@ import { monsterMayem } from "./monsters/ghouls.js";
 
 class Map {
   constructor() {
-    this.actual = 3;
+    this.actual = 5;
     this.obstacles;
     this.monsters = [];
     this.zora;
@@ -83,7 +83,6 @@ function checkAction(x, y, map) {
       return 6;
     };
   }
-
   var actualTile = getActualTile(x, y);
 
   if (mainMap[map].bluePrint[actualTile] === 10 && map === 3) {
@@ -97,6 +96,12 @@ function checkAction(x, y, map) {
   }
   if (mainMap[map].bluePrint[actualTile] === 10 && map === 10) {
     return (8);
+  }
+  if (mainMap[map].bluePrint[actualTile] === 10 && map === 2) {
+    return (9);
+  }
+  if (mainMap[map].bluePrint[actualTile] === 2 && map === 2) {
+    return (10);
   }
   if (x < 40) {
     return (0);
